@@ -1,0 +1,113 @@
+<%- include('header') %>
+
+<div class="content-wrapper" ng-controller="protocol">
+
+    <section class="content-header">
+        <h1>
+            安装程序
+            <small>使用协议书</small>
+        </h1>
+
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">阅读许可协议</h3>
+                    </div>
+                    <div class="box-body">
+
+                        <div class="copyright">
+
+                            <div class="agreement">
+                                <p>您正在安装的是L-blog博客管理系统(UTF-8编码) v1.0.0 Release build 20170516</p>
+
+                                <p>版权所有 ©2017，<a href="https://github.com/lovelife10000">https://github.com/lovelife10000</a>
+                                    保留所有权利。 </p>
+
+                                <p>
+                                    感谢您选择L-blog博客管理系统，L-blog博客管理系统是WEB前端工程师Kevin独立开发的一套基于nodejs、angularJs、express、mongodb、ejs的轻量级博客内容管理系统，L-blog博客管理系统功能较完善，较目前一些开源的cms，L-blog易于拓展，特别适合前端开发工程师做二次开发。
+
+                                    L-blog博客管理系统的官方网址是： <a href="https://github.com/lovelife10000" target="_blank">https://github.com/lovelife10000/L-blog</a>
+                                </p>
+
+                                <p>
+                                    使用者：无论个人或组织、盈利与否、用途如何（包括以学习和研究为目的），均需仔细阅读本许可协议，在理解、同意、并遵守本许可协议的全部条件和条款后，方可开始使用L-blog博客管理系统
+                                    系列软件产品。：</p><br>
+
+                                <p><strong>
+                                        一、本授权协议适用于 L-blog博客管理系统 v1.0.0 版本，L-blog博客管理系统开发者拥有对本授权协议的最终解释权。
+                                    </strong></p><br>
+
+                                <p><strong>二、协议许可的权利 </strong>
+
+                                </p>
+                                <p>
+
+                                </p>
+                                <p>1、您可以在完全遵守本最终用户授权协议的基础上，将本软件应用于非商业用途，而不必支付软件版权授权费用。 </p>
+
+                                <p>2、您可以在协议规定的约束和限制范围内修改 L-blog博客管理系统 源代码或界面风格以适应您的网站要求。 </p>
+
+                                <p>3、您拥有使用本软件构建的网站全部内容所有权，并独立承担与这些内容的相关法律义务。 </p>
+                                <br>
+
+                                <p><strong>三、协议规定的约束和限制 </strong></p>
+
+                                <p>
+                                    L-blog博客管理系统是基于nodejs、angularJs、express、mongodb、ejs开发的系统，遵循Apache 2.0协议
+                                    ，允许客户基于本系统继续二次开发，但是系统的核心源码，请保留相关版权注释。
+                                </p>
+                                <br>
+
+                                <p><strong>四、免责声明</strong></p>
+
+                                <p>
+
+                                </p>
+                                <p>1、用户出于自愿而使用本软件，您必须了解使用本软件的风险，且同意自己承担使用本软件的风险。</p>
+
+                                <p>2、用户利用本软件构建的网站的任何信息内容以及导致的任何版权纠纷和法律争议及后果与L-blog博客管理系统开发者无关，开发者对此不承担任何责任。</p>
+
+                                <p>
+                                    3、在适用法律允许的最大范围内，L-blog博客管理系统开发者在任何情况下不就因使用或不能使用本软件所发生的特殊的、意外的、非直接或间接的损失承担赔偿责任（包括但不限于，资料损失，资料执行不精确，或应由您或第三人承担的损失，或本程序无法与其他程序运作等）。即使用户已事先被L-blog博客管理系统开发者告知该损害发生的可能性。</p>
+                                <p></p>
+                                <br><br>
+
+                                <p><b>协议发布时间：</b> 2017年5月16日</p>
+
+                                <p><b>版本最新更新：</b> 2017年05月16日 By <a href="https://github.com/lovelife10000/L-blog">https://github.com/lovelife10000/L-blog</a>
+                                </p><br>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="box-footer">
+                        <div class="form-group ">
+                            <div class="checkbox">
+                                <form action="" name="protocolForm">
+                                <label>
+                                    <input type="checkbox" name="protocol" ng-model="protocol" required>
+                                    我已经阅读并同意此协议
+                                </label>
+                                </form>
+                            </div>
+
+
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right" ng-click="nextStep()">继续</button>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</div>
+<%- include('footer') %>
