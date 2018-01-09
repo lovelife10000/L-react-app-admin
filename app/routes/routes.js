@@ -1,5 +1,6 @@
 import App from '../components/App'
-import Home from '../components/Home'
+// import Home from '../components/Home'
+import DashboardV1 from '../components/DashboardV1/dashboard'
 import Article from '../components/Article'
 import Login from '../components/Login'
 import Settings from '../components/Settings'
@@ -11,7 +12,7 @@ const routes = [
     routes: [
       { path: '/',
         exact: true,
-        component: Home
+        component: DashboardV1
       },
       { path: '/login',
         component: Login

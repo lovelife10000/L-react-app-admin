@@ -9,6 +9,8 @@ import { fromJS } from 'immutable'
 import configureStore from '../store/configureStore'
 import routes from '../routes/routes'
 import { API_ROOT } from '../config/config'
+// import jquery from '../../dist/js/jquery'
+// import app from '../../dist/js/app'
 
 async function fetchAllData(batch, dispatch, token) {
   const needs = batch.map(({route, match}, index)=>{
@@ -88,14 +90,16 @@ function renderFullPage(renderedContent, initialState, styleMode) {
       <meta name="keyword" content="Jackblog react redux react-router react-redux-router react-bootstrap react-alert">
       <link rel="stylesheet" href="/style.css"/>
     </head>
-    <body class="${styleMode}">
+    <body class="${styleMode} skin-blue sidebar-mini wysihtml5-supported">
       <!--[if lt IE 9]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
-      <div class="top-box" id="root">${renderedContent}</div>
+      <div class="top-box" id="root">${renderedContent}</div>    
+      <script type="text/javascript" charset="utf-8" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+      <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/admin-lte/2.3.0/js/app.js"></script>
       <script>
         window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
-      </script>
+      </script>      
       <script type="text/javascript" charset="utf-8" src="/vendor.js"></script>
       <script type="text/javascript" charset="utf-8" src="/bundle.js"></script>
     </body>

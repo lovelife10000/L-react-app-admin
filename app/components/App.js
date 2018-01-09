@@ -3,10 +3,14 @@ import { renderRoutes } from 'react-router-config'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Header from '../components/Header'
-import Toaster from '../components/Toaster'
-import ScrollTop from '../components/ScrollTop'
+// import Header from '../components/Header'
+// import Toaster from '../components/Toaster'
+// import ScrollTop from '../components/ScrollTop'
+import Footer from './Footer/footer'
 import * as Actions from '../actions'
+
+import HeaderBar from '../components/HeaderBar'
+import Sidebar from './Sidebar/navigation-menu'
 
 const mapStateToProps = state =>{
   return {
@@ -48,15 +52,18 @@ export default class App extends Component {
       document.body.className = nextProps.globalVal.styleMode
     }
   }
-  
+
   render() {
-    const { globalVal,actions,auth,location,showmsg } = this.props
+    // const { actions,showmsg } = this.props
     return (
       <div>
-        <Header styleMode={globalVal.styleMode} auth={auth} logout={actions.logout} location={location} changeStyleMode={actions.changeStyleMode} />
+        <HeaderBar />
+        <Sidebar />
+        {/*<Header styleMode={globalVal.styleMode} auth={auth} logout={actions.logout} location={location} changeStyleMode={actions.changeStyleMode} />*/}
         {renderRoutes(this.props.route.routes)}
-        <Toaster msg={showmsg} hideMsg={actions.hideMsg} />
-        <ScrollTop />
+        {/*<Toaster msg={showmsg} hideMsg={actions.hideMsg} />*/}
+        {/*<ScrollTop />*/}
+        <Footer />
       </div>
     )
   }
