@@ -1,9 +1,9 @@
 require('es6-promise').polyfill()
 import axios from 'axios'
-import { API_ROOT } from '../config/config'
-import { getCookie,signOut } from '../utils/authService'
+import { app } from '../config/app'
+import { getCookie,signOut } from '../utils/actions/auth.util'
 
-axios.defaults.baseURL = API_ROOT
+axios.defaults.baseURL = app.DOMAIN
 axios.defaults.withCredentials = true
 
 // Add a request interceptor
@@ -30,7 +30,7 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error)
 })
 
-export const UserResource = (method, id, data, api='users') => {
+export const UserResource = (method, id, data, api='userInfo') => {
   return axios[method](api + (id ? ('/' + id) : ''), data)
 }
 export const AuthResource = (method, id, data, api='auth') => {
@@ -46,5 +46,9 @@ export const CommentResource = (method, id, controller, data, api='comment') => 
   return axios[method](api + (id ? ('/' + id) : '') + (controller ? ('/' + controller) : ''), data)
 }
 export const MobileResource = (method, id, data, api='mobile') => {
+  return axios[method](api + (id ? ('/' + id) : ''), data)
+}
+export const UserManageResource = (method, id, data, api='userManage') => {
+  console.log('UserManageResource');
   return axios[method](api + (id ? ('/' + id) : ''), data)
 }

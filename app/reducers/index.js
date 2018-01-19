@@ -8,7 +8,8 @@ import auth from './auth'
 import options from './options'
 import apps from './apps'
 import sns from './sns'
-import showmsg from './showmsg'
+import showMsg from './showMsg'
+import {parentUserGroups} from './userManage'
 import globalVal from './globalVal'
 
 const rootReducer = combineReducers({
@@ -22,9 +23,10 @@ const rootReducer = combineReducers({
   prenextArticle,
   options,
   auth,
-  showmsg,
+  showMsg,
   router: routerReducer,
-  form: formReducer
+  form: formReducer,
+  parentUserGroups
 })
 
 export default rootReducer

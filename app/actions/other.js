@@ -6,7 +6,7 @@ export const changeStyleMode = () => ({ type: types.CHANGE_STYLE_MODE })
 //显示提示消息
 export const showMsg = (content,type='error')=>{
   return {
-    type: types.SHOW_MSG,
+    type: 'SHOW_MSG',
     message: { content:content,type:type }
   }
 }

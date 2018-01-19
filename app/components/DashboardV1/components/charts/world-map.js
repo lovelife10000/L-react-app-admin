@@ -39,7 +39,7 @@ class WorldMap extends Component {
   //   });
   // }
   static propTypes = {
-    id: PropTypes.string.isrequired
+    id: PropTypes.string.isRequired
   };
   render() {
     var style = {

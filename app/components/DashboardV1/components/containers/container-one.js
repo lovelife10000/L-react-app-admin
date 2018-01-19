@@ -7,7 +7,7 @@ class ContainerOne extends Component {
   }
 
   static propTypes = {
-    children: PropTypes.string.isrequired
+    children: PropTypes.string.isRequired
   };
   render() {
     // var style = {

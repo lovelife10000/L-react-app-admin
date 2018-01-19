@@ -22,19 +22,19 @@ export default class Header extends Component {
 
 
   render() {
-
+    let {title, displayPicture, time, content}=this.props
     return (
       <li>
         {/* start message */}
         <a href="#">
           <div className="pull-left">
-            <img src={this.props.displayPicture} className="img-circle" alt="User Image"/>
+            <img src={displayPicture} className="img-circle" alt="User Image"/>
           </div>
           <h4>
-            {this.props.title}
-            <small><i className="fa fa-clock-o"></i> {this.props.time}</small>
+            {title}
+            <small><i className="fa fa-clock-o"></i> {time}</small>
           </h4>
-          <p>{this.props.content}</p>
+          <p>{content}</p>
         </a>
       </li>
     )

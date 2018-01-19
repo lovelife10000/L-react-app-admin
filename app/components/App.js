@@ -14,7 +14,6 @@ import Sidebar from './Sidebar/navigation-menu'
 
 const mapStateToProps = state =>{
   return {
-    globalVal: state.globalVal.toJS(),
     auth: state.auth.toJS(),
     showmsg: state.showmsg.toJS()
   }
@@ -32,13 +31,13 @@ export default class App extends Component {
     super(props)
   }
 
-  static fetchData({token}){
-    return [Actions.getUserInfo(token),Actions.getIndexImage()]
-  }
+  // static fetchData({token}){
+  //   return [Actions.getUserInfo(token),Actions.getIndexImage()]
+  // }
+
 
   static propTypes = {
     route: PropTypes.object.isRequired,
-    globalVal: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
     showmsg: PropTypes.object.isRequired,
     children: PropTypes.node,
@@ -46,12 +45,12 @@ export default class App extends Component {
     location: PropTypes.object.isRequired
   }
 
-  componentWillReceiveProps(nextProps){
-    const { globalVal } = this.props
-    if(globalVal.styleMode !== nextProps.globalVal.styleMode){
-      document.body.className = nextProps.globalVal.styleMode
-    }
-  }
+  // componentWillReceiveProps(nextProps){
+  //   const { globalVal } = this.props
+  //   if(globalVal.styleMode !== nextProps.globalVal.styleMode){
+  //     document.body.className = nextProps.globalVal.styleMode
+  //   }
+  // }
 
   render() {
     // const { actions,showmsg } = this.props
@@ -59,10 +58,10 @@ export default class App extends Component {
       <div>
         <HeaderBar />
         <Sidebar />
-        {/*<Header styleMode={globalVal.styleMode} auth={auth} logout={actions.logout} location={location} changeStyleMode={actions.changeStyleMode} />*/}
+
         {renderRoutes(this.props.route.routes)}
-        {/*<Toaster msg={showmsg} hideMsg={actions.hideMsg} />*/}
-        {/*<ScrollTop />*/}
+
+
         <Footer />
       </div>
     )

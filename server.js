@@ -3,10 +3,11 @@ var express = require('express')
 var serverRender = require('./dist/server.js')
 var favicon = require('serve-favicon')
 const debug=require('debug')('express-app');
+// const mongoose = require('mongoose');
 
 var app = express()
 var isDev = process.env.NODE_ENV === 'development'
-var defaultPort = isDev? 3000 : 8300
+var defaultPort = isDev? 3001 : 8300
 var port = process.env.PORT || defaultPort
 
 app.use(express.static(path.join(__dirname, 'dist')))
@@ -43,3 +44,15 @@ app.listen(port, function(err) {
     console.info('==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port)
   }
 })
+
+// mongoose.connect('mongodb://admin:admin@120.27.7.163:27017/blog', function (err) {
+//   if (err) {
+//     console.log('数据库连接失败');
+//   } else {
+//     console.log('数据库连接成功');
+//     console.info('==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port)
+//     app.listen(port);
+//   }
+// });
+
+

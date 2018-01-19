@@ -1,21 +1,17 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
+import {Field,reduxForm} from 'redux-form'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import { bindActionCreators } from 'redux'
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { Field,reduxForm } from 'redux-form'
+import {bindActionCreators} from 'redux'
 import * as Actions from '../../actions'
-import SNSLogin from './snsLogin'
-import { isLogin } from '../../utils/authService'
+import { withRouter } from 'react-router-dom'
 
-const mapStateToProps = state =>{
-  return {
+const mapStateToProps=(state)=>{
+  return{
     globalVal : state.globalVal.toJS(),
-    auth: state.auth.toJS(),
-    sns: state.sns.toJS()
+    showMsg:state.showMsg.toJS()
   }
-}
-
+};
 const mapDispatchToProps = dispatch =>{
   return {
     actions: bindActionCreators(Actions, dispatch)
@@ -24,135 +20,119 @@ const mapDispatchToProps = dispatch =>{
 
 const validate = values => {
   const errors = {}
-  if (!values.email) {
-    errors.email = 'Required'
-  } else if (!/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/.test(values.email)) {
-    errors.email = '无效电子邮件地址'
+  if (!values.username) {
+    errors.username = '用户名不能为空'
+  } else if (!/^[_a-zA-Z]\w{5,19}$/.test(values.username)) {
+    errors.username = '用户名格式不正确'
   }
 
   if (!values.password) {
-    errors.password = 'Required'
-  } else if (values.password.length > 30) {
-    errors.password = '密码长度不超过30'
+    errors.password = '密码不能为空'
+  } else if (values.password.length < 8) {
+    errors.password = '密码长度不足'
   }
+
   if (!values.captcha) {
-    errors.captcha = 'Required'
-  } else if (values.captcha.length !== 6) {
-    errors.captcha = '验证码是6位'
+    errors.captcha = '验证码不能为空'
+  } else if (values.captcha.length !== 6 ) {
+    errors.captcha = '验证码位数不正确'
   }
   return errors
 }
-
 const validatorCalss = field => {
   let initClass = 'form-control'
-  if(field.invalid){
+  if (field.invalid) {
     initClass += ' ng-invalid'
   }
-  if(field.dirty){
+  if (field.dirty) {
     initClass += ' ng-dirty'
   }
   return initClass
 }
-
-const renderField = prs => (
-  <input className={validatorCalss(prs.meta)} name={prs.name} maxLength={prs.maxLength} {...prs.input} placeholder={prs.placeholder} type={prs.type} />
+const renderField = field => (
+  <div className={'form-group has-feedback '+(field.meta.touched &&(field.meta.error &&' has-error'))}>
+    <input name={field.name} className={validatorCalss(field.meta)}  type={field.type} placeholder={field.placeholder} maxLength={field.maxLength}  {...field.input}/>
+    <span className={'glyphicon form-control-feedback '+field.glyphicon }></span>
+    {field.meta.touched && (field.meta.error && <span className="help-block">{field.meta.error}</span>)}
+  </div>
 )
-
 @withRouter
 @connect(mapStateToProps,mapDispatchToProps)
 @reduxForm({
-  form: 'signin',
+  form: 'login',
   validate
 })
-export default class Login extends Component {
-  constructor(props){
+class Login extends Component {
+  constructor(props) {
     super(props)
-    this.submitForm = this.submitForm.bind(this)
+    this.submitForm=this.submitForm.bind(this)
     this.changeCaptcha = this.changeCaptcha.bind(this)
   }
-
-  static propTypes = {
+  static propTypes={
+    handleSubmit:PropTypes.func,
     actions: PropTypes.object.isRequired,
     globalVal: PropTypes.object.isRequired,
-    auth: PropTypes.object.isRequired,
-    sns: PropTypes.object.isRequired,
-    handleSubmit: PropTypes.func,
     dirty: PropTypes.bool,
     invalid: PropTypes.bool,
-    history: PropTypes.object
+    showMsg:PropTypes.object.isRequired
+  };
+  submitForm (form) {
+    console.log('login中submitForm执行')
+    const { actions } = this.props
+    console.log('login中submitForm执行',actions.login)
+    actions.localLogin(form)
   }
-
-  componentWillMount(){
-    // const { auth } = this.props
-    if(isLogin()) {
-      this.props.history.replace('/')
-    }    
-  }
-
-  static fetchData(params){
-    return [Actions.getSnsLogins()]
-  }
-
   changeCaptcha(e){
     e.preventDefault()
     const { actions } = this.props
     actions.getCaptchaUrl()
   }
 
-  submitForm (values) {
-    const { actions } = this.props
-    actions.localLogin(values)
-  }
-
-  componentDidMount() {
-    const { actions,sns } = this.props
-    if(sns.logins.length < 1){
-      actions.getSnsLogins()
-    }
-  }
-
   render() {
-    const { sns, globalVal: {captchaUrl}, dirty,invalid, handleSubmit} = this.props
-
+    const {handleSubmit,globalVal: {captchaUrl},dirty,invalid,showMsg}=this.props
     return (
-      <div className="signin-box">
-        <div className="signin-container">
-          <h4 className="title">登 录</h4>
-          <form className="signin-form form-horizontal" onSubmit={handleSubmit(this.submitForm)} noValidate>
-            <div className="form-group">
-              <div className="input-group">
-                <div className="input-group-addon">
-                  <i className="fa fa-envelope-o"></i>
-                </div>
-                <Field name="email" component={renderField} type="email" placeholder="邮箱" />
-              </div>
-            </div>
-            <div className="form-group">
-              <div className="input-group">
-                <div className="input-group-addon"><i className="fa fa-unlock-alt"></i></div>
-                <Field name="password" component={renderField} type="password" placeholder="密码" />
-              </div>
-            </div>
-            <div className="form-group" >
-              <div className="col-xs-6 captcha-code">
-                <Field name="captcha" component={renderField} type="text" maxLength="6" placeholder="验证码" />
-              </div>
-              <div className="col-xs-6 captcha-img">
+      <div className="login-box">
+        <div className="login-logo">
+          <a href=""><b>L-react-app-admin</b></a>
+        </div>
+
+        <div className="login-box-body">
+          <p className="login-box-msg">登录</p>
+
+          <form onSubmit={handleSubmit(this.submitForm)} noValidate>
+            <Field name="username" component={renderField} type="text" placeholder="用户名" maxLength="20" glyphicon="glyphicon-user"/>
+            <Field name="password" component={renderField} type="password" placeholder="密码" glyphicon="glyphicon-lock"/>
+            <Field name="captcha" component={renderField} type="text"  placeholder="验证码" maxLength="6" glyphicon="glyphicon-envelope"/>
+            <div className="row">
+              <div className="col-xs-8">
                 <a href="javascript:;" onClick={this.changeCaptcha}>
-                  <img src={captchaUrl} />
+                  <img style={{width:'100%'}} src={captchaUrl} />
                 </a>
               </div>
-
+              <div className="col-xs-4" style={{color: 'red'}}>{showMsg.content}</div>
             </div>
-            <div className="form-group">
-              <button disabled={ dirty && invalid } className="btn btn-primary btn-lg btn-block" type="submit">登 录</button>
+            <div className="row">
+              <div className="col-xs-8">
+                <div className="checkbox icheck">
+                  <label>
+                    <input type="checkbox"/> 记住我
+                  </label>
+                </div>
+              </div>
+
+              <div className="col-xs-4">
+                <button type="submit" disabled={ dirty && invalid } className="btn btn-primary btn-block btn-flat">登录</button>
+              </div>
+
             </div>
           </form>
 
-          <p className="text-center">您还可以通过以下方式直接登录</p>
-          <SNSLogin logins={sns.logins} />
+
         </div>
+
       </div>
     )
   }
 }
+
+export default Login

@@ -17,22 +17,7 @@ class HeaderBar extends Component {
   //
   // }
 
-  pushMenu() {
-    var body = document.body;
-    if (body.clientWidth > 768) {
-      if (body.className.indexOf('sidebar-collapse') === -1) {
-        body.className += ' sidebar-collapse';
-      } else {
-        body.className = body.className.replace(' sidebar-collapse', '');
-      }
-    } else {
-      if (body.className.indexOf('sidebar-open') === -1) {
-        body.className += ' sidebar-open';
-      } else {
-        body.className = body.className.replace(' sidebar-open', '');
-      }
-    }
-  }
+
 
   render() {
     return (
@@ -42,12 +27,12 @@ class HeaderBar extends Component {
 
           <span className="logo-mini"><b>A</b>LT</span>
 
-          <span className="logo-lg"><b>Admin</b>LTE</span>
+          <span className="logo-lg">L-react-app-admin</span>
         </a>
 
         <nav className="navbar navbar-static-top" role="navigation">
 
-          <a href="#" className="sidebar-toggle" data-toggle="offcanvas" role="button" onClick={this.pushMenu}>
+          <a href="#" className="sidebar-toggle" data-toggle="offcanvas" role="button" >
             <span className="sr-only">Toggle navigation</span>
           </a>
           <div className="navbar-custom-menu">

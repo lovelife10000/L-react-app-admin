@@ -1,5 +1,5 @@
 {
-  "name": "l-react-app",
+  "name": "l-react-app-admin",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -93,6 +93,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npm-run-all --sequential build-server:dev start-dev",
     "build-server:dev": "better-npm-run build-dev-server",
+    "build": "npm-run-all clean --parallel build-all:prod",
+    "build-all:prod": "better-npm-run build-prod",
+    "clean": "rimraf dist",
     "start-dev": "better-npm-run nodemon-dev"
   },
   "betterScripts": {
@@ -106,6 +109,12 @@
       "command": "nodemon ./server.js",
       "env": {
         "NODE_ENV": "development"
+      }
+    },
+    "build-prod": {
+      "command": "webpack --colors --progress --config ./webpack/webpack.config.prod.js",
+      "env": {
+        "NODE_ENV": "production"
       }
     }
   },

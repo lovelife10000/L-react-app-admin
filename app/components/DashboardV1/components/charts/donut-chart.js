@@ -15,8 +15,8 @@ class DonutChart extends Component {
     ]
   };
   static propTypes = {
-    id: PropTypes.string.isrequired,
-    children: PropTypes.string.isrequired
+    id: PropTypes.string.isRequired,
+    children: PropTypes.string.isRequired
   };
   // componentDidMount(){
   // var donut = new Morris.Donut({
