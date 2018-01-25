@@ -11,7 +11,7 @@ import createDevTools from './createDevtools'
 // import routes from '../routes/routes'
 // import {Switch} from 'react-router'
 import Login from '../app/components/Login/index'
-import App from '../app/components/App'
+import Home from '../app/components/Home'
 import 'font-awesome/css/font-awesome.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'ionicons/dist/css/ionicons.css'
@@ -38,7 +38,7 @@ ReactDOM.render(
         {/*<BrowserRouter>*/}
         {/*{renderRoutes(routes)}*/}
         <Route exact path="/login" component={Login}/>
-        <Route path="/" component={App}/>
+        <Route path="/" component={Home}/>
         {/*</BrowserRouter>*/}
 
       </div>
