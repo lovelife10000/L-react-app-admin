@@ -1,12 +1,33 @@
 import React, {Component} from 'react'
 // import defaultAvatar from '../../../dist/img/20625882.png'
+import PropTypes from 'prop-types'
+import * as Actions from '../../actions'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
 
-class Sidebar extends Component {
-  constructor() {
-    super()
+const mapStateToProps=(state)=>{
+  return{
+    auth:state.auth.toJS()
   }
+};
+
+const mapDispatchToProps=(dispatch)=>{
+  return{
+    actions:bindActionCreators(dispatch,Actions)
+  }
+};
+
+@connect(mapStateToProps,mapDispatchToProps)
+class Sidebar extends Component {
+  constructor(props) {
+    super(props)
+  }
+  static propTypes={
+    auth:PropTypes.object.isRequired,
+  };
 
   render() {
+    const {auth}=this.props
     return (
       <aside className="main-sidebar">
         {/* sidebar: style can be found in sidebar.less */}
@@ -17,7 +38,7 @@ class Sidebar extends Component {
               <img src={ 'defaultAvatar' } className="img-circle" alt="User Image"/>
             </div>
             <div className="pull-left info">
-              <p>Kevin</p>
+              <p>{JSON.stringify(auth.user)}</p>
               <a href="#"><i className="fa fa-circle text-success"></i> 在线</a>
             </div>
           </div>

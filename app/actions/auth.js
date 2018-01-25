@@ -1,6 +1,6 @@
 import * as types from './types'
 import { push } from 'react-router-redux'
-import { saveCookie,getCookie,signOut } from '../utils/actions/auth.util'
+import { saveCookie,getCookie,signOut } from '../utils/auth.util'
 import { showMsg } from './other'
 import authApi from '../api/authApi'
 import { app } from '../config/app'
@@ -23,37 +23,11 @@ export const getCaptchaUrl = () =>{
 //登录
 function loginSuccess(token) {
   return {
-    type: types.LOGIN_SUCCESS,
+    type: 'LOGIN_SUCCESS',
     token: token
   }
 }
 
-// export function localLogin(userInfo) {
-//   return (dispatch,getState) =>{
-//     return authApi.localLogin(userInfo)
-//       .then(response => ({json: response.data, status: response.statusText}))
-//       .then(({json,status}) => {
-//         if(status !== 'OK'){
-//           dispatch(getCaptchaUrl())
-//           return dispatch(showMsg(json.data.errorMsg || '登录失败'))
-//         }
-//         //得到token,并存储
-//         saveCookie('token',json.token)
-//         //获取用户信息
-//         dispatch(getUserInfo(json.token))
-//         dispatch(loginSuccess(json.token))
-//         dispatch(getCaptchaUrl())
-//         dispatch(showMsg('登录成功,欢迎光临!','success'))
-//         dispatch(push('/'))
-//         window.location.reload()
-//       }).catch(err => {
-//         const error_msg = err.response?(err.response.data && err.response.data.error_msg)?err.response.data.error_msg:'登录失败':'登录失败'
-//         //登录异常
-//         dispatch(getCaptchaUrl())
-//         return dispatch(showMsg(error_msg))
-//       })
-//   }
-// }
 
 export function localLogin(form) {
   return (dispatch,getState) =>{
@@ -77,11 +51,13 @@ export function localLogin(form) {
         saveCookie('token',json.token)
         //获取用户信息
         dispatch(getUserInfo(json.token))
+        console.log('getUserInfo通过');
+
         dispatch(loginSuccess(json.token))
         dispatch(getCaptchaUrl())
         dispatch(showMsg('登录成功,欢迎光临!','success'))
         dispatch(push('/'))
-        window.location.reload()
+        // window.location.reload()
       }).catch(err => {
         const errorMsg = err.response?(err.response.data && err.response.data.errorMsg)?err.response.data.errorMsg:'登录失败':'登录失败'
         //登录异常
@@ -97,7 +73,7 @@ export const getUserInfo = (token = getCookie('token'))=>{
     type: 'GET_USERINFO',
     promise: authApi.getUserInfo({
       headers: {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `${token}`
       }
     })
   }

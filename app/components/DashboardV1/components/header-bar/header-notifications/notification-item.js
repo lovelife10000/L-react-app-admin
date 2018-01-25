@@ -1,21 +1,23 @@
-define(
-    [
-        'react'
-    ],
-    function (React) {
-        var NotificationItem = React.createClass({
+import React,{Component} from 'react'
+import PropTypes from 'prop-types'
 
-            render: function () {
-                return (
-                    <li key={"header-notification-item"}>
-                        <a href="#">
-                            <i className={this.props.theme}></i> {this.props.content}
-                        </a>
-                    </li>
-                )
-            }
-        });
+class NotificationItem extends Component{
+  constructor(){
+    super()
+  }
+  static propTypes={
+    content:PropTypes.string
+  }
 
-        return NotificationItem;
-    }
-)
+  render(){
+    return (
+      <li key={"header-notification-item"}>
+        <a href="#">
+          <i className={this.props.theme}></i> {this.props.content}
+        </a>
+      </li>
+    )
+  }
+}
+
+export default NotificationItem

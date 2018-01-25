@@ -1,7 +1,7 @@
 require('es6-promise').polyfill()
 import axios from 'axios'
 import { app } from '../config/app'
-import { getCookie,signOut } from '../utils/actions/auth.util'
+import { getCookie,signOut } from '../utils/auth.util'
 
 axios.defaults.baseURL = app.DOMAIN
 axios.defaults.withCredentials = true
@@ -10,7 +10,7 @@ axios.defaults.withCredentials = true
 axios.interceptors.request.use(function (config) {
   config.headers = config.headers || {}
   if (getCookie('token')) {
-    config.headers.Authorization = 'Bearer ' + getCookie('token').replace(/(^\")|(\"$)/g, '')
+    config.headers.Authorization = getCookie('token').replace(/(^\")|(\"$)/g, '')
   }
   return config
 }, function (error) {

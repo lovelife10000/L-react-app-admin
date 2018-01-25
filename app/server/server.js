@@ -9,9 +9,9 @@ import { fromJS } from 'immutable'
 import configureStore from '../store/configureStore'
 import routes from '../routes/routes'
 import { app } from '../config/app'
-// import jquery from '../../dist/js/jquery'
-// import app from '../../dist/js/app'
 import url from 'url'
+
+
 
 async function fetchAllData(batch, dispatch, token) {
   const needs = batch.map(({route, match}, index)=>{
@@ -41,8 +41,7 @@ export default function render(req, res) {
       styleMode: styleMode,
       captchaUrl: app.DOMAIN + 'login/getCaptcha?'
     })
-  }, history)
-
+  },history)
   const batch = matchRoutes(routes, req.url)
   return fetchAllData(batch, store.dispatch, token).then(function(data){
     const context = {}

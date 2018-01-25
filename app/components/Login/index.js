@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import * as Actions from '../../actions'
 import { withRouter } from 'react-router-dom'
+// import {isLogin} from '../../utils/auth.util'
 
 const mapStateToProps=(state)=>{
   return{
@@ -56,8 +57,8 @@ const renderField = field => (
     {field.meta.touched && (field.meta.error && <span className="help-block">{field.meta.error}</span>)}
   </div>
 )
-@withRouter
-@connect(mapStateToProps,mapDispatchToProps)
+// @withRouter
+// @connect(mapStateToProps,mapDispatchToProps)
 @reduxForm({
   form: 'login',
   validate
@@ -74,13 +75,20 @@ class Login extends Component {
     globalVal: PropTypes.object.isRequired,
     dirty: PropTypes.bool,
     invalid: PropTypes.bool,
+    history: PropTypes.object,
     showMsg:PropTypes.object.isRequired
   };
+  // componentWillMount(){
+  //   if(isLogin()) {
+  //     this.props.history.push('/')
+  //   }
+  // }
   submitForm (form) {
     console.log('login中submitForm执行')
     const { actions } = this.props
     console.log('login中submitForm执行',actions.login)
     actions.localLogin(form)
+
   }
   changeCaptcha(e){
     e.preventDefault()
@@ -135,4 +143,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Login))

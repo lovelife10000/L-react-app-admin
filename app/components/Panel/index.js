@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { Field,reduxForm } from 'redux-form'
 import * as Actions from '../../actions'
 import SNSLogin from './snsLogin'
-import { isLogin } from '../../utils/actions/auth.util'
+import { isLogin } from '../../utils/auth.util'
 
 const mapStateToProps = state =>{
   return {

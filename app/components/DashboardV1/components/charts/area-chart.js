@@ -20,7 +20,7 @@ class AreaChart extends Component {
 
   static propTypes={
     id:PropTypes.string.isRequired,
-    children:PropTypes.string.isRequired
+    children:PropTypes.string
   };
   // componentDidMount() {
   //   var area = new Morris.Area({

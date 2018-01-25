@@ -1,13 +1,17 @@
 import React from 'react'
-import { render } from 'react-dom'
-import { renderRoutes } from 'react-router-config'
-import { BrowserRouter } from 'react-router-dom'
-import { ConnectedRouter } from 'react-router-redux'
+import ReactDOM from 'react-dom'
+// import {renderRoutes} from 'react-router-config'
+//import {BrowserRouter} from 'react-router-dom'
+import {Route} from 'react-router-dom'
+import {ConnectedRouter} from 'react-router-redux'
 import {Provider} from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import configureStore from '../store/configureStore'
 import createDevTools from './createDevtools'
-import routes from '../routes/routes'
+// import routes from '../routes/routes'
+// import {Switch} from 'react-router'
+import Login from '../components/Login/index'
+import App from '../components/App'
 import 'font-awesome/css/font-awesome.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'ionicons/dist/css/ionicons.css'
@@ -25,15 +29,20 @@ import '../assets/styles/index.css'
 
 const history = createHistory()
 const initialState = window.__INITIAL_STATE__
-const store = configureStore(initialState,history)
+const store = configureStore(initialState, history)
 createDevTools(store)
 
-render(
+ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <BrowserRouter>
-        {renderRoutes(routes)}
-      </BrowserRouter>
+      <div>
+        {/*<BrowserRouter>*/}
+        {/*{renderRoutes(routes)}*/}
+        <Route exact path="/login" component={Login}/>
+        <Route path="/" component={App}/>
+        {/*</BrowserRouter>*/}
+
+      </div>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')

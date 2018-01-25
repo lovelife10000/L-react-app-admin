@@ -5,6 +5,8 @@ import AreaChart from './components/charts/area-chart'
 import DonutChart from './components/charts/donut-chart'
 import StatTile from './components/stat-tile'
 import WorldMap from './components/charts/world-map'
+import { withRouter } from 'react-router-dom'
+
 
 class DashboardV1 extends Component {
   constructor() {
@@ -158,4 +160,4 @@ class DashboardV1 extends Component {
     )
   }
 }
-export default DashboardV1
+export default withRouter(DashboardV1)
