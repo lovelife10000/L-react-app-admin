@@ -6,10 +6,10 @@ module.exports = {
   context: path.join(__dirname, '../'),
   target: 'node',
   entry: {
-    server: ['babel-polyfill','./app/server/server.js']
+    server: ['babel-polyfill','./server/serverRender.js']
   },
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: path.join(__dirname, '../dist/js'),
     filename: 'server.js',
     publicPath: '/',
     libraryTarget: 'commonjs2'
@@ -30,7 +30,7 @@ module.exports = {
       { 
         test: /\.js$|\.jsx$/,
         loader: 'babel-loader',        
-        include: path.join(__dirname,'..','app'),
+        include: path.join(__dirname,'..'),
         exclude: /node_modules/
       },
       { test: /\.json$/, loader: 'json-loader' },

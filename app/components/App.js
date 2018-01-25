@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom'
 import Footer from './Footer/footer'
 import * as Actions from '../actions'
 // import routes from '../routes/routes'
-import HeaderBar from '../components/HeaderBar'
+import HeaderBar from '../components/Header'
 import Sidebar from './Sidebar/navigation-menu'
 
 const mapStateToProps = state =>{

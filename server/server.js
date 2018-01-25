@@ -1,9 +1,8 @@
 var path = require('path')
 var express = require('express')
-var serverRender = require('../dist/server.js')
 var favicon = require('serve-favicon')
 const debug=require('debug')('express-app');
-// const mongoose = require('mongoose');
+const serverRender = require('../dist/js/server');
 
 var app = express()
 var isDev = process.env.NODE_ENV === 'development'
@@ -29,7 +28,6 @@ if (isDev) {
   app.set('views', path.join(__dirname, 'dist'))
   app.set('view engine', 'ejs')
 }
-
 
 
 app.get('*', function (req, res, next) {

@@ -10,10 +10,10 @@ module.exports = {
   context: path.join(__dirname, '..','app'),
   entry: {
     vendor: ['react','redux','react-redux','react-router-redux','react-router-dom','react-router-config'],
-    bundle: ['./client/client.js',hotMiddlewareScript]
+    bundle: ['../client/client.js',hotMiddlewareScript]
   },
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: path.join(__dirname, '../dist/js'),
     filename: '[name].js',
     chunkFilename: '[name].js',
     publicPath: '/'
@@ -48,7 +48,7 @@ module.exports = {
       { 
         test: /\.js$|\.jsx$/,
         loader: 'babel-loader',
-        include: path.join(__dirname,'..','app'),
+        include: path.join(__dirname,'..'),
         exclude: /node_modules/
       },
       { 

@@ -3,7 +3,7 @@ export const app = {
   COOKIE_SECRET: 'L-BLOG',
 
 
-  DOMAIN:(process.env.NODE_ENV === 'production')  ? 'http://admin.lijun1991.com:9001/'  :'http://admin.lijun1991.com:9001/',
+  DOMAIN:(process.env.NODE_ENV === 'production')  ? 'http://admin.lijun1991.com:9001/'  :'http://localhost:9001/',
   cookieDomain: (process.env.NODE_ENV === 'production')    ? '.lijun1991.com'    : '',
 
   REDIS_HOST: '127.0.0.1',
