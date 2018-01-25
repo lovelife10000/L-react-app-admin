@@ -8,7 +8,7 @@ import {Provider} from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import configureStore from '../app/store/configureStore'
 import createDevTools from './createDevtools'
-// import routes from '../routes/routes'
+import {BrowserRouter} from 'react-router-dom'
 // import {Switch} from 'react-router'
 import Login from '../app/components/Login/index'
 import Home from '../app/components/Home'
@@ -34,14 +34,10 @@ createDevTools(store)
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <div>
-        {/*<BrowserRouter>*/}
-        {/*{renderRoutes(routes)}*/}
+      <BrowserRouter>
         <Route exact path="/login" component={Login}/>
         <Route path="/" component={Home}/>
-        {/*</BrowserRouter>*/}
-
-      </div>
+      </BrowserRouter>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')

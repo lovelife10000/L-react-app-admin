@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { renderRoutes } from 'react-router-config'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -32,9 +31,9 @@ class Home extends Component {
     return [Actions.getUserInfo(token)]
   }
 
-  static propTypes = {
-    route: PropTypes.object.isRequired,
-  }
+  // static propTypes = {
+  //
+  // }
 
   render() {
     // const { actions,showmsg } = this.props
@@ -42,7 +41,7 @@ class Home extends Component {
       <div>
         <Header />
         <Sidebar />
-        {renderRoutes(this.props.route.routes)}
+        {/*{renderRoutes(this.props.route.routes)}*/}
         <Footer />
       </div>
     )
