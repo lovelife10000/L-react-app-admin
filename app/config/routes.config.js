@@ -1,4 +1,4 @@
-import App from '../components/App'
+import Home from '../components/Home'
 import DashboardV1 from '../components/Body/DashboardV1/dashboard'
 import Panel from '../components/Body/Panel'
 import AllUserGroups from '../components/Body/UserManage/AllUserGroups'
@@ -11,7 +11,7 @@ const routes = [
     component: Login
   },
   {
-    component: App,
+    component: Home,
     routes: [
       { path: '/',
         exact: true,
