@@ -1,9 +1,9 @@
 import Cookies from 'universal-cookie'
 const cookie = new Cookies()
-import { app } from '../config/app'
+import { AppConfig } from '../config/app.config'
 let cookieConfig = {}
-if(app.cookieDomain !== ''){
-  cookieConfig = { domain: app.cookieDomain }
+if(AppConfig.cookieDomain !== ''){
+  cookieConfig = { domain: AppConfig.cookieDomain }
 }
 
 export function saveCookie(name,value) {
@@ -12,6 +12,9 @@ export function saveCookie(name,value) {
 
 export function getCookie(name) {
   return cookie.get(name)
+}
+export function getAllCookies() {
+  return cookie.getAll()
 }
 
 export function removeCookie(name) {

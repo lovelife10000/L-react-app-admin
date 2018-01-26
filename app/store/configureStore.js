@@ -5,7 +5,7 @@ import {persistState} from 'redux-devtools'
 import {createLogger} from 'redux-logger'
 import {Iterable} from 'immutable'
 import promiseMiddleware from '../api/promiseMiddleware'
-import DevTools from '../components/DevTools'
+import DevTools from '../components/Tools/DevTools'
 import rootReducer from '../reducers'
 
 export default function configureStore(initialState, history) {

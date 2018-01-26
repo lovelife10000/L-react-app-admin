@@ -4,8 +4,7 @@ import HeaderMessages from './HeaderMessages/header-messages'
 import HeaderNotifications from './HeaderNotifications/header-notifications'
 import HeaderTasks from './HeaderTasks/header-tasks'
 // import { Dropdown } from 'react-bootstrap'
-// import defaultAvatar from '../../assets/images/avatar.png'
-// import Avatar from './avatar'
+import defaultAvatar from '../../../dist/img/20625882.png'
 
 class HeaderBar extends Component {
   constructor() {
@@ -46,13 +45,13 @@ class HeaderBar extends Component {
 
               <li className="dropdown user user-menu">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                  <img src="dist/img/user2-160x160.jpg" className="user-image" alt="User Image"/>
+                  <img src={defaultAvatar} className="user-image" alt="User Image"/>
                   <span className="hidden-xs">Alexander Pierce</span>
                 </a>
                 <ul className="dropdown-menu">
 
                   <li className="user-header">
-                    <img src="dist/img/user2-160x160.jpg" className="img-circle" alt="User Image"/>
+                    <img src={defaultAvatar} className="img-circle" alt="User Image"/>
                     <p>
                       Alexander Pierce - Web Developer
                       <small>Member since Nov. 2012</small>

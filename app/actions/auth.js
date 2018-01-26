@@ -1,9 +1,9 @@
 import * as types from './types'
-import { push } from 'react-router-redux'
+// import { push } from 'react-router-redux'
 import { saveCookie,getCookie,signOut } from '../utils/auth.util'
-import { showMsg } from './other'
+import { showMsg,changeStyleMode } from './other'
 import authApi from '../api/authApi'
-import { app } from '../config/app'
+import { AppConfig } from '../config/app.config'
 
 
 //获取snslogins
@@ -17,9 +17,10 @@ export const getSnsLogins = ()=>{
 export const getCaptchaUrl = () =>{
   return {
     type: 'GET_CAPTCHAURL',
-    captchaUrl: app.DOMAIN + 'login/getCaptcha?' + Math.random()
+    captchaUrl: AppConfig.DOMAIN + 'login/getCaptcha?' + Math.random()
   }
 }
+
 //登录
 function loginSuccess(token) {
   return {
@@ -56,8 +57,9 @@ export function localLogin(form) {
         dispatch(loginSuccess(json.token))
         dispatch(getCaptchaUrl())
         dispatch(showMsg('登录成功,欢迎光临!','success'))
-        dispatch(push('/'))
-        // window.location.reload()
+        dispatch(changeStyleMode())
+        // dispatch(push('/'))
+
       }).catch(err => {
         const errorMsg = err.response?(err.response.data && err.response.data.errorMsg)?err.response.data.errorMsg:'登录失败':'登录失败'
         //登录异常
@@ -69,12 +71,16 @@ export function localLogin(form) {
 
 //获取用户信息
 export const getUserInfo = (token = getCookie('token'))=>{
+  console.log('getUserInfo执行');
+  let Cookie=getCookie('connect.sid')
   return {
     type: 'GET_USERINFO',
     promise: authApi.getUserInfo({
       headers: {
-        'Authorization': `${token}`
-      }
+        'Authorization': `${token}`,
+        'Cookie':`${Cookie}`
+      },
+
     })
   }
 }

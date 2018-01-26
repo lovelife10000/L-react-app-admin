@@ -6,7 +6,9 @@ export default {
     return AuthResource('post', 'local', data)
   },
   getUserInfo: function (data) {
+    console.log('authApi中getUserInfo执行')
     return UserResource('get', '', data)
   },
+
 
 }

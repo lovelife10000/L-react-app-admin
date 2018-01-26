@@ -9,6 +9,7 @@ export const getTagList = () =>{
     promise: api.getTagList()
   }
 }
+
 //更改options
 export const changeOptions = (option) => ({ type: types.CHANGE_OPTIONS, option: option})
 
@@ -50,6 +51,7 @@ export const getArticleList = (isAdd = true) =>{
     })
   }
 }
+
 //获取文章详情
 export const getArticleDetail = (id) =>{
   return (dispatch, getState) => {

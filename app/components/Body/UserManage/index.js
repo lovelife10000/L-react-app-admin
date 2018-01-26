@@ -66,7 +66,7 @@ const renderField = field => (
   validate
 })
 
-class AddUserGroup extends Component {
+class UserManage extends Component {
   constructor(props) {
     super(props)
     this.addUserGroup=this.addUserGroup.bind(this)
@@ -117,7 +117,7 @@ class AddUserGroup extends Component {
             <small>{AppConfig.addUserGroup[1]}</small>
           </h1>
           <ol className="breadcrumb">
-            <li><a href="#"><i className="fa fa-dashboard"></i>主页{parentUserGroups.length}</a></li>
+            <li><a href="#"><i className="fa fa-dashboard"></i>主页6{parentUserGroups.length}</a></li>
             <li><a href="#">{AppConfig.userManage[1]}</a></li>
             <li className="active">{AppConfig.addUserGroup[1]}</li>
           </ol>
@@ -192,4 +192,4 @@ class AddUserGroup extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddUserGroup))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserManage))

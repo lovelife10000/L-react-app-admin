@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {app} from '../../../config/app'
+import {AppConfig} from '../../../config/app.config'
 
 class AllUserGroups extends Component {
   constructor() {
@@ -11,13 +11,13 @@ class AllUserGroups extends Component {
       <div className="content-wrapper">
         <section className="content-header">
           <h1>
-            {app.USERS_MANAGE[1]}
-            <small> {app.ALL_USER_GROUPS[1]}</small>
+            {AppConfig.userManage[1]}
+            <small> {AppConfig.allUserGroups[1]}</small>
           </h1>
           <ol className="breadcrumb">
             <li><a href="#"><i className="fa fa-dashboard"></i>主页</a></li>
-            <li><a href="#"> {app.USERS_MANAGE[1]} </a></li>
-            <li className="active"> {app.ALL_USER_GROUPS[1]}</li>
+            <li><a href="#"> {AppConfig.userManage[1]} </a></li>
+            <li className="active"> {AppConfig.allUserGroups[1]}</li>
           </ol>
         </section>
 

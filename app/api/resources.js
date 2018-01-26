@@ -1,9 +1,9 @@
 require('es6-promise').polyfill()
 import axios from 'axios'
-import { app } from '../config/app'
+import { AppConfig } from '../config/app.config'
 import { getCookie,signOut } from '../utils/auth.util'
 
-axios.defaults.baseURL = app.DOMAIN
+axios.defaults.baseURL =AppConfig.DOMAIN
 axios.defaults.withCredentials = true
 
 // Add a request interceptor
@@ -11,7 +11,9 @@ axios.interceptors.request.use(function (config) {
   config.headers = config.headers || {}
   if (getCookie('token')) {
     config.headers.Authorization = getCookie('token').replace(/(^\")|(\"$)/g, '')
+    config.headers.Cookie = getCookie('connect.sid').replace(/(^\")|(\"$)/g, '')+';'+getCookie('token').replace(/(^\")|(\"$)/g, '')
   }
+  console.log('axios config 是',config);
   return config
 }, function (error) {
   // Do something with request error

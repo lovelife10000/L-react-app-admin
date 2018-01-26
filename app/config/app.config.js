@@ -1,4 +1,4 @@
-export const app = {
+export const AppConfig = {
   SESSION_SECRET: 'L-blog-secret',
   COOKIE_SECRET: 'L-BLOG',
 
@@ -13,18 +13,18 @@ export const app = {
 
 
   BLOG: 'L-react-app-admin',
-  BLOG_NAME: 'L-react-blog',
+  blogName: 'L-react-app-admin',
 
   /*
    * 博客功能列表
    * */
-  PANEL: ['panel', '仪表盘'],
-  BASIC_INFO: ['basicInfo', '基本信息'],
-  PASSWORD_MODIFY: ['password_modify', '修改密码'],
+  panel: ['panel', '仪表盘'],
+  basicInfo: ['basicInfo', '基本信息'],
+  modifyPwd: ['password_modify', '修改密码'],
 
-  USERS_MANAGE: ['usersManage', '用户管理'],
-  ALL_USER_GROUPS: ['allUserGroups', '所有用户组'],
-  ADD_USER_GROUP: ['addUserGroup', '添加用户组'],
+  userManage: ['usersManage', '用户管理'],
+  allUserGroups: ['allUserGroups', '所有用户组'],
+  addUserGroup: ['addUserGroup', '添加用户组'],
   ALL_USERS: ['allUsers', '所有用户'],
   ALL_USERS_ADD: ['allUsersAdd', '添加用户'],
   LOGIN_LOG: ['loginLog', '登录记录'],

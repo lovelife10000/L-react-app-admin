@@ -7,9 +7,9 @@ class TaskItem extends Component {
 
   }
   static propTypes={
-    percentage:PropTypes.string.isRequired,
+    percentage:PropTypes.number.isRequired,
     theme:PropTypes.string.isRequired,
-    content:PropTypes.string.isRequired
+    content:PropTypes.string
   }
 
 

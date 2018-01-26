@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-// import defaultAvatar from '../../../dist/img/20625882.png'
+import defaultAvatar from '../../../dist/img/20625882.png'
 import PropTypes from 'prop-types'
 import * as Actions from '../../actions'
 import {bindActionCreators} from 'redux'
@@ -35,7 +35,7 @@ class Sidebar extends Component {
           {/* Sidebar user panel */}
           <div className="user-panel">
             <div className="pull-left image">
-              <img src={ 'defaultAvatar' } className="img-circle" alt="User Image"/>
+              <img src={ defaultAvatar } className="img-circle" alt="User Image"/>
             </div>
             <div className="pull-left info">
               <p>{JSON.stringify(auth.user)}</p>
@@ -63,8 +63,8 @@ class Sidebar extends Component {
                 <i className="fa fa-angle-left pull-right"></i>
               </a>
               <ul className="treeview-menu">
-                <li><a href="./panel"><i className="fa fa-circle-o"></i> 基本信息</a></li>
-                <li><a href="index2.html"><i className="fa fa-circle-o"></i> 修改密码</a></li>
+                <li><a href="/panel/basicInfo"><i className="fa fa-circle-o"></i> 基本信息</a></li>
+                <li><a href="/panel/modifyPwd"><i className="fa fa-circle-o"></i> 修改密码</a></li>
               </ul>
             </li>
             <li className="treeview">
@@ -74,8 +74,8 @@ class Sidebar extends Component {
                 <i className="fa fa-angle-left pull-right"></i>
               </a>
               <ul className="treeview-menu">
-                <li><a href="/allUserGroups"><i className="fa fa-circle-o"></i> 所有用户组</a></li>
-                <li><a href="/addUserGroup"><i className="fa fa-circle-o"></i> 添加用户组</a></li>
+                <li><a href="/userManage/allUserGroups"><i className="fa fa-circle-o"></i> 所有用户组</a></li>
+                <li><a href="/userManage/addUserGroup"><i className="fa fa-circle-o"></i> 添加用户组</a></li>
                 <li><a href="pages/layout/collapsed-sidebar.html"><i className="fa fa-circle-o"></i> 所有用户</a></li>
                 <li><a href="pages/layout/top-nav.html"><i className="fa fa-circle-o"></i> 添加用户</a></li>
               </ul>

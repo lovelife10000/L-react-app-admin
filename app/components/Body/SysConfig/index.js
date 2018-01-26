@@ -113,13 +113,13 @@ class AddUserGroup extends Component {
       <div className="content-wrapper">
         <section className="content-header">
           <h1>
-            {AppConfig.userManage[1]}
-            <small>{AppConfig.addUserGroup[1]}</small>
+            {AppConfig.USERS_MANAGE[1]}
+            <small>{AppConfig.ADD_USER_GROUP[1]}</small>
           </h1>
           <ol className="breadcrumb">
             <li><a href="#"><i className="fa fa-dashboard"></i>主页{parentUserGroups.length}</a></li>
-            <li><a href="#">{AppConfig.userManage[1]}</a></li>
-            <li className="active">{AppConfig.addUserGroup[1]}</li>
+            <li><a href="#">{AppConfig.USERS_MANAGE[1]}</a></li>
+            <li className="active">{AppConfig.ADD_USER_GROUP[1]}</li>
           </ol>
         </section>
 

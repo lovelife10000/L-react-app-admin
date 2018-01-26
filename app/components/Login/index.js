@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import * as Actions from '../../actions'
 import {withRouter} from 'react-router-dom'
-// import {isLogin} from '../../utils/auth.util'
+import {isLogin} from '../../utils/auth.util'
 
 const mapStateToProps = (state)=> {
   return {
@@ -79,11 +79,17 @@ class Login extends Component {
     history: PropTypes.object,
     showMsg: PropTypes.object.isRequired
   };
-  // componentWillMount(){
-  //   if(isLogin()) {
-  //     this.props.history.push('/')
-  //   }
-  // }
+  componentWillMount(){
+    if(isLogin()) {
+      this.props.history.replace('/')
+    }
+  }
+  componentWillReceiveProps(nextProps){
+    const { globalVal } = this.props
+    if(globalVal.styleMode !== nextProps.globalVal.styleMode){
+      document.body.className = nextProps.globalVal.styleMode
+    }
+  }
   submitForm(form) {
     console.log('login中submitForm执行')
     const {actions} = this.props

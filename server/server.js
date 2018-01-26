@@ -1,21 +1,23 @@
-var path = require('path')
-var express = require('express')
-var favicon = require('serve-favicon')
-const debug=require('debug')('express-app');
+const path = require('path')
+const express = require('express')
+const favicon = require('serve-favicon')
+const debug = require('debug')('express-app');
 const serverRender = require('../dist/js/server');
+// const bodyParser = require('body-parser');
 
-var app = express()
-var isDev = process.env.NODE_ENV === 'development'
-var defaultPort = isDev? 3001 : 8300
-var port = process.env.PORT || defaultPort
+const app = express()
+let isDev = process.env.NODE_ENV === 'development'
+let defaultPort = isDev ? 3001 : 8300
+let port = process.env.PORT || defaultPort
 
-app.use(express.static(path.join(__dirname, 'dist')))
+app.use(express.static(path.join(__dirname, '..', 'dist')))
+
 if (isDev) {
-  var config = require('../webpack/webpack.config.dev.client.js')
-  var compiler = require('webpack')(config)
+  const config = require('../webpack/webpack.config.dev.client.js')
+  const compiler = require('webpack')(config)
   app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: false,
-    hot:true,
+    hot: true,
     inline: true,
     publicPath: config.output.publicPath,
     stats: {
@@ -23,19 +25,23 @@ if (isDev) {
     }
   }))
   app.use(require('webpack-hot-middleware')(compiler))
-}else{
-  app.use(favicon(path.join(__dirname, 'dist', 'favicon.ico')))
-  app.set('views', path.join(__dirname, 'dist'))
+} else {
+  app.use(favicon(path.join(__dirname,'..', 'dist/img', 'favicon.ico')))
+  app.set('views', path.join(__dirname, '..', 'dist'))
   app.set('view engine', 'ejs')
 }
+app.use(express.static(path.join(__dirname, '..', 'dist')))
+app.use(favicon(path.join(__dirname,'..', 'dist/img', 'favicon.ico')))
+app.set('views', path.join(__dirname, '..', 'dist'))
+app.set('view engine', 'ejs')
 
 
 app.get('*', function (req, res, next) {
-  debug('what is default',serverRender.default);
+  debug('what is default', serverRender.default);
   serverRender.default(req, res)
 })
 
-app.listen(port, function(err) {
+app.listen(port, function (err) {
   if (err) {
     console.error(err)
   } else {

@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import MessageItem from './message-item'
 // import { Dropdown } from 'react-bootstrap'
 // import defaultAvatar from '../../assets/images/avatar.png'
-// import Avatar from './avatar'
+import Avatar from '../../../../dist/img/user2-160x160.jpg'
 
 class HeaderMessages extends Component {
   constructor() {
@@ -17,31 +17,31 @@ class HeaderMessages extends Component {
     var messages = [
       {
         title: 'Support Team',
-        displayPicture: 'dist/img/user2-160x160.jpg',
+        displayPicture: Avatar,
         content: 'Why not buy a new awesome theme?',
         time: '5 mins',
       },
       {
         title: 'AdminLTE Design Team',
-        displayPicture: 'dist/img/user3-128x128.jpg',
+        displayPicture: Avatar,
         content: 'Why not buy a new awesome theme?',
         time: '2 hours',
       },
       {
         title: 'Developers',
-        displayPicture: 'dist/img/user4-128x128.jpg',
+        displayPicture: Avatar,
         content: 'Why not buy a new awesome theme?',
         time: 'Today',
       },
       {
         title: 'Sales Department',
-        displayPicture: 'dist/img/user3-128x128.jpg',
+        displayPicture: Avatar,
         content: 'Why not buy a new awesome theme?',
         time: 'Yesterday',
       },
       {
         title: 'Reviewers',
-        displayPicture: 'dist/img/user4-128x128.jpg',
+        displayPicture: Avatar,
         content: 'Why not buy a new awesome theme?',
         time: '2 days',
       }

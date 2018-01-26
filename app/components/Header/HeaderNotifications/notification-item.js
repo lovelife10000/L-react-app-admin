@@ -8,8 +8,8 @@ class NotificationItem extends Component {
   }
 
   static propTypes = {
-    theme: PropTypes.string.isRequired,
-    content: PropTypes.object.isRequired,
+    theme: PropTypes.string,
+    content: PropTypes.string
 
   };
 

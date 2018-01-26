@@ -8,7 +8,7 @@ import Cookies from 'universal-cookie'
 import {fromJS} from 'immutable'
 import configureStore from '../app/store/configureStore'
 import routes from '../app/config/routes.config'
-import {app} from '../app/config/app'
+import {AppConfig} from '../app/config/app.config'
 import url from 'url'
 
 
@@ -21,6 +21,7 @@ async function fetchAllData(batch, dispatch, token) {
       return current.component.fetchData(current.params).concat(prev)
     }, [])
     .map(x=> {
+      console.log('dispath',x);
       return dispatch(x)
     })
   return await Promise.all(needs)
@@ -30,7 +31,7 @@ export default function render(req, res) {
   const cookies = new Cookies(req.headers.cookie)
   const history = createMemoryHistory()
   const token = cookies.get('token') || null
-  const styleMode = cookies.get('styleMode') || 'day-mode'
+  const styleMode = cookies.get('styleMode') || 'skin-blue sidebar-mini wysihtml5-supported'
   const store = configureStore({
     auth: fromJS({
       token: token,
@@ -38,7 +39,7 @@ export default function render(req, res) {
     }),
     globalVal: fromJS({
       styleMode: styleMode,
-      captchaUrl: app.DOMAIN + 'login/getCaptcha?'
+      captchaUrl: AppConfig.DOMAIN + 'login/getCaptcha?'
     })
   }, history)
   const batch = matchRoutes(routes, req.url)
@@ -63,7 +64,7 @@ export default function render(req, res) {
     if (__DEVSERVER__) {
       res.set('Content-Type', 'text/html')
       if (url.parse(req.url).pathname == '/login') {
-        return res.status(200).send(renderFullPageForLogin(componentHTML, initialState, styleMode))
+        return res.status(200).send(renderFullPageForLogin(componentHTML, initialState,'hold-transition login-page'))
       }
       return res.status(200).send(renderFullPage(componentHTML, initialState, styleMode))
     } else {
@@ -97,19 +98,20 @@ function renderFullPage(renderedContent, initialState, styleMode) {
       <meta name="keyword" content="L-react-app-admin">
       <link rel="stylesheet" href="/style.css"/>
     </head>
-    <body class="${styleMode}  skin-blue sidebar-mini wysihtml5-supported">
+    <body class="${styleMode}">
       <!--[if lt IE 9]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
       <div class="" id="root">${renderedContent}</div>    
       <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
       <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/admin-lte/2.3.0/js/app.js"></script>
+      <script type="text/javascript" charset="utf-8" src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
       <script>
         window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
       </script>      
       <script type="text/javascript" charset="utf-8" src="/vendor.js"></script>
       <script type="text/javascript" charset="utf-8" src="/bundle.js"></script>
-      <script type="text/javascript" charset="utf-8" src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      
     </body>
   </html>
   `
@@ -127,19 +129,19 @@ function renderFullPageForLogin(renderedContent, initialState, styleMode) {
       <meta name="keyword" content="L-react-app-admin">
       <link rel="stylesheet" href="/style.css"/>
     </head>
-    <body class="hold-transition login-page">
+    <body class="${styleMode}">
       <!--[if lt IE 9]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
       <div class="" id="root">${renderedContent}</div>    
       <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
       <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/admin-lte/2.3.0/js/app.js"></script>
+      <script type="text/javascript" charset="utf-8" src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
       <script>
         window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
       </script>      
       <script type="text/javascript" charset="utf-8" src="/vendor.js"></script>
-      <script type="text/javascript" charset="utf-8" src="/bundle.js"></script>
-      <script type="text/javascript" charset="utf-8" src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/bundle.js"></script>      
       <script>
       (function(h){function F(a,b,d){var c=a[0],e=/er/.test(d)?m:/bl/.test(d)?s:l,f=d==H?{checked:c[l],disabled:c[s],indeterminate:"true"==a.attr(m)||"false"==a.attr(w)}:c[e];if(/^(ch|di|in)/.test(d)&&!f)D(a,e);else if(/^(un|en|de)/.test(d)&&f)t(a,e);else if(d==H)for(e in f)f[e]?D(a,e,!0):t(a,e,!0);else if(!b||"toggle"==d){if(!b)a[p]("ifClicked");f?c[n]!==u&&t(a,e):D(a,e)}}function D(a,b,d){var c=a[0],e=a.parent(),f=b==l,A=b==m,B=b==s,K=A?w:f?E:"enabled",p=k(a,K+x(c[n])),N=k(a,b+x(c[n]));if(!0!==c[b]){if(!d&&
 b==l&&c[n]==u&&c.name){var C=a.closest("form"),r='input[name="'+c.name+'"]',r=C.length?C.find(r):h(r);r.each(function(){this!==c&&h(this).data(q)&&t(h(this),b)})}A?(c[b]=!0,c[l]&&t(a,l,"force")):(d||(c[b]=!0),f&&c[m]&&t(a,m,!1));L(a,f,b,d)}c[s]&&k(a,y,!0)&&e.find("."+I).css(y,"default");e[v](N||k(a,b)||"");B?e.attr("aria-disabled","true"):e.attr("aria-checked",A?"mixed":"true");e[z](p||k(a,K)||"")}function t(a,b,d){var c=a[0],e=a.parent(),f=b==l,h=b==m,q=b==s,p=h?w:f?E:"enabled",t=k(a,p+x(c[n])),
