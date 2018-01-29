@@ -28,7 +28,6 @@ async function fetchAllData(batch, dispatch, token) {
 
 export default function render(req, res) {
   console.log('请求来了',req.url)
-  console.log('请求来了')
   const cookies = new Cookies(req.headers.cookie)
   const history = createMemoryHistory()
   const token = cookies.get('token') || null
@@ -44,9 +43,9 @@ export default function render(req, res) {
     })
   }, history)
   const batch = matchRoutes(routes, req.url)
-  console.log('请求来了2')
+
   return fetchAllData(batch, store.dispatch, token).then(function (data) {
-    console.log('请求来了3')
+
     const context = {}
     const initialState = store.getState()
     const InitialView = (
@@ -55,18 +54,18 @@ export default function render(req, res) {
           {renderRoutes(routes)}
         </StaticRouter>
       </Provider>)
-    console.log('请求来了4')
+
     const componentHTML = renderToString(InitialView)
-    console.log('请求来了5')
+
 
     if (context.status === 404) {
       res.status(404)
     }
-    console.log('请求来了6')
+
     if (context.status === 302) {
       return res.redirect(302, context.url)
     }
-    console.log('请求来了7')
+
     if (__DEVSERVER__) {
       res.set('Content-Type', 'text/html')
       if (url.parse(req.url).pathname == '/login') {

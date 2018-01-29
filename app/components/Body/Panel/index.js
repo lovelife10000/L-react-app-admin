@@ -7,12 +7,12 @@ import * as Actions from '../../../actions'
 import BasicInfo from './BasicInfo'
 // import {isLogin} from '../../../utils/auth.util'
 import PropTypes from 'prop-types'
+import { isLogin} from '../../../utils/auth.util'
+
 
 const mapStateToProps = state => {
   return {
-    // globalVal : state.globalVal.toJS(),
-    // auth: state.auth.toJS(),
-    // sns: state.sns.toJS()
+
   }
 }
 
@@ -27,23 +27,27 @@ class Panel extends Component {
   constructor(props) {
     super(props)
 
+
   }
   static propTypes = {
     history: PropTypes.object,
+    actions: PropTypes.object.isRequired,
 
   }
 
+  componentWillMount(){
+
+    if(!isLogin()) {
+      // window.location.href='/login'
+      this.props.history.replace('/login')
+    }
+  }
 
 
   // static fetchData(params){
   //   return [Actions.getSnsLogins()]
   // }
-  // componentWillMount(){
-  //   console.log('Layout中componentWillMount')
-  //   if(!isLogin()) {
-  //     this.props.history.replace('/login')
-  //   }
-  // }
+
 
 
   render() {

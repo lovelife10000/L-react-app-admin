@@ -42,10 +42,10 @@ class Layout extends Component {
   // }
 
 
-  // static fetchData({token}){
-  //   console.log('Layout中获取用户信息')
-  //   return [Actions.getUserInfo(token)]
-  // }
+  static fetchData({token}){
+    console.log('Layout中获取用户信息')
+    return [Actions.getUserInfo(token)]
+  }
 
   static propTypes = {
     route: PropTypes.object.isRequired,
