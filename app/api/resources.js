@@ -10,10 +10,9 @@ axios.defaults.withCredentials = true
 axios.interceptors.request.use(function (config) {
   config.headers = config.headers || {}
   if (getCookie('token')) {
-    config.headers.Authorization = getCookie('token').replace(/(^\")|(\"$)/g, '')
-    config.headers.Cookie = getCookie('connect.sid').replace(/(^\")|(\"$)/g, '')+';'+getCookie('token').replace(/(^\")|(\"$)/g, '')
+    config.headers.Authorization ='Bearer ' +  getCookie('token').replace(/(^\")|(\"$)/g, '')
+
   }
-  console.log('axios config 是',config);
   return config
 }, function (error) {
   // Do something with request error

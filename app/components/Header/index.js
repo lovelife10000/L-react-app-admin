@@ -1,24 +1,44 @@
 import React, {Component} from 'react'
-// import PropTypes from 'prop-types'
 import HeaderMessages from './HeaderMessages/header-messages'
 import HeaderNotifications from './HeaderNotifications/header-notifications'
 import HeaderTasks from './HeaderTasks/header-tasks'
 // import { Dropdown } from 'react-bootstrap'
 import defaultAvatar from '../../../dist/img/20625882.png'
+import PropTypes from 'prop-types';
+import {bindActionCreators} from 'redux'
+import * as Actions from '../../actions'
+import {connect} from 'react-redux'
 
-class HeaderBar extends Component {
-  constructor() {
-    super()
+
+const mapStateToProps=(state)=>{
+  return{
+    auth:state.auth.toJS()
+  }
+};
+
+const mapDispatchToProps=(dispatch)=>{
+  return{
+    actions:bindActionCreators(dispatch,Actions)
+  }
+};
+
+class Header extends Component {
+  constructor(props) {
+    super(props)
 
   }
+  static propTypes={
+    auth:PropTypes.object.isRequired,
+    history: PropTypes.object,
+  };
 
-  // static propTypes = {
-  //
-  // }
+
 
 
 
   render() {
+    const {auth:{user}}=this.props
+
     return (
       <header className="main-header">
 
@@ -46,7 +66,7 @@ class HeaderBar extends Component {
               <li className="dropdown user user-menu">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">
                   <img src={defaultAvatar} className="user-image" alt="User Image"/>
-                  <span className="hidden-xs">Alexander Pierce</span>
+                  <span className="hidden-xs">{user ? user.username :''}</span>
                 </a>
                 <ul className="dropdown-menu">
 
@@ -92,4 +112,4 @@ class HeaderBar extends Component {
   }
 }
 
-export default  HeaderBar
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

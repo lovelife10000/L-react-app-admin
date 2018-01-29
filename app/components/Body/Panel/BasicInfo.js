@@ -1,25 +1,23 @@
 import React, {Component} from 'react'
 // import PropTypes from 'prop-types'
-import {bindActionCreators} from 'redux'
-import {withRouter} from 'react-router-dom'
-import {connect} from 'react-redux'
-import * as Actions from '../../../actions'
+// import {bindActionCreators} from 'redux'
+// import * as Actions from '../../../actions'
 import {AppConfig} from '../../../config/app.config'
 
 
-const mapStateToProps = state => {
-  return {
-    // globalVal: state.globalVal.toJS(),
-    // auth: state.auth.toJS(),
-    // sns: state.sns.toJS()
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    actions: bindActionCreators(Actions, dispatch)
-  }
-}
+// const mapStateToProps = state => {
+//   return {
+//     // globalVal: state.globalVal.toJS(),
+//     // auth: state.auth.toJS(),
+//     // sns: state.sns.toJS()
+//   }
+// }
+//
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     actions: bindActionCreators(Actions, dispatch)
+//   }
+// }
 
 
 class BasicInfo extends Component {
@@ -210,4 +208,4 @@ class BasicInfo extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BasicInfo))
+export default BasicInfo

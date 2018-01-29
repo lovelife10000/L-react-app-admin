@@ -5,6 +5,8 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import * as Actions from '../../../actions'
 import BasicInfo from './BasicInfo'
+// import {isLogin} from '../../../utils/auth.util'
+import PropTypes from 'prop-types'
 
 const mapStateToProps = state => {
   return {
@@ -26,10 +28,21 @@ class Panel extends Component {
     super(props)
 
   }
+  static propTypes = {
+    history: PropTypes.object,
+
+  }
+
 
 
   // static fetchData(params){
   //   return [Actions.getSnsLogins()]
+  // }
+  // componentWillMount(){
+  //   console.log('Layout中componentWillMount')
+  //   if(!isLogin()) {
+  //     this.props.history.replace('/login')
+  //   }
   // }
 
 

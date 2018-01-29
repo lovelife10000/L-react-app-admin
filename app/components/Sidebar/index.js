@@ -17,7 +17,7 @@ const mapDispatchToProps=(dispatch)=>{
   }
 };
 
-@connect(mapStateToProps,mapDispatchToProps)
+
 class Sidebar extends Component {
   constructor(props) {
     super(props)
@@ -27,7 +27,7 @@ class Sidebar extends Component {
   };
 
   render() {
-    const {auth}=this.props
+    const {auth:{user}}=this.props
     return (
       <aside className="main-sidebar">
         {/* sidebar: style can be found in sidebar.less */}
@@ -38,7 +38,7 @@ class Sidebar extends Component {
               <img src={ defaultAvatar } className="img-circle" alt="User Image"/>
             </div>
             <div className="pull-left info">
-              <p>{JSON.stringify(auth.user)}</p>
+              <p>{user ? user.username :''}</p>
               <a href="#"><i className="fa fa-circle text-success"></i> 在线</a>
             </div>
           </div>
@@ -144,4 +144,4 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar
+export default connect(mapStateToProps,mapDispatchToProps)(Sidebar)

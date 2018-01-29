@@ -57,8 +57,7 @@ const renderField = field => (
     {field.meta.touched && (field.meta.error && <span className="help-block">{field.meta.error}</span>)}
   </div>
 )
-// @withRouter
-// @connect(mapStateToProps,mapDispatchToProps)
+
 @reduxForm({
   form: 'login',
   validate

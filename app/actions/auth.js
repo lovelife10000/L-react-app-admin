@@ -1,5 +1,5 @@
 import * as types from './types'
-// import { push } from 'react-router-redux'
+import { push } from 'react-router-redux'
 import { saveCookie,getCookie,signOut } from '../utils/auth.util'
 import { showMsg,changeStyleMode } from './other'
 import authApi from '../api/authApi'
@@ -58,7 +58,7 @@ export function localLogin(form) {
         dispatch(getCaptchaUrl())
         dispatch(showMsg('登录成功,欢迎光临!','success'))
         dispatch(changeStyleMode())
-        // dispatch(push('/'))
+        dispatch(push('/'))
 
       }).catch(err => {
         const errorMsg = err.response?(err.response.data && err.response.data.errorMsg)?err.response.data.errorMsg:'登录失败':'登录失败'
@@ -71,14 +71,11 @@ export function localLogin(form) {
 
 //获取用户信息
 export const getUserInfo = (token = getCookie('token'))=>{
-  console.log('getUserInfo执行');
-  let Cookie=getCookie('connect.sid')
   return {
     type: 'GET_USERINFO',
     promise: authApi.getUserInfo({
       headers: {
-        'Authorization': `${token}`,
-        'Cookie':`${Cookie}`
+        'Authorization':`Bearer ${token}`
       },
 
     })
