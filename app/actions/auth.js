@@ -82,6 +82,7 @@ export const getUserInfo = (token = getCookie('token'))=>{
   }
 }
 
+
 //退出登录
 export function logout() {
   return dispatch => {

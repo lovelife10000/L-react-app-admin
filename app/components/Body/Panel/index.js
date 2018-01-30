@@ -12,7 +12,7 @@ import { isLogin} from '../../../utils/auth.util'
 
 const mapStateToProps = state => {
   return {
-
+    globalVal: state.globalVal.toJS(),
   }
 }
 
@@ -32,21 +32,24 @@ class Panel extends Component {
   static propTypes = {
     history: PropTypes.object,
     actions: PropTypes.object.isRequired,
-
+    globalVal: PropTypes.object.isRequired,
   }
 
   componentWillMount(){
 
     if(!isLogin()) {
-      // window.location.href='/login'
-      this.props.history.replace('/login')
+      window.location.href='/login'
+      // this.props.history.replace('/login')
     }
   }
 
 
-  // static fetchData(params){
-  //   return [Actions.getSnsLogins()]
-  // }
+  componentWillReceiveProps(nextProps){
+    const { globalVal } = this.props
+    if(globalVal.styleMode !== nextProps.globalVal.styleMode){
+      document.body.className = nextProps.globalVal.styleMode
+    }
+  }
 
 
 

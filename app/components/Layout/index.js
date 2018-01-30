@@ -12,7 +12,8 @@ import {renderRoutes} from 'react-router-config'
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth.toJS()
+    auth: state.auth.toJS(),
+    globalVal: state.globalVal.toJS(),
   }
 }
 
@@ -52,6 +53,13 @@ class Layout extends Component {
     history: PropTypes.object,
     auth: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
+    globalVal: PropTypes.object.isRequired,
+  }
+  componentWillReceiveProps(nextProps){
+    const { globalVal } = this.props
+    if(globalVal.styleMode !== nextProps.globalVal.styleMode){
+      document.body.className = nextProps.globalVal.styleMode
+    }
   }
 
 

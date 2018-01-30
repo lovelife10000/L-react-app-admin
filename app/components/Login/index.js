@@ -10,7 +10,8 @@ import {isLogin} from '../../utils/auth.util'
 const mapStateToProps = (state)=> {
   return {
     globalVal: state.globalVal.toJS(),
-    showMsg: state.showMsg.toJS()
+    showMsg: state.showMsg.toJS(),
+    auth:state.auth.toJS()
   }
 };
 const mapDispatchToProps = dispatch => {
@@ -76,13 +77,30 @@ class Login extends Component {
     dirty: PropTypes.bool,
     invalid: PropTypes.bool,
     history: PropTypes.object,
+    auth:PropTypes.object.isRequired,
     showMsg: PropTypes.object.isRequired
   };
-  componentWillMount(){
-    if(isLogin()) {
-      this.props.history.replace('/')
+  static fetchData({token}){
+    console.log('Login中获取用户信息')
+    return [Actions.getUserInfo(token)]
+  }
+  componentDidMount() {
+    const { actions,auth} = this.props
+    if(auth.user===null){
+      actions.getUserInfo()
     }
   }
+  componentWillMount(){
+    // const { actions} = this.props
+    if(isLogin()) {
+      // console.log('执行了');
+      // actions.changeStyleMode()
+      // console.log('执行了2');
+      // this.props.history.replace('/')
+      window.location.href='/'
+    }
+  }
+
   componentWillReceiveProps(nextProps){
     const { globalVal } = this.props
     if(globalVal.styleMode !== nextProps.globalVal.styleMode){

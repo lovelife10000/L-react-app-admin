@@ -31,7 +31,7 @@ export default function render(req, res) {
   const cookies = new Cookies(req.headers.cookie)
   const history = createMemoryHistory()
   const token = cookies.get('token') || null
-  const styleMode = cookies.get('styleMode') || 'skin-blue sidebar-mini wysihtml5-supported'
+  const styleMode = 'hold-transition login-page'
   const store = configureStore({
     auth: fromJS({
       token: token,
@@ -71,7 +71,7 @@ export default function render(req, res) {
       if (url.parse(req.url).pathname == '/login') {
         return res.status(200).send(renderFullPageForLogin(componentHTML, initialState,'hold-transition login-page'))
       }
-      return res.status(200).send(renderFullPage(componentHTML, initialState, styleMode))
+      return res.status(200).send(renderFullPage(componentHTML, initialState, 'skin-blue sidebar-mini wysihtml5-supported'))
     } else {
       return res.render('index', {
         __html__: componentHTML,

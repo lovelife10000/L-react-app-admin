@@ -8,17 +8,17 @@ import { createReducer } from 'redux-immutablejs'
 import { fromJS } from 'immutable'
 import img from '../assets/img/shanghai.jpg'
 import { DOMAIN } from '../config/app.config'
-import { getCookie,saveCookie } from '../utils/auth.util'
+// import { getCookie} from '../utils/auth.util'
 
 export default createReducer(fromJS({
   indexImg:'',
-  styleMode: getCookie('styleMode') || 'day-mode',
+  styleMode: 'hold-transition login-page',
   captchaUrl: DOMAIN + 'login/getCaptcha?'
 }), {
   [CHANGE_STYLE_MODE]: (state, action) => {
     console.log('读取state.get(styleMode)',state.get('styleMode'))
     let styleMode = state.get('styleMode') === 'skin-blue sidebar-mini wysihtml5-supported'?'hold-transition login-page':'skin-blue sidebar-mini wysihtml5-supported'
-    saveCookie('styleMode', styleMode)
+    // saveCookie('styleMode', styleMode)
     return state.set('styleMode',styleMode)
   },
   [GET_CAPTCHAURL]: (state, action) => state.set('captchaUrl',action.captchaUrl),
