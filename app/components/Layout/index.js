@@ -8,7 +8,8 @@ import * as Actions from '../../actions'
 import Header from '../Header'
 import Sidebar from '../Sidebar'
 import {renderRoutes} from 'react-router-config'
-// import {isLogin} from '../../utils/auth.util'
+import {isLogin} from '../../utils/auth.util'
+
 
 const mapStateToProps = state => {
   return {
@@ -28,21 +29,6 @@ class Layout extends Component {
   constructor(props) {
     super(props)
   }
-
-  // componentWillMount(){
-  //   console.log('Layout中componentWillMount')
-  //   if(!isLogin()) {
-  //     this.props.history.replace('/login')
-  //   }
-  // }
-  // componentDidMount(token) {
-  //   const { actions,auth } = this.props
-  //   if(auth.user.username ===''){
-  //     actions.getUserInfo(token)
-  //   }
-  // }
-
-
   static fetchData({token}){
     console.log('Layout中获取用户信息')
     return [Actions.getUserInfo(token)]
@@ -54,11 +40,17 @@ class Layout extends Component {
     auth: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
     globalVal: PropTypes.object.isRequired,
+    document:PropTypes.object,
   }
-  componentWillReceiveProps(nextProps){
-    const { globalVal } = this.props
-    if(globalVal.styleMode !== nextProps.globalVal.styleMode){
-      document.body.className = nextProps.globalVal.styleMode
+  componentWillMount(){
+
+    if(!isLogin()) {
+      try {
+        window.location.href='/login'
+      }catch (err){
+        console.log('忽略服务端渲染,组件检查的时候window is not defined')
+      }
+
     }
   }
 

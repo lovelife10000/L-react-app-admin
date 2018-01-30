@@ -93,11 +93,11 @@ class Login extends Component {
   componentWillMount(){
     // const { actions} = this.props
     if(isLogin()) {
-      // console.log('执行了');
-      // actions.changeStyleMode()
-      // console.log('执行了2');
-      // this.props.history.replace('/')
-      window.location.href='/'
+      try {
+        window.location.href='/'
+      }catch (err){
+        console.log('忽略服务端渲染,组件检查的时候window is not defined')
+      }
     }
   }
 

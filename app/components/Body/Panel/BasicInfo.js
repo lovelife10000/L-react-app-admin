@@ -1,23 +1,23 @@
 import React, {Component} from 'react'
-// import PropTypes from 'prop-types'
-// import {bindActionCreators} from 'redux'
-// import * as Actions from '../../../actions'
+import PropTypes from 'prop-types'
+import {bindActionCreators} from 'redux'
+import * as Actions from '../../../actions'
 import {AppConfig} from '../../../config/app.config'
+import {connect} from 'react-redux'
 
 
-// const mapStateToProps = state => {
-//   return {
-//     // globalVal: state.globalVal.toJS(),
-//     // auth: state.auth.toJS(),
-//     // sns: state.sns.toJS()
-//   }
-// }
-//
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     actions: bindActionCreators(Actions, dispatch)
-//   }
-// }
+const mapStateToProps = state => {
+  return {
+    auth: state.auth.toJS(),
+
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(Actions, dispatch)
+  }
+}
 
 
 class BasicInfo extends Component {
@@ -25,16 +25,11 @@ class BasicInfo extends Component {
     super(props)
   }
 
-  // static propTypes = {
-  //   actions: PropTypes.object.isRequired,
-  //   globalVal: PropTypes.object.isRequired,
-  //   auth: PropTypes.object.isRequired,
-  //   sns: PropTypes.object.isRequired,
-  //   handleSubmit: PropTypes.func,
-  //   dirty: PropTypes.bool,
-  //   invalid: PropTypes.bool,
-  //   history: PropTypes.object
-  // }
+  static propTypes = {
+
+    auth: PropTypes.object.isRequired,
+
+  }
 
 
   // static fetchData(params) {
@@ -43,7 +38,7 @@ class BasicInfo extends Component {
 
 
   render() {
-    // const {sns, globalVal: {captchaUrl}, dirty, invalid, handleSubmit} = this.props
+    const {auth: {user}} = this.props
 
     return (
       <div className="content-wrapper">
@@ -78,7 +73,6 @@ class BasicInfo extends Component {
                     Email：1358180015@qq.com
                   </div>
                 </div>
-                <div className="box-footer"></div>
               </div>
               <div className="box box-primary">
                 <div className="box-header with-border">
@@ -109,11 +103,11 @@ class BasicInfo extends Component {
                       <h1></h1>
 
 
-                      <p>用户名: userInfo.username </p>
+                      <p>用户名: {user ? user.username :''} </p>
 
-                      <p>邮箱: userInfo.email </p>
+                      <p>邮箱: {user ? user.email :''}  </p>
 
-                      <p>注册时间: userInfo.date </p>
+                      <p>注册时间:{user ? user.register_time :''}  </p>
 
 
                     </div>
@@ -171,12 +165,6 @@ class BasicInfo extends Component {
                     </div>
 
                   </div>
-
-
-                </div>
-
-                <div className="box-footer">
-
                 </div>
 
               </div>
@@ -208,4 +196,4 @@ class BasicInfo extends Component {
   }
 }
 
-export default BasicInfo
+export default connect(mapStateToProps,mapDispatchToProps)(BasicInfo)

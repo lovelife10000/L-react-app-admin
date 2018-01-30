@@ -31,7 +31,12 @@ export default function render(req, res) {
   const cookies = new Cookies(req.headers.cookie)
   const history = createMemoryHistory()
   const token = cookies.get('token') || null
-  const styleMode = 'hold-transition login-page'
+  let styleMode = 'hold-transition login-page'
+  // if (url.parse(req.url).pathname == '/login') {
+  //   styleMode = 'hold-transition login-page'
+  // }else {
+  //   styleMode = 'skin-blue sidebar-mini wysihtml5-supported'
+  // }
   const store = configureStore({
     auth: fromJS({
       token: token,
@@ -54,9 +59,9 @@ export default function render(req, res) {
           {renderRoutes(routes)}
         </StaticRouter>
       </Provider>)
-
+    console.log('请求来了2',req.url)
     const componentHTML = renderToString(InitialView)
-
+    console.log('请求来了3',req.url)
 
     if (context.status === 404) {
       res.status(404)
@@ -80,14 +85,15 @@ export default function render(req, res) {
       })
     }
 
-  }).catch(err => {
-    if (__DEVSERVER__) {
-      res.set('Content-Type', 'text/html')
-      return res.status(200).send(renderFullPage('', {}))
-    } else {
-      return res.render('index', {__html__: '', __state__: {}})
-    }
   })
+  //   .catch(err => {
+  //   if (__DEVSERVER__) {
+  //     res.set('Content-Type', 'text/html')
+  //     return res.status(200).send(renderFullPage('', {}))
+  //   } else {
+  //     return res.render('index', {__html__: '', __state__: {}})
+  //   }
+  // })
 }
 
 function renderFullPage(renderedContent, initialState, styleMode) {

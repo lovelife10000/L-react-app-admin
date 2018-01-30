@@ -7,7 +7,7 @@ import * as Actions from '../../../actions'
 import BasicInfo from './BasicInfo'
 // import {isLogin} from '../../../utils/auth.util'
 import PropTypes from 'prop-types'
-import { isLogin} from '../../../utils/auth.util'
+
 
 
 const mapStateToProps = state => {
@@ -35,21 +35,6 @@ class Panel extends Component {
     globalVal: PropTypes.object.isRequired,
   }
 
-  componentWillMount(){
-
-    if(!isLogin()) {
-      window.location.href='/login'
-      // this.props.history.replace('/login')
-    }
-  }
-
-
-  componentWillReceiveProps(nextProps){
-    const { globalVal } = this.props
-    if(globalVal.styleMode !== nextProps.globalVal.styleMode){
-      document.body.className = nextProps.globalVal.styleMode
-    }
-  }
 
 
 

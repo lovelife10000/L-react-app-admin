@@ -12,7 +12,7 @@ import { DOMAIN } from '../config/app.config'
 
 export default createReducer(fromJS({
   indexImg:'',
-  styleMode: 'hold-transition login-page',
+  styleMode: '',
   captchaUrl: DOMAIN + 'login/getCaptcha?'
 }), {
   [CHANGE_STYLE_MODE]: (state, action) => {
