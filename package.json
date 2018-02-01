@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "admin-lte": "^2.4.2",
+    "antd": "^3.1.6",
     "browserify-zlib": "^0.2.0",
     "cross-spawn": "^5.1.0",
     "ejs": "2.5.7",
@@ -13,6 +14,8 @@
     "ionicons": "^3.0.0",
     "material-ui": "^1.0.0-beta.27",
     "material-ui-icons": "^1.0.0-beta.17",
+    "react-avatar-editor": "^10.3.0",
+    "react-image-crop": "^3.0.10",
     "serve-favicon": "2.4.4",
     "through2": "2.0.3",
     "xtend": "4.0.1"

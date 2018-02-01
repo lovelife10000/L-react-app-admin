@@ -13,21 +13,20 @@ import url from 'url'
 
 
 async function fetchAllData(batch, dispatch, token) {
-  const needs = batch.map(({route, match}, index)=> {
+  const needs = batch.map(({route, match}, index) => {
     match.params = Object.assign({}, match.params, {token: token})
-    return {component: route.component, params: match.params}
-  }).filter(x=>x.component.fetchData)
-    .reduce((prev, current)=> {
-      return current.component.fetchData(current.params).concat(prev)
-    }, [])
-    .map(x=> {
-      return dispatch(x)
-    })
+    return {component: route.component, params: match.params,route:route}
+  }).filter(x => x.component.fetchData).reduce((prev, current) => {
+    return current.component.fetchData(current.params).concat(prev)
+  }, []).map(x => {
+    return dispatch(x)
+  })
+
   return await Promise.all(needs)
 }
 
 export default function render(req, res) {
-  console.log('请求来了',req.url)
+  console.log('刷新页面，请求来了', req.url)
   const cookies = new Cookies(req.headers.cookie)
   const history = createMemoryHistory()
   const token = cookies.get('token') || null
@@ -48,20 +47,20 @@ export default function render(req, res) {
     })
   }, history)
   const batch = matchRoutes(routes, req.url)
-
+  console.log(batch.length);
   return fetchAllData(batch, store.dispatch, token).then(function (data) {
 
     const context = {}
     const initialState = store.getState()
     const InitialView = (
       <Provider store={store}>
-        <StaticRouter location={ req.url } context={ context }>
+        <StaticRouter location={req.url} context={context}>
           {renderRoutes(routes)}
         </StaticRouter>
       </Provider>)
-    console.log('请求来了2',req.url)
+
     const componentHTML = renderToString(InitialView)
-    console.log('请求来了3',req.url)
+
 
     if (context.status === 404) {
       res.status(404)
@@ -74,7 +73,7 @@ export default function render(req, res) {
     if (__DEVSERVER__) {
       res.set('Content-Type', 'text/html')
       if (url.parse(req.url).pathname == '/login') {
-        return res.status(200).send(renderFullPageForLogin(componentHTML, initialState,'hold-transition login-page'))
+        return res.status(200).send(renderFullPageForLogin(componentHTML, initialState, 'hold-transition login-page'))
       }
       return res.status(200).send(renderFullPage(componentHTML, initialState, 'skin-blue sidebar-mini wysihtml5-supported'))
     } else {
@@ -117,6 +116,7 @@ function renderFullPage(renderedContent, initialState, styleMode) {
       <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
       <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/admin-lte/2.3.0/js/app.js"></script>
       <script type="text/javascript" charset="utf-8" src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
       <script>
         window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
       </script>      
@@ -127,6 +127,7 @@ function renderFullPage(renderedContent, initialState, styleMode) {
   </html>
   `
 }
+
 function renderFullPageForLogin(renderedContent, initialState, styleMode) {
   return `<!doctype html>
   <html>

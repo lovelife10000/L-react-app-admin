@@ -1,7 +1,10 @@
 import Cookies from 'universal-cookie'
 const cookie = new Cookies()
 import { AppConfig } from '../config/app.config'
-let cookieConfig = {}
+let cookieConfig = {
+  maxAge:AppConfig.cookie.maxAge,
+  httpOnly:AppConfig.cookie.httpOnly
+}
 if(AppConfig.cookieDomain !== ''){
   cookieConfig = { domain: AppConfig.cookieDomain }
 }

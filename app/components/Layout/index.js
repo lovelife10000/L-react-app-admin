@@ -30,7 +30,7 @@ class Layout extends Component {
     super(props)
   }
   static fetchData({token}){
-    console.log('Layout中获取用户信息')
+    console.log('Layout中fetchData')
     return [Actions.getUserInfo(token)]
   }
 
@@ -48,7 +48,7 @@ class Layout extends Component {
       try {
         window.location.href='/login'
       }catch (err){
-        console.log('忽略服务端渲染,组件检查的时候window is not defined')
+        // console.log('忽略服务端渲染,组件检查的时候window is not defined')
       }
 
     }

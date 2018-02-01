@@ -9,8 +9,9 @@ import options from './options'
 import apps from './apps'
 import sns from './sns'
 import showMsg from './showMsg'
-import {parentUserGroups} from './userManage'
+import {allUserGroups} from './allUserGroups'
 import globalVal from './globalVal'
+import allUsers from './allUsers'
 
 const rootReducer = combineReducers({
   globalVal,
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
   showMsg,
   router: routerReducer,
   form: formReducer,
-  parentUserGroups
+  allUserGroups,
+  allUsers
 })
 
 export default rootReducer

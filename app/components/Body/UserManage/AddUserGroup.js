@@ -7,10 +7,9 @@ import {connect} from 'react-redux'
 import {Field, reduxForm} from 'redux-form'
 import {withRouter} from 'react-router-dom'
 
-const mapStateToProps = state=> {
-  console.log('是', state.parentUserGroups.toJS())
+const mapStateToProps = state => {
   return {
-    parentUserGroups: state.parentUserGroups.toJS()
+    allUserGroups: state.allUserGroups.toJS()
   }
 };
 const mapDispatchToProps = dispatch => {
@@ -26,8 +25,8 @@ const validate = values => {
     errors.groupId = '无效的组名称'
   }
 
-  if (!values.parentUserGroups) {
-    errors.parentUserGroups = '必须选择一项'
+  if (!values.allUserGroups) {
+    errors.allUserGroups = '必须选择一项'
   }
   if (!values.userGroupStatus) {
     errors.userGroupStatus = '必须选择一项'
@@ -51,7 +50,7 @@ const validatorCalss = field => {
 }
 
 const renderField = field => (
-  <div className={'form-group '+(field.meta.touched &&(field.meta.error &&' has-error'))}>
+  <div className={'form-group ' + (field.meta.touched && (field.meta.error && ' has-error'))}>
     <label htmlFor="groupId" className="col-sm-2 control-label">组名称</label>
     <div className="col-sm-8">
       <input className={validatorCalss(field.meta)} name={field.name} maxLength={field.maxLength} {...field.input} placeholder={field.placeholder} type={field.type}/>
@@ -61,24 +60,17 @@ const renderField = field => (
 )
 
 
-@reduxForm({
-  form: 'addUserGroup',
-  validate
-})
+
 
 class AddUserGroup extends Component {
   constructor(props) {
     super(props)
-    this.addUserGroup=this.addUserGroup.bind(this)
+    this.addUserGroup = this.addUserGroup.bind(this)
   }
 
-  static fetchData() {
-    console.log('AddUserGroup文件中执行了fetchData')
-    return [Actions.getParentUserGroups()]
-  }
 
   static propTypes = {
-    parentUserGroups: PropTypes.array.isRequired,
+    allUserGroups: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired,
     dirty: PropTypes.bool,
     invalid: PropTypes.bool,
@@ -87,27 +79,28 @@ class AddUserGroup extends Component {
 
 
   componentDidMount() {
-    console.log('componentDidMount执行了')
-    const {actions, parentUserGroups} = this.props
-    if (parentUserGroups.length < 1) {
-      actions.getParentUserGroups()
+
+    const {actions, allUserGroups} = this.props
+    console.log('AddUserGroup中fetchData',allUserGroups)
+    if (allUserGroups.length < 2) {
+      console.log('AddUserGroup中fetchData2')
+      actions.getAllUserGroups()
     }
   }
 
-  addUserGroup() {
-    const { actions } = this.props
-    actions.addUserGroup()
+  addUserGroup(data) {
+    const {actions} = this.props
+    actions.addUserGroup(data)
   }
 
   render() {
-    const {parentUserGroups, dirty, invalid,handleSubmit}=this.props;
-    parentUserGroups.unshift( {
-      group_id:1,
-      name:'无',
-      description:'无',
-      power:[],
-      parent:'',
-      status:true
+    const {allUserGroups, dirty, invalid, handleSubmit} = this.props;
+    allUserGroups.unshift({
+      _id: '',
+      name: '无',
+      power: [],
+      parent_user_group_id: '',
+      status: true
     },);
     return (
       <div className="content-wrapper">
@@ -117,7 +110,7 @@ class AddUserGroup extends Component {
             <small>{AppConfig.addUserGroup[1]}</small>
           </h1>
           <ol className="breadcrumb">
-            <li><a href="#"><i className="fa fa-dashboard"></i>主页{parentUserGroups.length}</a></li>
+            <li><a href="#"><i className="fa fa-dashboard"></i>主页</a></li>
             <li><a href="#">{AppConfig.userManage[1]}</a></li>
             <li className="active">{AppConfig.addUserGroup[1]}</li>
           </ol>
@@ -136,19 +129,17 @@ class AddUserGroup extends Component {
                   <div className="box-body">
 
 
-
-                    <Field name="groupId" component={renderField} type="text" placeholder="组名称"/>
-
+                    <Field name="name" component={renderField} type="text" placeholder="组名称"/>
 
 
                     <div className="form-group">
                       <label className="col-sm-2 control-label">父级组</label>
                       <div className="col-sm-8">
-                        <Field name="parentUserGroups" component="select" className="form-control">
+                        <Field name="parentUserGroupId" component="select" className="form-control">
                           <option value="">-- 请选择 --</option>
                           {
-                            parentUserGroups.map((item, index)=>
-                              <option key={index} value={item.group_id}>{(item.parent?'\u00A0\u00A0\u00A0\u00A0':'')+item.name}</option>
+                            allUserGroups.map((item, index) =>
+                              <option key={index} value={item._id}>{(item.parent_user_group_id ? '\u00A0\u00A0\u00A0\u00A0' : '') + item.name}</option>
                             )
                           }
 
@@ -162,21 +153,15 @@ class AddUserGroup extends Component {
                       <div className="col-sm-8">
                         <Field name="userGroupStatus" component="select" className="form-control">
                           <option value="">-- 请选择 --</option>
-                          <option value="1">启用</option>
-                          <option value="0">禁用</option>
+                          <option value="true">启用</option>
+                          <option value="false">禁用</option>
                         </Field>
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <label className="col-sm-2 control-label">描述</label>
-                      <div className="col-sm-8">
-                        <Field name="description" component="textarea" className="form-control" placeholder="描述信息" rows="3"/>
                       </div>
                     </div>
                   </div>
 
                   <div className="box-footer">
-                    <input disabled={ dirty && invalid } type="submit" className="btn btn-primary pull-right" value="添加"/>
+                    <input disabled={dirty && invalid} type="submit" className="btn btn-primary pull-right" value="添加"/>
                   </div>
 
                 </form>
@@ -192,4 +177,7 @@ class AddUserGroup extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddUserGroup))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'addUserGroup',
+  validate
+})(AddUserGroup)))

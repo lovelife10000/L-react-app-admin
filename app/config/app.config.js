@@ -15,6 +15,11 @@ export const AppConfig = {
   BLOG: 'L-react-app-admin',
   blogName: 'L-react-app-admin',
 
+  cookie:{
+    maxAge:60*30,
+    httpOnly:false,
+  },
+
   /*
    * 博客功能列表
    * */
@@ -25,8 +30,8 @@ export const AppConfig = {
   userManage: ['usersManage', '用户管理'],
   allUserGroups: ['allUserGroups', '所有用户组'],
   addUserGroup: ['addUserGroup', '添加用户组'],
-  ALL_USERS: ['allUsers', '所有用户'],
-  ALL_USERS_ADD: ['allUsersAdd', '添加用户'],
+  allUsers: ['allUsers', '所有用户'],
+  addUser: ['allUsersAdd', '添加用户'],
   LOGIN_LOG: ['loginLog', '登录记录'],
 
   DOCUMENT_MANAGE: ['documentManage', '文档管理'],
@@ -40,10 +45,13 @@ export const AppConfig = {
   DRAFT: ['draft', '草稿箱'],
   RECYCLE: ['recycle', '回收站'],
 
-  FILES_MANAGE: ['filesManage', '文件管理'],
+
+  fileManage: ['filesManage', '文件管理'],
+  uploadAvatar: ['uploadAvatar', '头像上传'],
   MEDIA_MANAGE: ['mediaManage', '媒体管理'],
   FILES_BACKUP: ['filesBackup', '文件备份'],
   FILES_RECOVER: ['filesRecover', '文件恢复'],
+
 
   DATA_MANAGE: ['dataManage', '数据管理'],
   DATABASE_BACKUP: ['databaseBackup', '数据库备份'],

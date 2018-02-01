@@ -8,6 +8,7 @@ import createDevTools from './createDevtools'
 import {renderRoutes} from 'react-router-config'
 import routes from '../app/config/routes.config'
 
+import 'react-image-crop/dist/ReactCrop.css';
 import 'font-awesome/css/font-awesome.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'ionicons/dist/css/ionicons.css'
@@ -20,6 +21,7 @@ import '../app/assets/css/datepicker3.css'
 import '../app/assets/css/daterangepicker-bs3.css'
 import '../app/assets/css/bootstrap3-wysihtml5.css'
 import 'react-s-alert/dist/s-alert-default.css'
+import 'antd/dist/antd.css'
 import '../app/assets/css/index.css'
 
 const history = createHistory()

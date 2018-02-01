@@ -76,63 +76,137 @@ class Sidebar extends Component {
               <ul className="treeview-menu">
                 <li><a href="/userManage/allUserGroups"><i className="fa fa-circle-o"></i> 所有用户组</a></li>
                 <li><a href="/userManage/addUserGroup"><i className="fa fa-circle-o"></i> 添加用户组</a></li>
-                <li><a href="pages/layout/collapsed-sidebar.html"><i className="fa fa-circle-o"></i> 所有用户</a></li>
-                <li><a href="pages/layout/top-nav.html"><i className="fa fa-circle-o"></i> 添加用户</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="pages/widgets.html">
-                <i className="fa fa-th"></i>
-                <span>文档管理</span>
-                <i className="fa fa-angle-left pull-right"></i>
-              </a>
-            </li>
-            <li className="treeview">
-              <a href="#">
-                <i className="fa fa-pie-chart"></i>
-                <span>文件管理</span>
-                <i className="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul className="treeview-menu">
-                <li><a href="pages/charts/chartjs.html"><i className="fa fa-circle-o"></i> 媒体管理</a></li>
-                <li><a href="pages/charts/morris.html"><i className="fa fa-circle-o"></i> 文件备份</a></li>
-                <li><a href="pages/charts/flot.html"><i className="fa fa-circle-o"></i> 文件恢复</a></li>
+                <li><a href="/userManage/allUsers"><i className="fa fa-circle-o"></i> 所有用户</a></li>
+                <li><a href="/userManage/addUser"><i className="fa fa-circle-o"></i> 添加用户</a></li>
               </ul>
             </li>
             <li className="treeview">
-              <a href="#">
-                <i className="fa fa-laptop"></i>
-                <span>数据管理</span>
-                <i className="fa fa-angle-left pull-right"></i>
-              </a>
+              <a href="#"><i className="fa fa-sticky-note-o"></i><span>文档管理</span> <i
+                className="fa fa-angle-left pull-right"></i></a>
               <ul className="treeview-menu">
-                <li><a href="pages/UI/general.html"><i className="fa fa-circle-o"></i> 数据库备份</a></li>
-                <li><a href="pages/UI/icons.html"><i className="fa fa-circle-o"></i> 数据库导入</a></li>
-                <li><a href="pages/UI/buttons.html"><i className="fa fa-circle-o"></i> 数据库压缩</a></li>
-                <li><a href="pages/UI/sliders.html"><i className="fa fa-circle-o"></i> 数据库优化</a></li>
-                <li><a href="pages/UI/timeline.html"><i className="fa fa-circle-o"></i> 缓存管理</a></li>
-                <li><a href="pages/UI/modals.html"><i className="fa fa-circle-o"></i> 缓存清理</a></li>
+                <li>
+                  <a href="#"> 分类管理
+                    <span className="pull-right-container">
+                      <i className="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul className="treeview-menu">
+                    <li><a href="/documentManage/allCategories"> 所有分类</a></li>
+                    <li><a href="/documentManage/addCategory">添加分类</a></li>
+
+
+                  </ul>
+                </li>
+                <li>
+                  <a href="#"> 菜单管理
+                    <span className="pull-right-container">
+                      <i className="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul className="treeview-menu">
+                    <li><a href="/documentManage/menuManage/editMenu">编辑菜单</a></li>
+                    <li><a href="/documentManage/menuManage/menuLocation">菜单位置</a></li>
+
+                  </ul>
+                </li>
+                <li><a href="/documentManage/tagsManage"> 标签管理</a></li>
+                <li><a href="/documentManage/commentsManage"> 评论管理</a></li>
+                <li><a href="/documentManage/messagesManage"> 消息管理</a></li>
+                <li><a href="/documentManage/writeDocument">写文档</a></li>
+                <li><a href="/documentManage/documentPublished">已发布</a></li>
+                <li><a href="/documentManage/documentWaitForVerify">待审核</a></li>
+                <li><a href="/documentManage/documentNoAccess">未通过</a></li>
+                <li><a href="/documentManage/draft">草稿箱</a></li>
+                <li><a href="/documentManage/recycleBin">回收站</a></li>
+
+
               </ul>
             </li>
             <li className="treeview">
-              <a href="#">
-                <i className="fa fa-edit"></i> <span>定制中心</span>
-                <i className="fa fa-angle-left pull-right"></i>
-              </a>
+              <a href="#"><i className="fa fa-file-photo-o"></i><span>文件管理</span> <i
+                className="fa fa-angle-left pull-right"></i></a>
               <ul className="treeview-menu">
-                <li><a href="pages/forms/general.html"><i className="fa fa-circle-o"></i> 主题管理</a></li>
-                <li><a href="pages/forms/advanced.html"><i className="fa fa-circle-o"></i> 安装主题</a></li>
-                <li><a href="pages/forms/editors.html"><i className="fa fa-circle-o"></i> 本地主题</a></li>
+                <li><a href="/fileManage/uploadAvatar"> 头像上传</a></li>
+                <li><a href="/fileManage/mediaManage"> 媒体管理</a></li>
+                <li><a href="/fileManage/filesBackup"> 文件备份</a></li>
+                <li><a href="/fileManage/filesRecover"> 文件恢复</a></li>
               </ul>
             </li>
             <li className="treeview">
-              <a href="#">
-                <i className="fa fa-table"></i> <span>系统设置</span>
-                <i className="fa fa-angle-left pull-right"></i>
-              </a>
+              <a href="#"><i className="fa fa-database"></i><span>数据管理</span> <i
+                className="fa fa-angle-left pull-right"></i></a>
               <ul className="treeview-menu">
-                <li><a href="pages/tables/simple.html"><i className="fa fa-circle-o"></i> 系统日志</a></li>
-                <li><a href="pages/tables/data.html"><i className="fa fa-circle-o"></i> 站点设置</a></li>
+                <li>
+                  <a href="#"> 数据库管理
+                    <span className="pull-right-container">
+                      <i className="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul className="treeview-menu">
+                    <li><a href="/dataManage/databaseManage/databaseBackup">数据库备份</a></li>
+                    <li><a href="/dataManage/databaseManage/databaseImport">数据库导入</a></li>
+                    <li><a href="/dataManage/databaseManage/databaseCompress">数据库压缩</a></li>
+                    <li><a href="/dataManage/databaseManage/databaseoptimize">数据库优化</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#"> 缓存管理
+                    <span className="pull-right-container">
+                      <i className="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul className="treeview-menu">
+                    <li><a href="/dataManage/cacheManage/cacheClear">缓存清理</a></li>
+                    <li><a href="/dataManage/cacheManage/cacheSettings">缓存设置</a></li>
+
+                  </ul>
+                </li>
+                <li>
+                  <a href="#"> 统计管理
+                    <span className="pull-right-container">
+                      <i className="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul className="treeview-menu">
+                    <li><a href="/dataManage/statisticsManage/count">数据统计</a></li>
+
+
+                  </ul>
+                </li>
+
+              </ul>
+            </li>
+            <li className="treeview">
+              <a href="#"><i className="fa fa-window-maximize"></i><span>定制中心</span> <i
+                className="fa fa-angle-left pull-right"></i></a>
+              <ul className="treeview-menu">
+                <li>
+                  <a href="/customizationCenter/themeManage"> 主题管理</a>
+                  <ul className="treeview-menu">
+                    <li><a href="/customizationCenter/themeManage/installTheme">安装主题</a></li>
+                    <li><a href="/customizationCenter/themeManage/localTheme">本地主题</a></li>
+                    <li><a href="/customizationCenter/themeManage/editTemplate">模版编辑</a></li>
+                  </ul>
+                </li>
+                <li><a href="/customizationCenter/pluginsManage"> 插件管理</a></li>
+                <li><a href="/customizationCenter/hooksManage"> 钩子管理</a></li>
+                <li><a href="/customizationCenter/adManage"> 广告管理</a></li>
+              </ul>
+            </li>
+            <li className="treeview">
+              <a href="#"><i className="fa fa-cog"></i><span>系统设置</span> <i
+                className="fa fa-angle-left pull-right"></i></a>
+              <ul className="treeview-menu">
+                <li><a href="/systemSettings/systemLog"> 系统日志</a></li>
+                <li><a href="/systemSettings/websiteSettings"> 站点设置</a></li>
+                <li><a href="/systemSettings/readSettings"> 阅读设置</a></li>
+                <li><a href="/systemSettings/attachmentSettings"> 附件设置</a></li>
+
+
+                <li><a href="/systemSettings/socialLoginSettings"> 社交登录设置</a></li>
+                <li><a href="/systemSettings/updateOnline"> 在线更新</a></li>
+                <li><a href="/systemSettings/systemInfo"> 系统信息</a></li>
+                <li><a href="/systemSettings/bugsFeedback"> BUG反馈</a></li>
               </ul>
             </li>
 

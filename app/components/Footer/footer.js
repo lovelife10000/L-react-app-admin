@@ -11,7 +11,7 @@ class Footer extends Component {
         <div className="pull-right hidden-xs">
           <b>Version</b> 1.0.0
         </div>
-        <strong>This project is a derivative of <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong>
+        <strong>Copyright 2017 - 2018 lovelife10000. All Rights Reserved</strong>
       </footer>
     )
   }

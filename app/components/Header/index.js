@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import HeaderMessages from './HeaderMessages/header-messages'
-import HeaderNotifications from './HeaderNotifications/header-notifications'
-import HeaderTasks from './HeaderTasks/header-tasks'
+import HeaderMessages from './HeaderMessages/HeaderMessages'
+import HeaderNotifications from './HeaderNotifications/HeaderNotifications'
+import HeaderTasks from './HeaderTasks/HeaderTasks'
 // import { Dropdown } from 'react-bootstrap'
 import defaultAvatar from '../../../dist/img/20625882.png'
 import PropTypes from 'prop-types';
@@ -42,9 +42,9 @@ class Header extends Component {
     return (
       <header className="main-header">
 
-        <a href="index2.html" className="logo">
+        <a href="/" className="logo">
 
-          <span className="logo-mini"><b>A</b>LT</span>
+          <span className="logo-mini">L</span>
 
           <span className="logo-lg">L-react-app-admin</span>
         </a>
@@ -73,36 +73,32 @@ class Header extends Component {
                   <li className="user-header">
                     <img src={defaultAvatar} className="img-circle" alt="User Image"/>
                     <p>
-                      Alexander Pierce - Web Developer
-                      <small>Member since Nov. 2012</small>
+                      lovelife10000-高级前端工程师
+                      <small>qq1358180015</small>
                     </p>
                   </li>
 
                   <li className="user-body">
                     <div className="col-xs-4 text-center">
-                      <a href="#">Followers</a>
+                      <a href="#">项目1</a>
                     </div>
                     <div className="col-xs-4 text-center">
-                      <a href="#">Sales</a>
+                      <a href="#">项目2</a>
                     </div>
                     <div className="col-xs-4 text-center">
-                      <a href="#">Friends</a>
+                      <a href="#">项目3</a>
                     </div>
                   </li>
 
                   <li className="user-footer">
                     <div className="pull-left">
-                      <a href="#" className="btn btn-default btn-flat">Profile</a>
+                      <a href="#" className="btn btn-default btn-flat">简介</a>
                     </div>
                     <div className="pull-right">
-                      <a href="#" className="btn btn-default btn-flat">Sign out</a>
+                      <a href="#" className="btn btn-default btn-flat">退出</a>
                     </div>
                   </li>
                 </ul>
-              </li>
-
-              <li>
-                <a href="#" data-toggle="control-sidebar"><i className="fa fa-gears"></i></a>
               </li>
             </ul>
           </div>

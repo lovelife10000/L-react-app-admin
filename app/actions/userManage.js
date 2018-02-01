@@ -1,29 +1,47 @@
-import userManage from '../api/userManage'
+import userManageApi from '../api/userManage.api'
 
-export const getParentUserGroups=()=>{
-  console.log('getParentUserGroups执行了');
-  return (dispatch,getState) => {
-    console.log('getParentUserGroups执行了2');
-    // const options = getState().options.toJS()
-    return dispatch({
-      type: 'GET_PARENT_USER_GROUPS',
-      // itemsPerPage: options.itemsPerPage,
-      promise: userManage.getParentUserGroups(),
-      // isAdd: isAdd
-    })
+
+
+export const getAllUserGroups=()=> {
+  console.log('getAllUserGroups执行')
+  return {
+    type: 'GET_ALL_USER_GROUPS',
+    promise: userManageApi.getAllUserGroups()
   }
 }
 
-export const addUserGroup=()=>{
-  console.log('addUserGroup执行了');
+export const addUserGroup=(data)=>{
   return (dispatch,getState) => {
-    console.log('addUserGroup执行了2');
     // const options = getState().options.toJS()
-    return dispatch({
-      type: 'ADD_USER_GROUP',
-      // itemsPerPage: options.itemsPerPage,
-      promise: userManage.addUserGroup(),
-      // isAdd: isAdd
-    })
+    return userManageApi.addUserGroup(data).then(function (result) {
+      console.log('then执行',result)
+      if(result.data.success===true){
+
+        dispatch(getAllUserGroups())
+      }
+    });
+
   }
 }
+
+export const getAllUsers=()=>{
+  return {
+    type: 'GET_ALL_USERS',
+    promise: userManageApi.getAllUsers()
+  }
+}
+
+
+export const addUser=(data)=>{
+  return (dispatch,getState) => {
+
+    return userManageApi.addUser(data).then(function (result) {
+
+      if(result.data.success===true){
+        dispatch(getAllUsers())
+      }
+    });
+
+  }
+}
+
