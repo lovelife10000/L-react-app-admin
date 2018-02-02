@@ -53,3 +53,7 @@ export const UserManageResource = (method, id, data, api='userManage') => {
   console.log('UserManageResource');
   return axios[method](api + (id ? ('/' + id) : ''), data)
 }
+
+export const FileManageResource = (method, id, data, api='fileManage') => {
+  return axios[method](api + (id ? ('/' + id) : ''), data)
+}

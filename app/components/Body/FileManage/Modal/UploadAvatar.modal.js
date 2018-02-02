@@ -1,26 +1,41 @@
-import React,{Component} from 'react'
+import React, {Component} from 'react'
 // import {AppConfig} from '../../../../config/app.config'
 import AvatarEditor from 'react-avatar-editor'
 // import Avatar from '../../../../assets/img/shanghai.jpg'
 import IconSlider from '../../../UI/IconSlider'
+import {Modal,Button} from 'react-bootstrap';
+import PropTypes from 'prop-types'
 
 
-
-class UploadAvatarModal extends Component{
-  constructor(){
-    super()
-    this.getSliderVal=this.getSliderVal.bind(this)
-    this.state={
-      scale:1
+class UploadAvatarModal extends Component {
+  constructor(props) {
+    super(props)
+    this.getSliderVal = this.getSliderVal.bind(this)
+    this.state = {
+      scale: 1,
     };
   }
+  static propTypes={
+    show:PropTypes.bool,
+    hideModal:PropTypes.func,
+    image:PropTypes.string,
+    onPositionChange:PropTypes.func,
+    onSave:PropTypes.func,
+    onLoadFailure:PropTypes.func,
+    onLoadSuccess:PropTypes.func,
+    onImageReady:PropTypes.func,
+    onImageLoad:PropTypes.func,
+    onDropFile:PropTypes.func,
+    position:PropTypes.object,
+  };
 
-  getSliderVal(value){
+  getSliderVal(value) {
     this.setState({
-      scale:value,
+      scale: value,
     })
 
   }
+
   // onClickSave = () => {
   //   if (this.editor) {
   //     // This returns a HTMLCanvasElement, it can be made into a data URL or a blob,
@@ -35,39 +50,42 @@ class UploadAvatarModal extends Component{
 
 
 
-  render(){
+  render() {
 
-    return(
-      <div className="modal fade" id="media_manage_upload_tip_modal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-              <h4 className="modal-title">编辑</h4>
-            </div>
-            <div className="modal-body text-center">
-              <AvatarEditor
-                image={'http://img.blog.csdn.net/20170426102451883?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvVGFrZV9EcmVhbV9hc19Ib3JzZQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center'}
-                width={250}
-                height={250}
-                border={50}
-                color={[255, 255, 255, 0.6]} // RGBA
-                scale={this.state.scale || 1}
-                rotate={0}
-                borderRadius={125}
-                ref={this.setEditorRef}
 
-              />
-              <IconSlider min={1} max={2} getSliderVal={this.getSliderVal}/>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-primary">保存</button>
-            </div>
-          </div>
 
-        </div>
+    return (
+      <div>
+        <Modal show={this.props.show} onHide={this.props.hideModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>编辑</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="text-center">
+            <AvatarEditor
+              image={this.props.image}
+              width={250}
+              ref={'cc'}
+              height={250}
+              border={50}
+              color={[255, 255, 255, 0.6]} // RGBA
+              scale={this.state.scale || 1}
+              rotate={0}
+              // borderRadius={125}
+              position={this.props.position}
+              onPositionChange={this.props.onPositionChange}
+              onLoadFailure={this.props.onLoadFailure}
+              onLoadSuccess={this.props.onLoadSuccess}
+              onImageReady={this.props.onImageReady}
+              onImageLoad={this.props.onImageLoad}
+              onDropFile={this.props.onDropFile}
 
+            />
+            <IconSlider min={1} max={2} getSliderVal={this.getSliderVal}/>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button bsStyle="primary" onClick={this.props.onSave}>保存</Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     )
   }

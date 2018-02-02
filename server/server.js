@@ -3,7 +3,7 @@ const express = require('express')
 const favicon = require('serve-favicon')
 const debug = require('debug')('express-app');
 const serverRender = require('../dist/js/server');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
 const app = express()
 let isDev = process.env.NODE_ENV === 'development'
@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, '..', 'dist')))
 app.use(favicon(path.join(__dirname,'..', 'dist/img', 'favicon.ico')))
 app.set('views', path.join(__dirname, '..', 'dist'))
 app.set('view engine', 'ejs')
-
+app.use(bodyParser.json({limit: '50mb'}));
 
 app.get('*', function (req, res, next) {
   debug('what is default', serverRender.default);

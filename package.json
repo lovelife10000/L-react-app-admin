@@ -6,6 +6,7 @@
   "dependencies": {
     "admin-lte": "^2.4.2",
     "antd": "^3.1.6",
+    "body-parser": "^1.18.2",
     "browserify-zlib": "^0.2.0",
     "cross-spawn": "^5.1.0",
     "ejs": "2.5.7",
