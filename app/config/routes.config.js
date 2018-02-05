@@ -13,6 +13,7 @@ import AddUser from '../components/Body/UserManage/AddUser'
 
 
 // import DocManage from '../components/Body/DocManage'
+import CategoryManage from '../components/Body/DocManage/CategoryManage'
 
 
 // import FileManage from '../components/Body/FileManage'
@@ -20,6 +21,10 @@ import UploadAvatar from '../components/Body/FileManage/UploadAvatar'
 
 
 // import DataManage from '../components/Body/DataManage'
+
+
+
+
 // import CustomCenter from '../components/Body/CustomCenter'
 // import SysConfig from '../components/Body/SysConfig'
 
@@ -89,6 +94,11 @@ const routes = [
       //   exact: true,
       //   component: DocManage
       // },
+      {
+        path: '/docManage/categoryManage',
+        exact: true,
+        component: CategoryManage
+      },
 
 
 

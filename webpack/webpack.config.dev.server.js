@@ -9,7 +9,7 @@ module.exports = {
     server: ['babel-polyfill','./server/serverRender.js']
   },
   output: {
-    path: path.join(__dirname, '../dist/js'),
+    path: path.join(__dirname, '../dist'),
     filename: 'server.js',
     publicPath: '/',
     libraryTarget: 'commonjs2'

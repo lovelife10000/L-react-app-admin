@@ -31,7 +31,7 @@ if (isDev) {
   app.set('view engine', 'ejs')
 }
 app.use(express.static(path.join(__dirname, '..', 'dist')))
-app.use(favicon(path.join(__dirname,'..', 'dist', 'favicon.ico')))
+// app.use(favicon(path.join(__dirname,'..', 'dist', 'favicon.ico')))
 app.set('views', path.join(__dirname, '..', 'dist'))
 app.set('view engine', 'ejs')
 app.use(bodyParser.json({limit: '50mb'}));
