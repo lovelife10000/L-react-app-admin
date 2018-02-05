@@ -26,6 +26,7 @@ class Sidebar extends Component {
     auth:PropTypes.object.isRequired,
   };
 
+
   render() {
     const {auth:{user}}=this.props
     return (
@@ -35,7 +36,7 @@ class Sidebar extends Component {
           {/* Sidebar user panel */}
           <div className="user-panel">
             <div className="pull-left image">
-              <img src={ defaultAvatar } className="img-circle" alt="User Image"/>
+              <img src={(user ? user.avatar :'')|| defaultAvatar } className="img-circle" alt="User Image"/>
             </div>
             <div className="pull-left info">
               <p>{user ? user.username :''}</p>

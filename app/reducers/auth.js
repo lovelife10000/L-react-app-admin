@@ -5,6 +5,7 @@ import {
 import {getCookie} from '../utils/auth.util'
 import {createReducer} from 'redux-immutablejs'
 import {fromJS} from 'immutable'
+import {AppConfig} from '../config/app.config'
 
 const initialState = fromJS({
   token: getCookie('token') || null,
@@ -28,6 +29,13 @@ export default createReducer(initialState, {
   [UPDATE_USER_SUCCESS]: (state, action) => {
     return state.merge({
       user: action.user
+    })
+  },
+  'UPDATE_USER_AVATAR': (state, action) => {
+    return state.mergeDeep({
+      user: {
+        avatar:AppConfig.DOMAIN + action.avatar
+      }
     })
   }
 })

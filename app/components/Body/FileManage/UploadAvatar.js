@@ -19,7 +19,7 @@ function getBase64(img, callback) {
 
 const mapStateToProps = (state)=> {
   return {
-
+    auth:state.auth.toJS()
   }
 };
 const mapDispatchToProps = dispatch => {
@@ -54,7 +54,7 @@ class UploadAvatar extends Component {
 
   static propTypes = {
     actions: PropTypes.object.isRequired,
-
+    auth:PropTypes.object.isRequired
   };
 
   close() {
@@ -126,7 +126,12 @@ class UploadAvatar extends Component {
   //   console.log('this.state is',this.state.uploadImage)
   //   this.uploadAvatar()
   // }
-
+  componentWillReceiveProps(nextProps){
+    const { auth } = this.props
+    if(auth.user !== nextProps.auth.user){
+      this.close()
+    }
+  }
 
   uploadAvatar(){
 

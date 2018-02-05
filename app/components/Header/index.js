@@ -65,7 +65,7 @@ class Header extends Component {
 
               <li className="dropdown user user-menu">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                  <img src={defaultAvatar} className="user-image" alt="User Image"/>
+                  <img src={(user ? user.avatar :'') || defaultAvatar} className="user-image" alt="User Image"/>
                   <span className="hidden-xs">{user ? user.username :''}</span>
                 </a>
                 <ul className="dropdown-menu">
