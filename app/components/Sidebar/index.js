@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import defaultAvatar from '../../../dist/img/20625882.png'
+import defaultAvatar from '../../assets/img/20625882.png'
 import PropTypes from 'prop-types'
 import * as Actions from '../../actions'
 import {bindActionCreators} from 'redux'

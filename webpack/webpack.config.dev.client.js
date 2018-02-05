@@ -7,10 +7,10 @@ const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 module.exports = {
   devtool: 'cheap-module-source-map',
   name: 'browser',
-  context: path.join(__dirname, '..','app'),
+  context: path.join(__dirname, '..', 'app'),
   entry: {
-    vendor: ['react','redux','react-redux','react-router-redux','react-router-dom','react-router-config'],
-    bundle: ['../client/client.js',hotMiddlewareScript]
+    vendor: ['react', 'redux', 'react-redux', 'react-router-redux', 'react-router-dom', 'react-router-config'],
+    bundle: ['../client/client.js', hotMiddlewareScript]
   },
   output: {
     path: path.join(__dirname, '../dist/js'),
@@ -24,7 +24,7 @@ module.exports = {
       __DEVSERVER__: false,
       __DEVTOOLS__: false,
       __DEVLOGGER__: true,
-      'process.env':{
+      'process.env': {
         'NODE_ENV': JSON.stringify('development')
       }
     }),
@@ -34,24 +34,29 @@ module.exports = {
     new CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity //Infinity
-    }),    
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin({ 
-      filename: 'style.css', 
-      disable: false, allChunks: true 
-    }),    
+    new ExtractTextPlugin({
+      filename: 'style.css',
+      disable: false, allChunks: true
+    }),
   ],
   module: {
     rules: [
-      { enforce: 'pre', test: /\.js$|\.jsx$/, exclude: /node_modules/, use: ['eslint-loader'] },
-      { 
+      {
+        enforce: 'pre',
+        test: /\.js$|\.jsx$/,
+        exclude: /node_modules/,
+        use: ['eslint-loader']
+      },
+      {
         test: /\.js$|\.jsx$/,
         loader: 'babel-loader',
-        include: path.join(__dirname,'..'),
+        include: path.join(__dirname, '..'),
         exclude: /node_modules/
       },
-      { 
+      {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -74,11 +79,11 @@ module.exports = {
               mozjpeg: {
                 quality: 65
               },
-              pngquant:{
+              pngquant: {
                 quality: '65-90',
                 speed: 4
               },
-              svgo:{
+              svgo: {
                 plugins: [
                   {
                     removeViewBox: false
@@ -109,8 +114,8 @@ module.exports = {
             name: 'fonts/[hash:8].[name].[ext]'
           }
         }]
-      },      
-      { test: /\.json$/, use: ['json-loader'] },
+      },
+      {test: /\.json$/, use: ['json-loader']},
     ],
   },
   // resolve: {

@@ -77,6 +77,14 @@ export default function render(req, res) {
       }
       return res.status(200).send(renderFullPage(componentHTML, initialState, 'skin-blue sidebar-mini wysihtml5-supported'))
     } else {
+      if (url.parse(req.url).pathname == '/') {
+        styleMode='skin-blue sidebar-mini wysihtml5-supported'
+      }
+      if (url.parse(req.url).pathname == '/login') {
+        styleMode='hold-transition login-page'
+      }else {
+        styleMode='skin-blue sidebar-mini wysihtml5-supported'
+      }
       return res.render('index', {
         __html__: componentHTML,
         __state__: JSON.stringify(initialState),

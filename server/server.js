@@ -2,12 +2,12 @@ const path = require('path')
 const express = require('express')
 const favicon = require('serve-favicon')
 const debug = require('debug')('express-app');
-const serverRender = require('../dist/js/server');
+const serverRender = require('../dist/server');
 const bodyParser = require('body-parser');
 
 const app = express()
 let isDev = process.env.NODE_ENV === 'development'
-let defaultPort = isDev ? 3001 : 8300
+let defaultPort = isDev ? 3001 : 3001
 let port = process.env.PORT || defaultPort
 
 app.use(express.static(path.join(__dirname, '..', 'dist')))
@@ -26,12 +26,12 @@ if (isDev) {
   }))
   app.use(require('webpack-hot-middleware')(compiler))
 } else {
-  app.use(favicon(path.join(__dirname,'..', 'dist/img', 'favicon.ico')))
+  app.use(favicon(path.join(__dirname,'..', 'dist', 'favicon.ico')))
   app.set('views', path.join(__dirname, '..', 'dist'))
   app.set('view engine', 'ejs')
 }
 app.use(express.static(path.join(__dirname, '..', 'dist')))
-app.use(favicon(path.join(__dirname,'..', 'dist/img', 'favicon.ico')))
+app.use(favicon(path.join(__dirname,'..', 'dist', 'favicon.ico')))
 app.set('views', path.join(__dirname, '..', 'dist'))
 app.set('view engine', 'ejs')
 app.use(bodyParser.json({limit: '50mb'}));

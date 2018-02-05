@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import MessageItem from './MessageItem'
 // import { Dropdown } from 'react-bootstrap'
 // import defaultAvatar from '../../assets/images/avatar.png'
-import Avatar from '../../../../dist/img/user2-160x160.jpg'
+import Avatar from '../../../assets/img/user2-160x160.jpg'
 
 class HeaderMessages extends Component {
   constructor() {

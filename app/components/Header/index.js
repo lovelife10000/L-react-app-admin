@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import HeaderMessages from './HeaderMessages/HeaderMessages'
 import HeaderNotifications from './HeaderNotifications/HeaderNotifications'
 import HeaderTasks from './HeaderTasks/HeaderTasks'
-// import { Dropdown } from 'react-bootstrap'
-import defaultAvatar from '../../../dist/img/20625882.png'
+import defaultAvatar from '../../assets/img/20625882.png'
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux'
 import * as Actions from '../../actions'
@@ -71,7 +70,7 @@ class Header extends Component {
                 <ul className="dropdown-menu">
 
                   <li className="user-header">
-                    <img src={defaultAvatar} className="img-circle" alt="User Image"/>
+                    <img src={(user ? user.avatar :'') || defaultAvatar} className="img-circle" alt="User Image"/>
                     <p>
                       lovelife10000-高级前端工程师
                       <small>qq1358180015</small>

@@ -1,15 +1,34 @@
 {
-  "presets": [["env",{
-    "targets": {
-      "browsers": ["> 5%","ie > 9"],
-      "uglify": true
-    }
-  }], ["react"]],
-  "plugins": ["transform-decorators-legacy","syntax-async-functions","transform-object-rest-spread","transform-class-properties"],
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "> 5%",
+            "ie > 9"
+          ],
+          "uglify": true
+        }
+      }
+    ],
+    [
+      "react"
+    ]
+
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "syntax-async-functions",
+    "transform-object-rest-spread",
+    "transform-class-properties"
+  ],
   "comments": false,
-  "env":{
-    "development":{
-      "plugins": ["react-hot-loader/babel"]
+  "env": {
+    "development": {
+      "plugins": [
+        "react-hot-loader/babel"
+      ]
     }
   }
 }

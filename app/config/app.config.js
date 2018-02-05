@@ -3,8 +3,10 @@ export const AppConfig = {
   COOKIE_SECRET: 'L-BLOG',
 
 
-  DOMAIN:(process.env.NODE_ENV === 'production')  ? 'http://admin.lijun1991.com:9001/'  :'http://localhost:9001/',
-  cookieDomain: (process.env.NODE_ENV === 'production')    ? '.lijun1991.com'    : '',
+  // DOMAIN:(process.env.NODE_ENV === 'production')  ? 'http://admin.lijun1991.com:9001/'  :'http://localhost:9001/',
+  // cookieDomain: (process.env.NODE_ENV === 'production')    ? '.lijun1991.com'    : '',
+  DOMAIN:(process.env.NODE_ENV === 'production')  ? 'http://localhost:9001/'  :'http://localhost:9001/',
+  cookieDomain: (process.env.NODE_ENV === 'production')    ? ''    : '',
 
   REDIS_HOST: '127.0.0.1',
   REDIS_PORT: 6379,
