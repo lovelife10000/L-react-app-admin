@@ -9,6 +9,7 @@ import {renderRoutes} from 'react-router-config'
 import routes from '../app/config/routes.config'
 
 import 'react-image-crop/dist/ReactCrop.css';
+import 'draft-js/dist/Draft.css'
 import 'font-awesome/css/font-awesome.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'ionicons/dist/css/ionicons.css'

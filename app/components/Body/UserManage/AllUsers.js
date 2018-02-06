@@ -56,7 +56,7 @@ class AllUsers extends Component {
         <section className="content">
           <div className="row">
             <div className="col-md-12">
-              <div className="box">
+              <div className="box box-primary">
                 <div className="box-header with-border">
                   <h3 className="box-title">{AppConfig.allUsers[1]}</h3>
                 </div>

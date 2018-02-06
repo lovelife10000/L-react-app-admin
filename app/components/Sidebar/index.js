@@ -113,6 +113,19 @@ class Sidebar extends Component {
                 <li><a href="/documentManage/tagsManage"> 标签管理</a></li>
                 <li><a href="/documentManage/commentsManage"> 评论管理</a></li>
                 <li><a href="/documentManage/messagesManage"> 消息管理</a></li>
+                <li>
+                  <a href="#"> 文档管理
+                    <span className="pull-right-container">
+                      <i className="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul className="treeview-menu">
+                    <li><a href="/docManage/addDoc"> 添加文档</a></li>
+                    <li><a href="/docManage/allDocs">所有文档</a></li>
+
+
+                  </ul>
+                </li>
                 <li><a href="/documentManage/writeDocument">写文档</a></li>
                 <li><a href="/documentManage/documentPublished">已发布</a></li>
                 <li><a href="/documentManage/documentWaitForVerify">待审核</a></li>

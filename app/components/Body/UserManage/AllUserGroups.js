@@ -60,7 +60,7 @@ class AllUserGroups extends Component {
         <section className="content">
           <div className="row">
             <div className="col-xs-12">
-              <div className="box">
+              <div className="box box-primary">
                 <div className="box-header">
                   <h3 className="box-title">{AppConfig.allUserGroups[1]}</h3>
                 </div>
