@@ -12,6 +12,7 @@ import showMsg from './showMsg'
 import {allUserGroups} from './allUserGroups'
 import globalVal from './globalVal'
 import allUsers from './allUsers'
+import categories from './categories'
 
 const rootReducer = combineReducers({
   globalVal,
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({
   router: routerReducer,
   form: formReducer,
   allUserGroups,
-  allUsers
+  allUsers,
+  categories
 })
 
 export default rootReducer

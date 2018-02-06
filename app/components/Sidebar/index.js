@@ -85,7 +85,19 @@ class Sidebar extends Component {
               <a href="#"><i className="fa fa-sticky-note-o"></i><span>文档管理</span> <i
                 className="fa fa-angle-left pull-right"></i></a>
               <ul className="treeview-menu">
-                <li><a href="/docManage/categoryManage">分类管理</a></li>
+                <li>
+                  <a href="#"> 分类管理
+                    <span className="pull-right-container">
+                      <i className="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul className="treeview-menu">
+                    <li><a href="/docManage/allCategories"> 所有分类</a></li>
+                    <li><a href="/docManage/addCategory">添加分类</a></li>
+
+
+                  </ul>
+                </li>
                 <li>
                   <a href="#"> 菜单管理
                     <span className="pull-right-container">

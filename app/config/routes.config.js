@@ -13,7 +13,7 @@ import AddUser from '../components/Body/UserManage/AddUser'
 
 
 // import DocManage from '../components/Body/DocManage'
-import CategoryManage from '../components/Body/DocManage/CategoryManage'
+import AddCategory from '../components/Body/DocManage/CategoryManage/AddCategory'
 
 
 // import FileManage from '../components/Body/FileManage'
@@ -95,9 +95,9 @@ const routes = [
       //   component: DocManage
       // },
       {
-        path: '/docManage/categoryManage',
+        path: '/docManage/addCategory',
         exact: true,
-        component: CategoryManage
+        component: AddCategory
       },
 
 

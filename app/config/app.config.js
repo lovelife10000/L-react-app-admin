@@ -36,9 +36,9 @@ export const AppConfig = {
   addUser: ['allUsersAdd', '添加用户'],
   LOGIN_LOG: ['loginLog', '登录记录'],
 
-  DOCUMENT_MANAGE: ['documentManage', '文档管理'],
-  CATEGORIES_ALL: ['categories_all', '所有分类'],
-  ARTICLES_CATEGORY_ADD: ['CategoriesAdd', '添加分类'],
+  docManage: ['docManage', '文档管理'],
+  allCategories: ['allCategories', '所有分类'],
+  addCategory: ['addCategory', '添加分类'],
   DOCUMENT_WRITE: ['documentWrite', '写文档'],
   DOCUMENT_EDIT: ['documentEdit', '编辑文档'],
   PUBLISHED: ['published', '已发布'],

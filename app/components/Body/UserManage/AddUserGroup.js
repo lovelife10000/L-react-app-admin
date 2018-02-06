@@ -95,13 +95,15 @@ class AddUserGroup extends Component {
 
   render() {
     const {allUserGroups, dirty, invalid, handleSubmit} = this.props;
+    console.log('allUserGroups is',allUserGroups)
     allUserGroups.unshift({
       _id: '',
       name: '无',
       power: [],
       parent_user_group_id: '',
       status: true
-    },);
+    });
+    console.log('allUserGroups is2',allUserGroups)
     return (
       <div className="content-wrapper">
         <section className="content-header">
