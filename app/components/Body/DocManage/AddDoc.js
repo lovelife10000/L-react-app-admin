@@ -6,8 +6,8 @@ import PropTypes from 'prop-types'
 import * as Actions from '../../../actions'
 import {bindActionCreators} from 'redux'
 import {Editor, EditorState} from 'draft-js'
-import ColorfulEditorExample from '../../UI/Editor/ColorfulEditorExample'
-import { SketchPicker } from 'react-color';
+import ColorfulEditorExampleTwitter from '../../UI/Editor/ColorfulEditorExampleTwitter'
+
 
 const validate = values => {
   const errors = {}
@@ -187,8 +187,7 @@ class AddDoc extends Component {
                       onChange={this.onChange}
                       placeholder="Write something colorful..."
                     />
-                    <ColorfulEditorExample/>
-                    <SketchPicker />
+                    <ColorfulEditorExampleTwitter/>
                     <div className="box-footer">
                       <button disabled={dirty && invalid} type="submit" className="btn btn-primary pull-right">添加</button>
                       {/*<input disabled={dirty && invalid} type="submit" className="btn btn-primary pull-right" value="添加"/>*/}

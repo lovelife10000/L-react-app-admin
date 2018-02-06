@@ -91,15 +91,20 @@ class ColorControl extends Component {
           bottom: '0px',
           left: '0px',
         },
+        icon:{
+          width:'18px',
+          float:'left',
+          textAlign: 'center',
+          margin: '0 6px'
+        }
       },
     });
 
     return (
 
 
-      <div>
-        <i className="fa fa-font"  onMouseDown={this.onToggle}></i>
-        <i className="fa fa-caret-down" onMouseDown={this.handleClick}></i>
+      <div style={styles.icon}>
+        <i className="fa fa-subscript fa-lg"   onMouseDown={this.onToggle}></i>
         {this.state.displayColorPicker ?
           <div style={styles.popover}>
             <div style={styles.cover} onClick={this.handleClose}/>

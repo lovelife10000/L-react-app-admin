@@ -2,6 +2,9 @@ import React, {Component} from 'react'
 import {Editor, EditorState, Modifier, RichUtils} from 'draft-js'
 // import ColorControls from './ColorControls'
 import ColorControlTwitter from './ColorControlTwitter'
+import Undo from './Undo'
+import Repeat from './Repeat'
+import Bold from './Bold'
 
 const colorStyleMap = {
   red: {
@@ -99,10 +102,9 @@ class ColorfulEditorExample extends Component {
     return (
 
       <div style={styles.root}>
-        {/*<ColorControls*/}
-        {/*editorState={editorState}*/}
-        {/*onToggle={this.toggleColor}*/}
-        {/*/>*/}
+        <Undo/>
+        <Repeat/>
+        <Bold/>
         <ColorControlTwitter
           onToggle={this.toggleColor}
         />
