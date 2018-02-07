@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 
+
 module.exports = {
   name: 'server-side rendering',
   context: path.join(__dirname, '../'),
@@ -22,7 +23,8 @@ module.exports = {
         'NODE_ENV': JSON.stringify('development')
       }
     }),
-    new webpack.IgnorePlugin(/vertx/)
+    new webpack.IgnorePlugin(/vertx/),
+
   ],
   module: {
     rules: [
@@ -75,7 +77,12 @@ module.exports = {
             }
           }
         ]
-      },         
+      },
+      {
+        test: /\.less$/,
+        use:[ 'css-loader','less-loader'],
+      },
+
     ],
   },
   // resolve: {

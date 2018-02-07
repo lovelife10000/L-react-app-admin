@@ -4,6 +4,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 
+
+
 module.exports = {
   devtool: 'cheap-module-source-map',
   name: 'browser',
@@ -41,6 +43,10 @@ module.exports = {
       filename: 'style.css',
       disable: false, allChunks: true
     }),
+    new ExtractTextPlugin({
+      filename: 'style.css',
+      disable: false, allChunks: true
+    })
   ],
   module: {
     rules: [
@@ -63,6 +69,19 @@ module.exports = {
           use: 'css-loader'
         })
       },
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: [{
+            loader: "css-loader"
+          }, {
+            loader: "less-loader"
+          }]
+
+        })
+      },
+
       {
         test: /\.(jpe?g|png|gif)$/i,
         use: [

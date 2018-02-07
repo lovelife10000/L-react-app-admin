@@ -123,7 +123,13 @@ function renderFullPage(renderedContent, initialState, styleMode) {
       <div class="" id="root">${renderedContent}</div>    
       <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
       <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/admin-lte/2.3.0/js/app.js"></script>
-      <script type="text/javascript" charset="utf-8" src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/select2/4.0.3/js/select2.full.min.js"></script>
+      <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/select2/4.0.3/js/select2.full.min.js"></script>
+      <script>
+        $(function () {  
+          $(".select2").select2();      
+        });
+      </script>
 
       <script>
         window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
@@ -157,6 +163,12 @@ function renderFullPageForLogin(renderedContent, initialState, styleMode) {
       <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
       <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/admin-lte/2.3.0/js/app.js"></script>
       <script type="text/javascript" charset="utf-8" src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      <script type="text/javascript" charset="utf-8" src="https://cdn.bootcss.com/select2/4.0.3/js/select2.full.min.js"></script>
+      <script>
+        $(function () {  
+          $(".select2").select2();      
+        });
+      </script>
       <script>
         window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
       </script>      

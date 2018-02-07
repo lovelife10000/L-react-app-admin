@@ -13,7 +13,7 @@ import 'draft-js/dist/Draft.css'
 import 'font-awesome/css/font-awesome.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'ionicons/dist/css/ionicons.css'
-import 'admin-lte/dist/css/AdminLTE.css'
+
 import 'admin-lte/dist/css/skins/_all-skins.css'
 import 'icheck/skins/square/blue.css'
 import '../app/assets/css/morris.css'
@@ -23,6 +23,8 @@ import '../app/assets/css/daterangepicker-bs3.css'
 import '../app/assets/css/bootstrap3-wysihtml5.css'
 import 'react-s-alert/dist/s-alert-default.css'
 import 'antd/dist/antd.css'
+import '../app/assets/css/select2.css'
+import 'admin-lte/dist/css/AdminLTE.css'
 import '../app/assets/css/index.css'
 
 const history = createHistory()

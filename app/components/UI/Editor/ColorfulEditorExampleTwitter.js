@@ -1,10 +1,33 @@
 import React, {Component} from 'react'
 import {Editor, EditorState, Modifier, RichUtils} from 'draft-js'
 // import ColorControls from './ColorControls'
-import ColorControlTwitter from './ColorControlTwitter'
-import Undo from './Undo'
-import Repeat from './Repeat'
+import Code from './Code'
+import MailReply from './MailReply'
+import MailForward from './MailForward'
 import Bold from './Bold'
+import Italic from './Italic'
+import Underline from './Underline'
+import StrikeThrough from './Strikethrough'
+import SuperScript from './Superscript'
+import ColorControlTwitter from './ColorControlTwitter'
+import Th from './Th'
+import Eraser from './Eraser'
+import ListOl from './ListOl'
+import ListUl from './ListUl'
+import FileO from './FileO'
+import TitleSize from './TitleSize'
+import Font from './Font'
+import FontSize from './FontSize'
+import AlignLeft from './AlignLeft'
+import AlignCenter from './AlignCenter'
+import AlignRight from './AlignRight'
+import Chain from './Chain'
+import ChainBroken from './ChainBroken'
+import SmileO from './SmileO'
+import Image from './Image'
+import Film from './Film'
+import MapMarker from './MapMarker'
+import Minus from './Minus'
 
 const colorStyleMap = {
   red: {
@@ -73,16 +96,14 @@ class ColorfulEditorExample extends Component {
       root: {
         fontFamily: '\'Georgia\', serif',
         fontSize: 14,
-        padding: 20,
-        width: 600,
       },
       editor: {
-        borderTop: '1px solid #ddd',
+        border: '1px solid #ccc',
         cursor: 'text',
         fontSize: 16,
-        marginTop: 20,
+        marginTop: 10,
         minHeight: 400,
-        paddingTop: 20,
+        paddingTop: 5,
       },
       controls: {
         fontFamily: '\'Helvetica\', sans-serif',
@@ -101,21 +122,54 @@ class ColorfulEditorExample extends Component {
     const {editorState} = this.state;
     return (
 
-      <div style={styles.root}>
-        <Undo/>
-        <Repeat/>
-        <Bold/>
-        <ColorControlTwitter
-          onToggle={this.toggleColor}
-        />
-        <div style={styles.editor} onClick={this.focus}>
-          <Editor
-            customStyleMap={colorStyleMap}
-            editorState={editorState}
-            onChange={this.onChange}
-            placeholder="Write something colorful..."
-            ref={(ref) => this.editor = ref}
-          />
+      <div className="form-group" style={styles.root}>
+        <label className="col-sm-2 control-label">备注</label>
+
+
+
+
+        <div className="col-sm-8">
+          <div className="clearfix">
+            <Code/>
+            <MailReply/>
+            <MailForward/>
+            <Bold/>
+            <Italic/>
+            <Underline/>
+            <StrikeThrough/>
+            <SuperScript/>
+            <ColorControlTwitter
+              onToggle={this.toggleColor}
+            />
+            <Th/>
+            <Eraser/>
+            <ListOl/>
+            <ListUl/>
+            <FileO/>
+            <TitleSize/>
+            <Font/>
+            <FontSize/>
+            <AlignLeft/>
+            <AlignCenter/>
+            <AlignRight/>
+            <Chain/>
+            <ChainBroken/>
+            <SmileO/>
+            <Image/>
+            <Film/>
+            <MapMarker/>
+            <Minus/>
+          </div>
+
+          <div style={styles.editor} onClick={this.focus}>
+            <Editor
+              customStyleMap={colorStyleMap}
+              editorState={editorState}
+              onChange={this.onChange}
+              placeholder="Write something colorful..."
+              ref={(ref) => this.editor = ref}
+            />
+          </div>
         </div>
       </div>
 
