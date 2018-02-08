@@ -22,6 +22,10 @@ export const AppConfig = {
     httpOnly:false,
   },
 
+  currentUser: {},
+  collapsed: false,
+  notices: [],
+
   /*
    * 博客功能列表
    * */

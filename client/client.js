@@ -6,7 +6,7 @@ import createHistory from 'history/createBrowserHistory'
 import configureStore from '../app/store/configureStore'
 import createDevTools from './createDevtools'
 import {renderRoutes} from 'react-router-config'
-import routes from '../app/config/routes.config'
+
 
 import 'react-image-crop/dist/ReactCrop.css';
 import 'draft-js/dist/Draft.css'
@@ -26,6 +26,8 @@ import 'antd/dist/antd.css'
 import '../app/assets/css/select2.css'
 import 'admin-lte/dist/css/AdminLTE.css'
 import '../app/assets/css/index.css'
+
+import routes from '../app/config/routes.config'
 
 const history = createHistory()
 const initialState = window.__INITIAL_STATE__

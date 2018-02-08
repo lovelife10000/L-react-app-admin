@@ -64,6 +64,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        include: path.join(__dirname, '..'),
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: 'css-loader'
@@ -71,16 +72,22 @@ module.exports = {
       },
       {
         test: /\.less$/,
+        include: path.join(__dirname, '..'),
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
           use: [{
-            loader: "css-loader"
+            loader: "css-loader",
+            options: {
+              modules: true,
+              ignoreOrder:true
+            }
           }, {
             loader: "less-loader"
           }]
 
         })
       },
+
 
       {
         test: /\.(jpe?g|png|gif)$/i,

@@ -3,18 +3,15 @@ import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-// import Footer from '../Footer/footer'
 import * as Actions from '../../actions'
-// import Header from '../Header'
-// import Sidebar from '../Sidebar'
+import Head from './Head'
 import {renderRoutes} from 'react-router-config'
 import {isLogin} from '../../utils/auth.util'
+import {Layout} from 'antd';
+const {Content, Footer} = Layout;
+import Sider from './Side'
 
 
-import {Layout, Icon} from 'antd';
-
-const {Header, Content, Footer} = Layout;
-import SiderBar from './Sidebar'
 
 
 const mapStateToProps = state => {
@@ -39,9 +36,10 @@ class Layout2 extends Component {
     };
   }
 
-  static fetchData({token}) {
-    console.log('Layout中fetchData')
-    return [Actions.getUserInfo(token)]
+
+  static childContextTypes = {
+    location: PropTypes.object,
+    breadcrumbNameMap: PropTypes.object,
   }
 
   static propTypes = {
@@ -71,21 +69,16 @@ class Layout2 extends Component {
     });
   }
 
+
   render() {
     // const { actions,showmsg } = this.props
     return (
       <Layout>
-        <SiderBar collapsed={this.state.collapsed}/>
+        <Sider collapsed={this.state.collapsed}/>
         <Layout>
-          <Header style={{background: '#fff', padding: 0}}>
-
-            <Icon
-              className="trigger"
-              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={this.toggle}
-            />
-          </Header>
-          <Content style={{margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280}}>
+          <Head
+          />
+          <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
             {renderRoutes(this.props.route.routes)}
           </Content>
           <Footer style={{ textAlign: 'center' }}>
