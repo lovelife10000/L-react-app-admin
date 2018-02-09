@@ -1,7 +1,7 @@
 import Login from '../components/Login'
 import Layout from '../components/Layout'
 
-import Panel from '../components/Layout/Content/Panel'
+
 import BasicInfo from '../components/Layout/Content/Panel/BasicInfo'
 // import ModifyPwd from '../components/Body/Panel/ModifyPwd'
 
@@ -43,7 +43,7 @@ const routes = [
       {
         path: '/',
         exact: true,
-        component: Panel
+        component: BasicInfo
       },
 
 

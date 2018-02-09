@@ -4,8 +4,23 @@ import {Layout, Menu, Icon} from 'antd';
 const { SubMenu } = Menu;
 const { Sider} = Layout;
 import {Link} from 'react-router-dom'
-import logo from '../../../assets/img/20625882.png'
+import defaultAvatar from '../../../assets/img/20625882.png'
 import styles from './index.less'
+import * as Actions from '../../../actions'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+
+const mapStateToProps=(state)=>{
+  return{
+    auth:state.auth.toJS()
+  }
+};
+
+const mapDispatchToProps=(dispatch)=>{
+  return{
+    actions:bindActionCreators(dispatch,Actions)
+  }
+};
 
 
 class Side extends Component {
@@ -14,22 +29,28 @@ class Side extends Component {
   }
   static propTypes={
     collapsed:PropTypes.bool,
+    auth:PropTypes.object.isRequired,
+    onCollapse:PropTypes.func,
   };
 
 
   render() {
+    const {auth:{user},onCollapse}=this.props
     return (
+
       <Sider
         trigger={null}
-        collapsible
+        // collapsible={false}
         collapsed={this.props.collapsed}
         width={256}
-        // breakpoint="lg"
-        // className={styles.sider}
+        breakpoint="lg"
+        collapsedWidth="0"
+        onCollapse={onCollapse}
+        className={styles.sider}
       >
         <div className={styles.logo} key="logo">
           <Link to='/'>
-            <img src={logo} alt="logo" />
+            <img src={(user ? user.avatar :'')|| defaultAvatar } alt="logo" />
             <h1>L-react-app-admin</h1>
           </Link>
         </div>
@@ -141,4 +162,4 @@ class Side extends Component {
   }
 }
 
-export default Side
+export default connect(mapStateToProps,mapDispatchToProps)(Side)

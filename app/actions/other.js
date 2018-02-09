@@ -26,3 +26,10 @@ export const getIndexImage = () => {
     promise: api.getIndexImage()
   }
 }
+
+export const handleMenuCollapse  = () => {
+  return {
+    type: 'CHANGE_LAYOUT_COLLAPSED',
+    promise: api.handleMenuCollapse()
+  }
+}

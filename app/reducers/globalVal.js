@@ -13,7 +13,8 @@ import { DOMAIN } from '../config/app.config'
 export default createReducer(fromJS({
   indexImg:'',
   styleMode: '',
-  captchaUrl: DOMAIN + 'login/getCaptcha?'
+  captchaUrl: DOMAIN + 'login/getCaptcha?',
+  collapsed:false
 }), {
   [CHANGE_STYLE_MODE]: (state, action) => {
     console.log('读取state.get(styleMode)',state.get('styleMode'))

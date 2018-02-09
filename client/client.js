@@ -10,21 +10,8 @@ import {renderRoutes} from 'react-router-config'
 
 import 'react-image-crop/dist/ReactCrop.css';
 import 'draft-js/dist/Draft.css'
-import 'font-awesome/css/font-awesome.css'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'ionicons/dist/css/ionicons.css'
-
-import 'admin-lte/dist/css/skins/_all-skins.css'
-import 'icheck/skins/square/blue.css'
-import '../app/assets/css/morris.css'
-import '../app/assets/css/jquery-jvectormap-1.2.2.css'
-import '../app/assets/css/datepicker3.css'
-import '../app/assets/css/daterangepicker-bs3.css'
-import '../app/assets/css/bootstrap3-wysihtml5.css'
-import 'react-s-alert/dist/s-alert-default.css'
+// import 'font-awesome/css/font-awesome.css'
 import 'antd/dist/antd.css'
-import '../app/assets/css/select2.css'
-import 'admin-lte/dist/css/AdminLTE.css'
 import '../app/assets/css/index.css'
 
 import routes from '../app/config/routes.config'

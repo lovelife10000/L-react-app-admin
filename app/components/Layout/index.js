@@ -68,16 +68,29 @@ class Layout2 extends Component {
       collapsed: !this.state.collapsed,
     });
   }
+  static fetchData({token}){
+    console.log('Layout中fetchData')
+    return [Actions.getUserInfo(token)]
+  }
+
+  handleMenuCollapse = (collapsed) => {
+    this.props.actions.handleMenuCollapse(collapsed)
+  }
 
 
   render() {
-    // const { actions,showmsg } = this.props
+    const {globalVal:{collapsed}} = this.props
     return (
       <Layout>
-        <Sider collapsed={this.state.collapsed}/>
+        <Sider
+          collapsed={collapsed}
+          // onCollapse={this.handleMenuCollapse}
+        />
         <Layout>
           <Head
             onToggle={this.toggle}
+            isMobile={false}
+            collapsed={collapsed}
           />
           <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
             {renderRoutes(this.props.route.routes)}
