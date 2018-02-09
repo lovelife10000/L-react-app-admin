@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table , Divider,Icon} from 'antd';
+import { Table , Divider,Icon,} from 'antd';
 import styles from './index.less';
 import PropTypes from 'prop-types'
 import * as Actions from '../../../../../actions'

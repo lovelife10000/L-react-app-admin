@@ -6,12 +6,14 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {
-  Form, Input, Button, Card, Radio,Select,
+  Form, Input, Button, Card, Radio, Select,
 } from 'antd';
 import BreadcrumbComp from '../../../../UI/BreadcrumbComp'
 // import styles from './style.less';
-const { Option } = Select;
+const {Option} = Select;
 const FormItem = Form.Item;
+
+
 
 const mapStateToProps = state => {
   return {
@@ -24,7 +26,7 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-
+@Form.create()
 class AddUserGroup extends Component {
   constructor(props) {
     super(props)
@@ -38,6 +40,7 @@ class AddUserGroup extends Component {
     dirty: PropTypes.bool,
     invalid: PropTypes.bool,
     handleSubmit: PropTypes.func,
+    form: PropTypes.object.isRequired,
   };
 
 
@@ -56,6 +59,38 @@ class AddUserGroup extends Component {
     actions.addUserGroup(data)
   }
 
+  handleName = (rule, value, callback) => {
+    if (!value) {
+      callback('用户组名称不能为空')
+    }
+    if (!/^[\u4e00-\u9fa5]{3,10}$/.test(value)) {
+      callback('无效的组名称')
+    }
+
+    // Note: 必须总是返回一个 callback，否则 validateFieldsAndScroll 无法响应
+    callback()
+  }
+  handleGroup = (rule, value, callback) => {
+    if (!value) {
+      callback('必须选择一项')
+    }
+
+
+    // Note: 必须总是返回一个 callback，否则 validateFieldsAndScroll 无法响应
+    callback()
+  }
+  handleSubmit = (e) => {
+    console.log('allUserGroups is 3')
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        this.props.actions.addUserGroup(values)
+      }
+    });
+  }
+
+
   render() {
     const formItemLayout = {
       labelCol: {
@@ -70,20 +105,23 @@ class AddUserGroup extends Component {
     };
     const submitFormLayout = {
       wrapperCol: {
-        xs: { span: 24, offset: 0 },
-        sm: { span: 10, offset: 7 },
+        xs: {span: 24, offset: 0},
+        sm: {span: 10, offset: 7},
       },
     };
     const {allUserGroups} = this.props;
-    console.log('allUserGroups is', allUserGroups)
+
     allUserGroups.unshift({
-      _id: '',
+      _id: '1',
       name: '无',
       power: [],
       parent_user_group_id: '',
       status: true
     });
     console.log('allUserGroups is2', allUserGroups)
+
+    const {getFieldDecorator, isFieldTouched, getFieldError} = this.props.form;
+    const nameError = isFieldTouched('name') && getFieldError('name');
     return (
       <Card bordered={false}>
         <BreadcrumbComp category={AppConfig.userManage[1]} item={AppConfig.addUserGroup[1]}/>
@@ -95,9 +133,18 @@ class AddUserGroup extends Component {
           <FormItem
             {...formItemLayout}
             label="组名称"
+            validateStatus={nameError ? 'error' : ''}
+            help={nameError || ''}
           >
+            {getFieldDecorator('name', {
+              rules: [{
+                required: true, pattern: /^[\u4e00-\u9fa5]{3,10}$/,
+                validator: this.handleName
+              }],
+            })(
+              <Input placeholder="组名称"/>
+            )}
 
-            <Input placeholder="组名称"/>
 
           </FormItem>
           <Form.Item
@@ -105,9 +152,20 @@ class AddUserGroup extends Component {
             label="用户组"
           >
 
-            <Select placeholder="请选择">
-              <Option value="无">无</Option>
-            </Select>
+            {getFieldDecorator('parent_user_group_id', {
+              rules: [{
+                required: true,
+                validator: this.handleGroup
+              }],
+            })(
+              <Select defaultValue="1" placeholder="请选择">
+                {
+                  allUserGroups.map((item, index) => (
+                    <Option key={index} value={item._id}>{(item.parent_user_group_id ? '\u00A0\u00A0\u00A0\u00A0' : '') + item.name}</Option>
+                  ))
+                }
+
+              </Select>)}
 
           </Form.Item>
           <FormItem
@@ -116,17 +174,19 @@ class AddUserGroup extends Component {
             help=""
           >
             <div>
-
-              <Radio.Group>
-                <Radio value="1">启用</Radio>
-                <Radio value="2">禁用</Radio>
-              </Radio.Group>
-
+              {getFieldDecorator('status', {
+                initialValue: '1',
+              })(
+                <Radio.Group>
+                  <Radio value="1">启用</Radio>
+                  <Radio value="2">禁用</Radio>
+                </Radio.Group>
+              )}
 
             </div>
           </FormItem>
           <FormItem {...submitFormLayout} style={{marginTop: 32}}>
-            <Button type="primary" htmlType="submit" loading={777}>
+            <Button type="primary" htmlType="submit">
               提交
             </Button>
 

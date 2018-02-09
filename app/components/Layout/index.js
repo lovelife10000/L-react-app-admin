@@ -77,6 +77,7 @@ class Layout2 extends Component {
         <Sider collapsed={this.state.collapsed}/>
         <Layout>
           <Head
+            onToggle={this.toggle}
           />
           <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
             {renderRoutes(this.props.route.routes)}

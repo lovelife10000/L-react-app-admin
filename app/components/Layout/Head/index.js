@@ -43,6 +43,7 @@ class HeaderBar extends Component {
     collapsed: PropTypes.bool,
     isMobile: PropTypes.bool,
     logo: PropTypes.string,
+    onToggle: PropTypes.func,
   };
 
   getNoticeData() {
@@ -100,7 +101,7 @@ class HeaderBar extends Component {
               <Divider type="vertical" key="line" />,
             ]
           )}
-          <CollapsedBtn collapsed={collapsed}/>
+          <CollapsedBtn collapsed={collapsed} onToggle={this.props.onToggle}/>
           <div className={styles.right}>
             <HeaderSearch/>
             <Tooltip title="使用文档">
