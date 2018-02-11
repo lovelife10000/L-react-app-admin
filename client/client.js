@@ -10,7 +10,7 @@ import {renderRoutes} from 'react-router-config'
 
 import 'react-image-crop/dist/ReactCrop.css';
 import 'draft-js/dist/Draft.css'
-// import 'font-awesome/css/font-awesome.css'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import 'antd/dist/antd.css'
 import '../app/assets/css/index.css'
 

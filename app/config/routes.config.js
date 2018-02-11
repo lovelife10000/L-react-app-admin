@@ -15,7 +15,7 @@ import AddUser from '../components/Layout/Content/UserManage/AddUser'
 // import DocManage from '../components/Body/DocManage'
 import AddCategory from '../components/Layout/Content/DocManage/CategoryManage/AddCategory'
 import AllCategories from '../components/Layout/Content/DocManage/CategoryManage/AllCategories'
-import AddDoc from '../components/Layout/Content/DocManage/AddDoc/AddDoc'
+import AddDoc from '../components/Layout/Content/DocManage/AddDoc'
 
 
 // import FileManage from '../components/Body/FileManage'
