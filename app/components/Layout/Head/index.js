@@ -76,7 +76,7 @@ class HeaderBar extends Component {
 
   render() {
     const {
-      collapsed, isMobile, logo,       onMenuClick,
+      collapsed, isMobile, logo,       onMenuClick,onToggle
     } = this.props;
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
@@ -101,7 +101,7 @@ class HeaderBar extends Component {
               <Divider type="vertical" key="line" />,
             ]
           )}
-          <CollapsedBtn collapsed={collapsed} onToggle={this.props.onToggle}/>
+          <CollapsedBtn collapsed={collapsed} onToggle={onToggle}/>
           <div className={styles.right}>
             <HeaderSearch/>
             <Tooltip title="使用文档">

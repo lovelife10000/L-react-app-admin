@@ -9,7 +9,8 @@ import {renderRoutes} from 'react-router-config'
 import {isLogin} from '../../utils/auth.util'
 import {Layout} from 'antd';
 const {Content, Footer} = Layout;
-import Sider from './Side'
+import Side from './Side'
+import enquire from 'enquire.js';
 
 
 
@@ -26,15 +27,20 @@ const mapDispatchToProps = dispatch => {
     actions: bindActionCreators(Actions, dispatch)
   }
 }
+// let isMobile;
+// enquireScreen((b) => {
+//   isMobile = b;
+// });
 
-
-class Layout2 extends Component {
+class LayoutComp extends Component {
   constructor(props) {
     super(props)
     this.state = {
       collapsed: false,
+      isMobile:false
     };
   }
+
 
 
   static childContextTypes = {
@@ -50,7 +56,21 @@ class Layout2 extends Component {
     globalVal: PropTypes.object.isRequired,
     document: PropTypes.object,
   }
+  componentDidMount() {
+    enquire.register('only screen and (max-width: 767.99px)', {
+      match: () => {
+        this.setState({
+          isMobile:true
+        })
+      },
+      unmatch: () => {
+        this.setState({
+          isMobile:false
+        })
+      },
+    });
 
+  }
   componentWillMount() {
 
     if (!isLogin()) {
@@ -79,18 +99,20 @@ class Layout2 extends Component {
 
 
   render() {
-    const {globalVal:{collapsed}} = this.props
+
     return (
       <Layout>
-        <Sider
-          collapsed={collapsed}
-          // onCollapse={this.handleMenuCollapse}
+        <Side
+          collapsed={this.state.collapsed}
+          onCollapse={this.toggle}
+          isMobile={this.state.isMobile}
         />
         <Layout>
           <Head
             onToggle={this.toggle}
-            isMobile={false}
-            collapsed={collapsed}
+            isMobile={this.state.isMobile}
+            collapsed={this.state.collapsed}
+
           />
           <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
             {renderRoutes(this.props.route.routes)}
@@ -105,4 +127,4 @@ class Layout2 extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout2))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LayoutComp))
