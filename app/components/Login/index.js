@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
-import {Field, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import * as Actions from '../../actions'
 import {withRouter} from 'react-router-dom'
 import {isLogin} from '../../utils/auth.util'
+import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd';
+const FormItem = Form.Item;
+import styles from './index.less'
 
 const mapStateToProps = (state)=> {
   return {
@@ -20,49 +22,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const validate = values => {
-  const errors = {}
-  if (!values.username) {
-    errors.username = '用户名不能为空'
-  } else if (!/^[_a-zA-Z]\w{5,19}$/.test(values.username)) {
-    errors.username = '用户名格式不正确'
-  }
-
-  if (!values.password) {
-    errors.password = '密码不能为空'
-  } else if (values.password.length < 8) {
-    errors.password = '密码长度不足'
-  }
-
-  if (!values.captcha) {
-    errors.captcha = '验证码不能为空'
-  } else if (values.captcha.length !== 6) {
-    errors.captcha = '验证码位数不正确'
-  }
-  return errors
-}
-const validatorCalss = field => {
-  let initClass = 'form-control'
-  if (field.invalid) {
-    initClass += ' ng-invalid'
-  }
-  if (field.dirty) {
-    initClass += ' ng-dirty'
-  }
-  return initClass
-}
-const renderField = field => (
-  <div className={'form-group has-feedback ' + (field.meta.touched && (field.meta.error && ' has-error'))}>
-    <input name={field.name} className={validatorCalss(field.meta)} type={field.type} placeholder={field.placeholder} maxLength={field.maxLength}  {...field.input}/>
-    <span className={'glyphicon form-control-feedback ' + field.glyphicon }></span>
-    {field.meta.touched && (field.meta.error && <span className="help-block">{field.meta.error}</span>)}
-  </div>
-)
-
-@reduxForm({
-  form: 'login',
-  validate
-})
+@Form.create()
 class Login extends Component {
   constructor(props) {
     super(props)
@@ -78,7 +38,8 @@ class Login extends Component {
     invalid: PropTypes.bool,
     history: PropTypes.object,
     auth:PropTypes.object.isRequired,
-    showMsg: PropTypes.object.isRequired
+    showMsg: PropTypes.object.isRequired,
+    form: PropTypes.object.isRequired
   };
   static fetchData({token}){
     console.log('Login中获取用户信息')
@@ -120,54 +81,131 @@ class Login extends Component {
     const {actions} = this.props
     actions.getCaptchaUrl()
   }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        this.submitForm(values)
+      }
+    });
+  }
+
+  handleUsername = (rule, value, callback) => {
+    if (!value) {
+      callback('用户名不能为空')
+    }
+    if (!/^[_a-zA-Z]\w{5,19}$/.test(value)) {
+      callback('无效的用户名')
+    }
+
+    // Note: 必须总是返回一个 callback，否则 validateFieldsAndScroll 无法响应
+    callback()
+  }
+
+  handlePassword = (rule, value, callback) => {
+    if (!value) {
+      callback('密码不能为空')
+    }
+    if (!/^[_a-zA-Z]\w{5,19}$/.test(value)) {
+      callback('无效的密码')
+    }
+
+    // Note: 必须总是返回一个 callback，否则 validateFieldsAndScroll 无法响应
+    callback()
+  }
+
+  handleCaptcha = (rule, value, callback) => {
+    if (!value) {
+      callback('验证码不能为空')
+    }
+    if (!/^\w{6}$/.test(value)) {
+      callback('无效的验证码')
+    }
+    // Note: 必须总是返回一个 callback，否则 validateFieldsAndScroll 无法响应
+    callback()
+  }
+
 
   render() {
-    const {handleSubmit, globalVal: {captchaUrl}, dirty, invalid, showMsg}=this.props
+
+    const { globalVal: {captchaUrl},  showMsg}=this.props
+    const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form;
+
+    const nameError = isFieldTouched('username') && getFieldError('username');
+    console.log('666',isFieldTouched('username'),getFieldError('username'))
     return (
-      <div>
-        <div className="login-box">
-          <div className="login-logo">
-            <a href=""><b>L-react-app-admin</b></a>
-          </div>
+      <div className={styles.loginCard}>
+        <Form onSubmit={this.handleSubmit} className={styles.loginForm}>
 
-          <div className="login-box-body">
-            <p className="login-box-msg">登录</p>
-
-            <form onSubmit={handleSubmit(this.submitForm)} noValidate>
-              <Field name="username" component={renderField} type="text" placeholder="用户名" maxLength="20" glyphicon="glyphicon-user"/>
-              <Field name="password" component={renderField} type="password" placeholder="密码" glyphicon="glyphicon-lock"/>
-              <Field name="captcha" component={renderField} type="text" placeholder="验证码" maxLength="6" glyphicon="glyphicon-envelope"/>
-              <div className="row">
-                <div className="col-xs-8">
-                  <a href="javascript:;" onClick={this.changeCaptcha}>
-                    <img style={{width: '100%'}} src={captchaUrl}/>
-                  </a>
-                </div>
-                <div className="col-xs-4" style={{color: 'red'}}>{showMsg.content}</div>
-              </div>
-              <div className="row">
-                <div className="col-xs-8">
-                  <div className="checkbox icheck">
-                    <label>
-                      <input type="checkbox"/> 记住我
-                    </label>
-                  </div>
-                </div>
-
-                <div className="col-xs-4">
-                  <button type="submit" disabled={ dirty && invalid } className="btn btn-primary btn-block btn-flat">
-                    登录
-                  </button>
-                </div>
-
-              </div>
-            </form>
+          <FormItem
+            validateStatus={nameError ? 'error' : ''}
+            hideRequiredMark
+            help={nameError || ''}
+          >
+            {getFieldDecorator('username', {
+              rules: [{
+                required: true,
+                pattern: /^[_a-zA-Z]\w{5,19}$/,
+                validator: this.handleUsername
+              }],
+            })(
+              <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="用户名" />
+            )}
+          </FormItem>
 
 
-          </div>
+          <FormItem>
+            {getFieldDecorator('password', {
+              rules: [{
+                required: true, pattern: /^[_a-zA-Z]\w{5,19}$/,
+                validator: this.handlePassword
+              }],
+            })(
+              <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码" />
+            )}
+          </FormItem>
 
-        </div>
+
+          <FormItem
+          >
+            <Row gutter={8}>
+              <Col span={12}>
+                {getFieldDecorator('captcha', {
+                  rules: [{
+                    required: true,
+                    validator: this.handleCaptcha,
+                    min:6,
+                    max:6
+                  }],
+                })(
+                  <Input placeholder="验证码" />
+                )}
+              </Col>
+              <Col span={12}>
+                <a href="javascript:;"  onClick={this.changeCaptcha}><img style={{display:'block',    width: '100%',
+                  paddingTop: '5px'}} src={captchaUrl} alt=""/></a>
+              </Col>
+            </Row>
+          </FormItem>
+
+
+          <FormItem>
+            {getFieldDecorator('remember', {
+              valuePropName: 'checked',
+              initialValue: true,
+            })(
+              <Checkbox>记住我</Checkbox>
+            )}
+            <Button type="primary" htmlType="submit" className={styles.loginFormButton}>
+              登录
+            </Button>
+            <a href="">{showMsg.content}</a>
+          </FormItem>
+
+        </Form>
       </div>
+
     )
   }
 }

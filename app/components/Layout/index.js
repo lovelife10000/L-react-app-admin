@@ -10,7 +10,6 @@ import {isLogin} from '../../utils/auth.util'
 import {Layout} from 'antd';
 const {Content, Footer} = Layout;
 import Side from './Side'
-import enquire from 'enquire.js';
 
 
 
@@ -57,7 +56,23 @@ class LayoutComp extends Component {
     document: PropTypes.object,
   }
   componentDidMount() {
-    enquire.register('only screen and (max-width: 767.99px)', {
+    let enquireJs;
+    if (typeof window !== 'undefined') {
+      const matchMediaPolyfill = mediaQuery => {
+        return {
+          media: mediaQuery,
+          matches: false,
+          addListener() {
+          },
+          removeListener() {
+          },
+        };
+      };
+      window.matchMedia = window.matchMedia || matchMediaPolyfill;
+      enquireJs = require('enquire.js');
+    }
+
+    enquireJs.register('only screen and (max-width: 767.99px)', {
       match: () => {
         this.setState({
           isMobile:true
