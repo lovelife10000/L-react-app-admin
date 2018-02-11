@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux'
 import * as Actions from '../../../actions'
 import {connect} from 'react-redux'
-import {Layout, Tooltip, Icon, Tag, Menu, Dropdown,Avatar,Spin,Divider,} from 'antd';
+import {Layout, Tooltip, Icon, Tag, Menu, Dropdown,Avatar,Divider,} from 'antd';
 import CollapsedBtn from './CollapsedBtn'
 import moment from 'moment';
 import {Link} from 'react-router-dom'
@@ -76,13 +76,13 @@ class HeaderBar extends Component {
 
   render() {
     const {
-      collapsed, isMobile, logo,       onMenuClick,onToggle
-    } = this.props;
+      collapsed, isMobile, logo,onMenuClick,onToggle    } = this.props;
+
+
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
         <Menu.Item disabled><Icon type="user"/>个人中心</Menu.Item>
         <Menu.Item disabled><Icon type="setting"/>设置</Menu.Item>
-        <Menu.Item key="triggerError"><Icon type="close-circle"/>触发报错</Menu.Item>
         <Menu.Divider/>
         <Menu.Item key="logout"><Icon type="logout"/>退出登录</Menu.Item>
       </Menu>
@@ -103,7 +103,7 @@ class HeaderBar extends Component {
           )}
           <CollapsedBtn collapsed={collapsed} onToggle={onToggle}/>
           <div className={styles.right}>
-            <HeaderSearch/>
+            <HeaderSearch className={`${styles.action} ${styles.search}`}/>
             <Tooltip title="使用文档">
               <a
                 target="_blank"
@@ -135,7 +135,14 @@ class HeaderBar extends Component {
                   <span className={styles.name}>{999}</span>
                 </span>
               </Dropdown>
-            ) : <Spin size="small" style={{marginLeft: 8}}/>}
+            ) :
+              <Dropdown overlay={menu}>
+                <span className={`${styles.action} ${styles.account}`}>
+                  <Avatar size="small" className={styles.avatar} src={'777'}/>
+                  <span className={styles.name}>{999}</span>
+                </span>
+              </Dropdown>
+            }
           </div>
         </div>
 

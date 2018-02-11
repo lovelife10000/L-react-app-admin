@@ -14,11 +14,8 @@ class CollapsedBtn extends Component {
     onCollapse: PropTypes.func,
 
 
-
     onToggle: PropTypes.func,
   };
-
-
 
 
   render() {
