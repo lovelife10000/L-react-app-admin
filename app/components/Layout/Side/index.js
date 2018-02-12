@@ -240,7 +240,7 @@ class Side extends Component {
               <Menu.Item key="1"><a href="/docManage/msgManage">消息管理1</a></Menu.Item>
             </SubMenu>
 
-            <SubMenu key="sub3_4" title={<span>文档管理</span>}>
+            <SubMenu key="sub3_6" title={<span>文档管理</span>}>
               <Menu.Item key="1"><a href="/docManage/addDoc">添加文档</a></Menu.Item>
               <Menu.Item key="2"><a href="/docManage/allDocs">所有文档</a></Menu.Item>
             </SubMenu>

@@ -2,7 +2,6 @@ import {docManageResource} from './resources'
 
 export default {
   getCategories:function () {
-    console.log('sdfsfdf')
     return docManageResource('get','getCategories')
   },
   addCategory:function (data) {
@@ -14,7 +13,14 @@ export default {
   },
 
   getTags:function () {
-    console.log('sdfsfdf')
     return docManageResource('get','getTags')
+  },
+
+  addDoc:function (data) {
+    return docManageResource('post','addDoc',data);
+  },
+
+  getDocs:function () {
+    return docManageResource('get','getDocs')
   },
 }

@@ -39,3 +39,25 @@ export const getTags=(data)=>{
     promise:docManageApi.getTags()
   }
 };
+
+
+export const addDoc=(data)=>{
+  return  (dispatch,getState)=>{
+    return docManageApi.addDoc(data).then(function (result) {
+      dispatch(getDocs())
+      return {
+        success:result.data.success,
+        msg:result.data.msg
+      }
+    }).catch(function (err) {
+
+    });
+  }
+};
+
+export const getDocs=(data)=>{
+  return  {
+    type:'GET_DOCS',
+    promise:docManageApi.getDocs()
+  }
+};

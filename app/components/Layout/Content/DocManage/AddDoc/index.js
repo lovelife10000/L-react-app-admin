@@ -8,13 +8,14 @@ import {bindActionCreators} from 'redux'
 // import Multiple from './Multiple'
 import BreadcrumbComp from '../../../../UI/BreadcrumbComp'
 import {
-  Form, Input, Button, Card, Radio, Select, Switch, Col
+  Form, Input, Button, Card, Radio, Select, Switch, Col, message,
 } from 'antd';
-import {EditorState} from 'draft-js';
+import {EditorState, convertToRaw} from 'draft-js';
 import {Editor} from 'react-draft-wysiwyg';
-// import draftToHtml from 'draftjs-to-html';
+import draftToHtml from 'draftjs-to-html';
 // import htmlToDraft from 'html-to-draftjs';
 // import {withRouter} from 'react-router-dom'
+import UploadDocImage from './UploadDocImage'
 
 const {TextArea} = Input;
 // import styles from './style.less';
@@ -24,7 +25,8 @@ const FormItem = Form.Item;
 
 const mapStateToProps = state => {
   return {
-    categories: state.categories.toJS()
+    categories: state.categories.toJS(),
+    tagList: state.tagList.toJS(),
   }
 };
 const mapDispatchToProps = dispatch => {
@@ -41,12 +43,13 @@ class AddDoc extends Component {
     this.addUserGroup = this.addUserGroup.bind(this)
     this.state = {
       editorState: EditorState.createEmpty(),
+      image: ''
     }
   }
 
 
   static propTypes = {
-    allUserGroups: PropTypes.array.isRequired,
+    tagList: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired,
     dirty: PropTypes.bool,
     invalid: PropTypes.bool,
@@ -59,10 +62,13 @@ class AddDoc extends Component {
 
   componentDidMount() {
 
-    const {actions, categories} = this.props
+    const {actions, categories, tagList} = this.props
 
     if (categories.length < 1) {
       actions.getCategories()
+    }
+    if (tagList.length < 1) {
+      actions.getTags()
     }
   }
 
@@ -80,38 +86,40 @@ class AddDoc extends Component {
     }
     callback()
   }
-  handleVisitNum = (rule, value, callback) => {
-    if ((typeof Number(value) !== 'number') || (value % 1 !== 0) || (value > 100000 || value < 1)) {
-      callback('访问数格式不正确')
-    }
-    callback()
-  }
-  handleLikeNum = (rule, value, callback) => {
-    if ((typeof Number(value) !== 'number') || (value % 1 !== 0) || (value > 100000 || value < 1)) {
-      callback('点赞数格式不正确')
-    }
-    callback()
-  }
-  handleKeywords = (rule, value, callback) => {
-    if (value.length > 100) {
-      callback('关键词太长了')
-    }
-    callback()
+
+  getContent = () => draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
+
+  getImageBase64(base64) {
+    console.log('what is base64', base64)
+    this.setState({
+      image: base64
+    })
   }
 
   handleSubmit = (e) => {
+    const that = this;
     console.log('allUserGroups is 3')
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
+      const my = that;
       if (!err) {
         console.log('Received values of form: ', values);
-        this.props.actions.addDoc(values)
+        let category = values.thirdCate || values.secondCate || values.firstCate;
+        let image = this.state.image;
+        const data = Object.assign({}, values, {content: this.getContent(), category, image})
+        console.log('Received values of form 2: ', data);
+        this.props.actions.addDoc(data).then(function (result) {
+          if (result.success) {
+            my.success(result.msg)
+          }
+        }
+        );
       }
     });
   }
 
   isError(name) {
-    console.log('touch',name,this.props.form.isFieldTouched(name),this.props.form.getFieldError(name))
+    console.log('touch', name, this.props.form.isFieldTouched(name), this.props.form.getFieldError(name))
     return this.props.form.isFieldTouched(name) && this.props.form.getFieldError(name);
   }
 
@@ -127,6 +135,17 @@ class AddDoc extends Component {
   handleSelectChange2 = (value) => {
     this.props.form.resetFields('thirdCate')
   }
+  success = (msg) => {
+    message.success(msg);
+  };
+
+  error = (msg) => {
+    message.error(msg);
+  };
+
+  warning = (msg) => {
+    message.warning(msg);
+  };
 
   render() {
 
@@ -157,7 +176,7 @@ class AddDoc extends Component {
         sm: {span: 10, offset: 7},
       },
     };
-    const {categories} = this.props;
+    const {categories, tagList} = this.props;
     const {editorState} = this.state;
     const {getFieldDecorator, getFieldValue,} = this.props.form;
 
@@ -201,7 +220,7 @@ class AddDoc extends Component {
                 {getFieldDecorator('firstCate', {
                   rules: [{
                     required: true,
-                    message:'必须选择一项'
+                    message: '必须选择一项'
                   }],
                 })(<Select placeholder="请选择" onChange={this.handleSelectChange}>
                   {
@@ -214,7 +233,7 @@ class AddDoc extends Component {
             </Col>
 
             {
-              getFieldValue('firstCate')&&(categories.filter((item) =>item.parent_category_id === getFieldValue('firstCate')).length>0)  ?
+              getFieldValue('firstCate') && (categories.filter((item) => item.parent_category_id === getFieldValue('firstCate')).length > 0) ?
                 <div>
                   <Col span={1}>
                     <span style={{display: 'inline-block', width: '100%', textAlign: 'center'}}>
@@ -229,12 +248,15 @@ class AddDoc extends Component {
                       {getFieldDecorator('secondCate', {
                         rules: [{
                           required: true,
-                          message:'必须选择一项'
+                          message: '必须选择一项'
                         }],
                       })(
                         <Select placeholder="请选择" onChange={this.handleSelectChange2}>
                           {
-                            categories.filter((item) => {console.log('66',getFieldValue('firstCate'));return item.parent_category_id === getFieldValue('firstCate')}).map((item, index) => (
+                            categories.filter((item) => {
+                              console.log('66', getFieldValue('firstCate'));
+                              return item.parent_category_id === getFieldValue('firstCate')
+                            }).map((item, index) => (
                               <Option key={index} value={item._id}>{item.name}</Option>
                             ))
                           }
@@ -245,7 +267,7 @@ class AddDoc extends Component {
                 </div> : ''
             }
 
-            {getFieldValue('secondCate')&&(categories.filter((item) =>item.parent_category_id === getFieldValue('secondCate')).length>0) ?
+            {getFieldValue('secondCate') && (categories.filter((item) => item.parent_category_id === getFieldValue('secondCate')).length > 0) ?
               <div>
                 <Col span={1}>
                   <span style={{display: 'inline-block', width: '100%', textAlign: 'center'}}>
@@ -260,12 +282,15 @@ class AddDoc extends Component {
                     {getFieldDecorator('thirdCate', {
                       rules: [{
                         required: true,
-                        message:'必须选择一项'
+                        message: '必须选择一项'
                       }],
                     })(
-                      <Select placeholder="请选择" >
+                      <Select placeholder="请选择">
                         {
-                          categories.filter((item) => {console.log('77',getFieldValue('secondCate'));return item.parent_category_id === getFieldValue('secondCate')}).map((item, index) => (
+                          categories.filter((item) => {
+                            console.log('77', getFieldValue('secondCate'));
+                            return item.parent_category_id === getFieldValue('secondCate')
+                          }).map((item, index) => (
                             <Option key={index} value={item._id}>{item.name}</Option>
                           ))
                         }
@@ -305,13 +330,13 @@ class AddDoc extends Component {
           >
             <div>
               {getFieldDecorator('status', {
-                initialValue: '1',
+                initialValue: 'published',
               })(
                 <Radio.Group>
-                  <Radio value="1">已发布</Radio>
-                  <Radio value="2">待审核</Radio>
-                  <Radio value="3">未通过</Radio>
-                  <Radio value="4">草稿箱</Radio>
+                  <Radio value="published">已发布</Radio>
+                  <Radio value="waitForVerify">待审核</Radio>
+                  <Radio value="noAccess">未通过</Radio>
+                  <Radio value="draft">草稿箱</Radio>
                 </Radio.Group>
               )}
 
@@ -347,9 +372,11 @@ class AddDoc extends Component {
           >
             {getFieldDecorator('tags', {})(
               <Select mode="multiple" placeholder="选择标签">
-                <Option value="red">Red</Option>
-                <Option value="green">Green</Option>
-                <Option value="blue">Blue</Option>
+                {
+                  tagList.map((item, index) => (
+                    <Option key={index} value={item.name}>{item.name}</Option>
+                  ))
+                }
               </Select>
             )}
           </FormItem>
@@ -374,8 +401,9 @@ class AddDoc extends Component {
             help={this.isError('visitNum') || ''}
           >
             {getFieldDecorator('visitNum', {
+              initialValue: 1,
               rules: [{
-                validator: this.handleVisitNum
+                pattern: /^[1-9]*[1-9][0-9]*$/,
               }],
             })(
               <Input placeholder="如不填，则默认是0"/>
@@ -390,8 +418,9 @@ class AddDoc extends Component {
             help={this.isError('likeNum') || ''}
           >
             {getFieldDecorator('likeNum', {
+              initialValue: 1,
               rules: [{
-                validator: this.handleLikeNum
+                pattern: /^[1-9]*[1-9][0-9]*$/,
               }],
             })(
               <Input placeholder="如不填，则默认是0"/>
@@ -407,7 +436,8 @@ class AddDoc extends Component {
           >
             {getFieldDecorator('keywords', {
               rules: [{
-                validator: this.handleKeywords
+                max: 100,
+                message: '超过100字符',
               }],
             })(
               <Input placeholder="关键词"/>
@@ -436,7 +466,7 @@ class AddDoc extends Component {
             label="摘要"
           >
 
-            {getFieldDecorator('remark', {
+            {getFieldDecorator('abstract', {
               rules: [{
                 message: '超过100字符',
                 max: 100
@@ -445,6 +475,9 @@ class AddDoc extends Component {
               <TextArea style={{minHeight: 32}} placeholder="请输入摘要" rows={4}/>
             )}
           </Form.Item>
+
+
+          <UploadDocImage formItemLayout={formItemLayout} getImageBase64={this.getImageBase64.bind(this)}/>
 
 
           <Form.Item
