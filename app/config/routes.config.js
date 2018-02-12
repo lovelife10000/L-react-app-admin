@@ -16,6 +16,7 @@ import AddUser from '../components/Layout/Content/UserManage/AddUser'
 import AddCategory from '../components/Layout/Content/DocManage/CategoryManage/AddCategory'
 import AllCategories from '../components/Layout/Content/DocManage/CategoryManage/AllCategories'
 import AddDoc from '../components/Layout/Content/DocManage/AddDoc'
+import AddTag from '../components/Layout/Content/DocManage/AddTag'
 
 
 // import FileManage from '../components/Body/FileManage'
@@ -110,6 +111,11 @@ const routes = [
         path: '/docManage/addDoc',
         exact: true,
         component: AddDoc
+      },
+      {
+        path: '/docManage/addTag',
+        exact: true,
+        component: AddTag
       },
 
 

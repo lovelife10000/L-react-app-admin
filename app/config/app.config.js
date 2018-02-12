@@ -45,6 +45,8 @@ export const AppConfig = {
   addCategory: ['addCategory', '添加分类'],
   addDoc: ['addDoc', '添加文档'],
   allDocs: ['allDocs', '所有文档'],
+  addTag: ['addTag', '添加标签'],
+  allTags: ['allTags', '所有标签'],
   PUBLISHED: ['published', '已发布'],
   WAIT_FOR_VERIFY: ['waitForVerify', '待审核'],
   NO_ACCESS: ['noAccess', '未通过'],

@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import * as Actions from '../../../../../actions'
 import {bindActionCreators} from 'redux'
-// import ColorfulEditorExampleTwitter from '../../../../UI/Editor/ColorfulEditorExampleTwitter'
 // import UploadDocImage from './UploadDocImage'
 // import Multiple from './Multiple'
 import BreadcrumbComp from '../../../../UI/BreadcrumbComp'
@@ -34,7 +33,7 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-@Form.create()
+// @Form.create()
 class AddDoc extends Component {
 
   constructor(props) {
@@ -81,12 +80,6 @@ class AddDoc extends Component {
     }
     callback()
   }
-  handleCategory = (rule, value, callback) => {
-    if (!value) {
-      callback('必须选择一项')
-    }
-    callback()
-  }
   handleVisitNum = (rule, value, callback) => {
     if ((typeof Number(value) !== 'number') || (value % 1 !== 0) || (value > 100000 || value < 1)) {
       callback('访问数格式不正确')
@@ -118,6 +111,7 @@ class AddDoc extends Component {
   }
 
   isError(name) {
+    console.log('touch',name,this.props.form.isFieldTouched(name),this.props.form.getFieldError(name))
     return this.props.form.isFieldTouched(name) && this.props.form.getFieldError(name);
   }
 
@@ -164,9 +158,8 @@ class AddDoc extends Component {
       },
     };
     const {categories} = this.props;
-
     const {editorState} = this.state;
-    const {getFieldDecorator, getFieldValue} = this.props.form;
+    const {getFieldDecorator, getFieldValue,} = this.props.form;
 
     return (
       <Card bordered={false}>
@@ -175,7 +168,6 @@ class AddDoc extends Component {
 
         <Form
           onSubmit={this.handleSubmit}
-          hideRequiredMark
           style={{marginTop: 8}}
         >
           <FormItem
@@ -195,19 +187,21 @@ class AddDoc extends Component {
           </FormItem>
 
 
-          <Form.Item
+          <FormItem
             {...formItemLayout}
             label="分类"
-            validateStatus={this.isError('category') ? 'error' : ''}
-            help={this.isError('category') || ''}
+            required
           >
 
             <Col span={8}>
-              <Form.Item validateStatus="error">
+              <FormItem
+                validateStatus={this.isError('firstCate') ? 'error' : ''}
+                help={this.isError('firstCate') || ''}
+              >
                 {getFieldDecorator('firstCate', {
                   rules: [{
                     required: true,
-                    validator: this.handleCategory
+                    message:'必须选择一项'
                   }],
                 })(<Select placeholder="请选择" onChange={this.handleSelectChange}>
                   {
@@ -216,7 +210,7 @@ class AddDoc extends Component {
                     ))
                   }
                 </Select>)}
-              </Form.Item>
+              </FormItem>
             </Col>
 
             {
@@ -228,11 +222,14 @@ class AddDoc extends Component {
                     </span>
                   </Col>
                   <Col span={7}>
-                    <Form.Item validateStatus="error">
+                    <FormItem
+                      validateStatus={this.isError('secondCate') ? 'error' : ''}
+                      help={this.isError('secondCate') || ''}
+                    >
                       {getFieldDecorator('secondCate', {
                         rules: [{
                           required: true,
-                          validator: this.handleCategory
+                          message:'必须选择一项'
                         }],
                       })(
                         <Select placeholder="请选择" onChange={this.handleSelectChange2}>
@@ -243,7 +240,7 @@ class AddDoc extends Component {
                           }
 
                         </Select>)}
-                    </Form.Item>
+                    </FormItem>
                   </Col>
                 </div> : ''
             }
@@ -256,11 +253,14 @@ class AddDoc extends Component {
                   </span>
                 </Col>
                 <Col span={7}>
-                  <Form.Item validateStatus="error">
+                  <FormItem
+                    validateStatus={this.isError('thirdCate') ? 'error' : ''}
+                    help={this.isError('thirdCate') || ''}
+                  >
                     {getFieldDecorator('thirdCate', {
                       rules: [{
                         required: true,
-                        validator: this.handleCategory
+                        message:'必须选择一项'
                       }],
                     })(
                       <Select placeholder="请选择" >
@@ -270,18 +270,19 @@ class AddDoc extends Component {
                           ))
                         }
                       </Select>)}
-                  </Form.Item>
+                  </FormItem>
                 </Col>
               </div> : ''
             }
 
 
-          </Form.Item>
+          </FormItem>
 
 
           <FormItem
             {...formItemLayout}
             label="类型"
+            required
           >
             <div>
               {getFieldDecorator('type', {
@@ -300,9 +301,10 @@ class AddDoc extends Component {
           <FormItem
             {...formItemLayout}
             label="状态"
+            required
           >
             <div>
-              {getFieldDecorator('type', {
+              {getFieldDecorator('status', {
                 initialValue: '1',
               })(
                 <Radio.Group>
@@ -320,6 +322,7 @@ class AddDoc extends Component {
           <FormItem
             {...formItemLayout}
             label="置顶"
+            required
           >
             {getFieldDecorator('top', {valuePropName: 'checked'})(
               <Switch/>
@@ -330,6 +333,7 @@ class AddDoc extends Component {
           <FormItem
             {...formItemLayout}
             label="热门"
+            required
           >
             {getFieldDecorator('hot', {valuePropName: 'checked'})(
               <Switch/>
@@ -358,7 +362,7 @@ class AddDoc extends Component {
             help={this.isError('from') || ''}
           >
             {getFieldDecorator('from', {})(
-              <Input placeholder="来源"/>
+              <Input placeholder="如不填，则默认是生成的文档网址"/>
             )}
           </FormItem>
 
@@ -374,7 +378,7 @@ class AddDoc extends Component {
                 validator: this.handleVisitNum
               }],
             })(
-              <Input placeholder="访问数"/>
+              <Input placeholder="如不填，则默认是0"/>
             )}
           </FormItem>
 
@@ -390,14 +394,14 @@ class AddDoc extends Component {
                 validator: this.handleLikeNum
               }],
             })(
-              <Input placeholder="点赞数"/>
+              <Input placeholder="如不填，则默认是0"/>
             )}
           </FormItem>
 
 
           <FormItem
             {...formItemLayout}
-            label="关键词"
+            label="SEO关键词"
             validateStatus={this.isError('keywords') ? 'error' : ''}
             help={this.isError('keywords') || ''}
           >
@@ -413,7 +417,7 @@ class AddDoc extends Component {
 
           <Form.Item
             {...formItemLayout}
-            label="描述"
+            label="SEO描述"
           >
 
             {getFieldDecorator('description', {
@@ -474,4 +478,4 @@ class AddDoc extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddDoc)
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(AddDoc))

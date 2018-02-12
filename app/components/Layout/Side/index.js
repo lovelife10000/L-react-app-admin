@@ -94,16 +94,24 @@ class Side extends Component {
                 </SubMenu>
 
                 <SubMenu key="sub3_2" title={<span>菜单管理</span>}>
-                  <Menu.Item key="1"><a href="/documentManage/menuManage/editMenu">编辑菜单</a></Menu.Item>
-                  <Menu.Item key="2"><a href="/documentManage/menuManage/menuLocation">菜单位置</a></Menu.Item>
+                  <Menu.Item key="1"><a href="/docManage/menuManage/editMenu">编辑菜单</a></Menu.Item>
+                  <Menu.Item key="2"><a href="/docManage/menuManage/menuLocation">菜单位置</a></Menu.Item>
                 </SubMenu>
 
                 <SubMenu key="sub3_3" title={<span>标签管理</span>}>
-                  <Menu.Item key="1"><a href="/documentManage/commentsManage">评论管理</a></Menu.Item>
-                  <Menu.Item key="2"><a href="/documentManage/messagesManage">消息管理</a></Menu.Item>
+                  <Menu.Item key="1"><a href="/docManage/allTags">所有标签</a></Menu.Item>
+                  <Menu.Item key="2"><a href="/docManage/addTag">添加标签</a></Menu.Item>
                 </SubMenu>
 
-                <SubMenu key="sub3_4" title={<span>文档管理</span>}>
+                <SubMenu key="sub3_4" title={<span>评论管理</span>}>
+                  <Menu.Item key="1"><a href="/docManage/commentsManage">评论管理1</a></Menu.Item>
+                </SubMenu>
+
+                <SubMenu key="sub3_5" title={<span>消息管理</span>}>
+                  <Menu.Item key="1"><a href="/docManage/msgManage">消息管理1</a></Menu.Item>
+                </SubMenu>
+
+                <SubMenu key="sub3_6" title={<span>文档管理</span>}>
                   <Menu.Item key="1"><a href="/docManage/addDoc">添加文档</a></Menu.Item>
                   <Menu.Item key="2"><a href="/docManage/allDocs">所有文档</a></Menu.Item>
                 </SubMenu>
@@ -215,13 +223,21 @@ class Side extends Component {
             </SubMenu>
 
             <SubMenu key="sub3_2" title={<span>菜单管理</span>}>
-              <Menu.Item key="1"><a href="/documentManage/menuManage/editMenu">编辑菜单</a></Menu.Item>
-              <Menu.Item key="2"><a href="/documentManage/menuManage/menuLocation">菜单位置</a></Menu.Item>
+              <Menu.Item key="1"><a href="/docManage/menuManage/editMenu">编辑菜单</a></Menu.Item>
+              <Menu.Item key="2"><a href="/docManage/menuManage/menuLocation">菜单位置</a></Menu.Item>
             </SubMenu>
 
             <SubMenu key="sub3_3" title={<span>标签管理</span>}>
-              <Menu.Item key="1"><a href="/documentManage/commentsManage">评论管理</a></Menu.Item>
-              <Menu.Item key="2"><a href="/documentManage/messagesManage">消息管理</a></Menu.Item>
+              <Menu.Item key="1"><a href="/docManage/allTags">所有标签</a></Menu.Item>
+              <Menu.Item key="2"><a href="/docManage/addTag">添加标签</a></Menu.Item>
+            </SubMenu>
+
+            <SubMenu key="sub3_4" title={<span>评论管理</span>}>
+              <Menu.Item key="1"><a href="/docManage/commentsManage">评论管理1</a></Menu.Item>
+            </SubMenu>
+
+            <SubMenu key="sub3_5" title={<span>消息管理</span>}>
+              <Menu.Item key="1"><a href="/docManage/msgManage">消息管理1</a></Menu.Item>
             </SubMenu>
 
             <SubMenu key="sub3_4" title={<span>文档管理</span>}>
