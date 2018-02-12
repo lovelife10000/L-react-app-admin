@@ -132,14 +132,14 @@ class HeaderBar extends Component {
               <Dropdown overlay={menu}>
                 <span className={`${styles.action} ${styles.account}`}>
                   <Avatar size="small" className={styles.avatar} src={(user ? user.avatar :'')|| defaultAvatar }/>
-                  <span className={styles.name}>{999}</span>
+                  <span className={styles.name}>{user.username}</span>
                 </span>
               </Dropdown>
             ) :
               <Dropdown overlay={menu}>
                 <span className={`${styles.action} ${styles.account}`}>
                   <Avatar size="small" className={styles.avatar} src={(user ? user.avatar :'')|| defaultAvatar }/>
-                  <span className={styles.name}>{999}</span>
+                  <span className={styles.name}>{user.username}</span>
                 </span>
               </Dropdown>
             }
