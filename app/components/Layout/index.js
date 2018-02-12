@@ -133,7 +133,7 @@ class LayoutComp extends Component {
             {renderRoutes(this.props.route.routes)}
           </Content>
           <Footer style={{ textAlign: 'center' }}>
-            Ant Design ©2016 Created by Ant UED
+            L-react-app-admin ©2018 Created by lovelife10000 github:<a href="https://github.com/lovelife10000/L-react-app-admin">https://github.com/lovelife10000/L-react-app-admin</a>
           </Footer>
         </Layout>
       </Layout>

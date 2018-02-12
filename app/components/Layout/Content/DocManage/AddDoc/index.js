@@ -182,7 +182,7 @@ class AddDoc extends Component {
 
     return (
       <Card bordered={false}>
-        <BreadcrumbComp category={AppConfig.userManage[1]} item={AppConfig.addUserGroup[1]}/>
+        <BreadcrumbComp category={AppConfig.docManage[1]} item={AppConfig.addDoc[1]}/>
 
 
         <Form

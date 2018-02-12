@@ -84,7 +84,7 @@ class UploadDocImage extends Component {
       <div className="clearfix">
         <FormItem
           {...this.props.formItemLayout}
-          label="状态"
+          label="缩略图"
         >
           <Upload
             {...uploadProps}

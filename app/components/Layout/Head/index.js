@@ -12,7 +12,7 @@ import groupBy from 'lodash/groupBy';
 import styles from './index.less'
 import HeaderSearch from './HeaderSearch'
 import NoticeIcon from './NoticeIcon'
-
+import defaultAvatar from '../../../assets/img/20625882.png'
 
 const mapStateToProps = (state) => {
   return {
@@ -33,7 +33,7 @@ class HeaderBar extends Component {
   }
 
   static propTypes = {
-
+    auth:PropTypes.object.isRequired,
     onNoticeClear: PropTypes.func,
     onNoticeVisibleChange: PropTypes.func,
     fetchingNotices: PropTypes.func,
@@ -76,7 +76,7 @@ class HeaderBar extends Component {
 
   render() {
     const {
-      collapsed, isMobile, logo,onMenuClick,onToggle    } = this.props;
+      collapsed, isMobile, logo,onMenuClick,onToggle  ,auth:{user}  } = this.props;
 
 
     const menu = (
@@ -131,14 +131,14 @@ class HeaderBar extends Component {
             {isMobile ? (
               <Dropdown overlay={menu}>
                 <span className={`${styles.action} ${styles.account}`}>
-                  <Avatar size="small" className={styles.avatar} src={'777'}/>
+                  <Avatar size="small" className={styles.avatar} src={(user ? user.avatar :'')|| defaultAvatar }/>
                   <span className={styles.name}>{999}</span>
                 </span>
               </Dropdown>
             ) :
               <Dropdown overlay={menu}>
                 <span className={`${styles.action} ${styles.account}`}>
-                  <Avatar size="small" className={styles.avatar} src={'777'}/>
+                  <Avatar size="small" className={styles.avatar} src={(user ? user.avatar :'')|| defaultAvatar }/>
                   <span className={styles.name}>{999}</span>
                 </span>
               </Dropdown>

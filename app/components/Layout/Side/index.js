@@ -201,7 +201,7 @@ class Side extends Component {
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
 
 
-          <SubMenu key="sub1" title={<span><Icon type="user" /><span>仪表盘</span></span>}>
+          <SubMenu key="sub1" title={<span><Icon type="dashboard" /><span>仪表盘</span></span>}>
             <Menu.Item key="1"><a href="/panel/basicInfo">基本信息</a></Menu.Item>
             <Menu.Item key="2"><a href="/panel/modifyPwd">修改密码</a></Menu.Item>
           </SubMenu>
@@ -215,7 +215,7 @@ class Side extends Component {
           </SubMenu>
 
 
-          <SubMenu key="sub3" title={<span><Icon type="user" /><span>文档管理</span></span>}>
+          <SubMenu key="sub3" title={<span><Icon type="file-word" /><span>文档管理</span></span>}>
 
             <SubMenu key="sub3_1" title={<span>分类管理</span>}>
               <Menu.Item key="1"><a href="/docManage/allCategories">所有分类</a></Menu.Item>
@@ -248,7 +248,7 @@ class Side extends Component {
           </SubMenu>
 
 
-          <SubMenu key="sub4" title={<span><Icon type="user" /><span>文件管理</span></span>}>
+          <SubMenu key="sub4" title={<span><Icon type="folder-open" /><span>文件管理</span></span>}>
             <Menu.Item key="1"><a href="/fileManage/uploadAvatar">头像上传</a></Menu.Item>
             <Menu.Item key="2"><a href="/fileManage/mediaManage">媒体管理</a></Menu.Item>
             <Menu.Item key="3"><a href="/fileManage/filesBackup">文件备份</a></Menu.Item>
@@ -256,7 +256,7 @@ class Side extends Component {
           </SubMenu>
 
 
-          <SubMenu key="sub5" title={<span><Icon type="user" /><span>数据管理</span></span>}>
+          <SubMenu key="sub5" title={<span><Icon type="database" /><span>数据管理</span></span>}>
 
             <SubMenu key="sub5_1" title={<span>数据库管理</span>}>
               <Menu.Item key="1"><a href="/dataManage/databaseManage/databaseBackup">数据库备份</a></Menu.Item>
@@ -278,7 +278,7 @@ class Side extends Component {
           </SubMenu>
 
 
-          <SubMenu key="sub6" title={<span><Icon type="user" /><span>定制中心</span></span>}>
+          <SubMenu key="sub6" title={<span><Icon type="setting" /><span>定制中心</span></span>}>
 
             <SubMenu key="sub6_1" title={<span>主题管理</span>}>
               <Menu.Item key="1"><a href="/customizationCenter/themeManage/installTheme">安装主题</a></Menu.Item>
@@ -293,7 +293,7 @@ class Side extends Component {
           </SubMenu>
 
 
-          <SubMenu key="sub7" title={<span><Icon type="user" /><span>系统设置</span></span>}>
+          <SubMenu key="sub7" title={<span><Icon type="setting" /><span>系统设置</span></span>}>
 
             <Menu.Item key="1"><a href="/systemSettings/systemLog">系统日志</a></Menu.Item>
             <Menu.Item key="2"><a href="/systemSettings/websiteSettings">站点设置</a></Menu.Item>
