@@ -9,15 +9,16 @@ module.exports = [
   {
     name: 'browser',
     devtool: 'hidden-source-map',
-    context: path.join(__dirname, '../'),
+    context: path.join(__dirname, '..', 'app'),
     entry: {
       vendor: ['react','redux','react-redux','react-router-redux','react-router-dom','react-router-config'],
-      bundle: './client/client.js'
+      bundle: '../client/client.js'
     },
     output: {
-      path: path.join(__dirname, '../dist/'),
+      path: path.join(__dirname, '../dist/js'),
       filename: '[hash:8].[name].js',
-      publicPath: '/'
+      publicPath: '/',
+        chunkFilename: '[name].js',
     },
     plugins: [
       new webpack.DefinePlugin({
@@ -77,6 +78,23 @@ module.exports = [
             use: 'css-loader'
           })
         },
+          {
+              test: /\.less$/,
+              include: path.join(__dirname, '..'),
+              use: ExtractTextPlugin.extract({
+                  fallback: "style-loader",
+                  use: [{
+                      loader: "css-loader",
+                      options: {
+                          modules: true,
+                          ignoreOrder:true
+                      }
+                  }, {
+                      loader: "less-loader"
+                  }]
+
+              })
+          },
         {
           test: /\.(jpe?g|png|gif)$/i,
           use: [
@@ -169,6 +187,11 @@ module.exports = [
         }
       }),
       new webpack.IgnorePlugin(/vertx/),
+        new ExtractTextPlugin({
+            filename: '[hash:8].style.css',
+            disable: false, allChunks: true
+        }),
+
     ],
     module: {
       rules: [
@@ -179,6 +202,31 @@ module.exports = [
           include: path.join(__dirname,'..'),
           exclude: /node_modules/
         },
+          {
+              test: /\.css$/,
+              include: path.join(__dirname, '..'),
+              use: ExtractTextPlugin.extract({
+                  fallback: 'style-loader',
+                  use: 'css-loader'
+              })
+          },
+          {
+              test: /\.less$/,
+              include: path.join(__dirname, '..'),
+              use: ExtractTextPlugin.extract({
+                  fallback: "style-loader",
+                  use: [{
+                      loader: "css-loader",
+                      options: {
+                          modules: true,
+                          ignoreOrder:true
+                      }
+                  }, {
+                      loader: "less-loader"
+                  }]
+
+              })
+          },
         { test: /\.json$/, loader: 'json-loader' },
         {
           test: /\.(jpe?g|png|gif)$/i,

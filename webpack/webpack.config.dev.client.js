@@ -43,10 +43,7 @@ module.exports = {
       filename: 'style.css',
       disable: false, allChunks: true
     }),
-    new ExtractTextPlugin({
-      filename: 'style.css',
-      disable: false, allChunks: true
-    })
+
   ],
   module: {
     rules: [
