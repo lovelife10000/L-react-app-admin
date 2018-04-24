@@ -15,7 +15,7 @@ module.exports = [
       bundle: '../client/client.js'
     },
     output: {
-      path: path.join(__dirname, '../dist/js'),
+      path: path.join(__dirname, '../dist'),
       filename: '[hash:8].[name].js',
       publicPath: '/',
         chunkFilename: '[name].js',
