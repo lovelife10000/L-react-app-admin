@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {AppConfig} from '../../../../../config/app.config'
+import AppConfig from '../../../../../config/app.config'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import * as Actions from '../../../../../actions'

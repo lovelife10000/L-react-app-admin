@@ -8,6 +8,7 @@ import {isLogin} from '../../utils/auth.util'
 import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd';
 const FormItem = Form.Item;
 import styles from './index.less'
+const appConfig =require('config/app.config');
 
 const mapStateToProps = (state)=> {
   return {
@@ -129,7 +130,8 @@ class Login extends Component {
 
   render() {
 
-    const { globalVal: {captchaUrl},  showMsg}=this.props
+    const { globalVal,  showMsg}=this.props
+      const captchaUrl=appConfig.domain+'admin/login/getCaptcha?'
     const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form;
 
     const nameError = isFieldTouched('username') && getFieldError('username');

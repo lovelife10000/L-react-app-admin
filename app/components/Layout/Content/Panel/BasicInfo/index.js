@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import * as Actions from '../../../../../actions'
-import {AppConfig} from '../../../../../config/app.config'
+import AppConfig from '../../../../../config/app.config'
 import BreadcrumbComp from '../../../../UI/BreadcrumbComp'
 import {
   Card

@@ -17,7 +17,7 @@ export const getSnsLogins = ()=>{
 export const getCaptchaUrl = () =>{
   return {
     type: 'GET_CAPTCHAURL',
-    captchaUrl: AppConfig.DOMAIN + 'login/getCaptcha?' + Math.random()
+    captchaUrl: AppConfig.domain + 'login/getCaptcha?' + Math.random()
   }
 }
 
@@ -32,27 +32,27 @@ function loginSuccess(token) {
 
 export function localLogin(form) {
   return (dispatch,getState) =>{
-    console.log('authApi.login是什么')
+
     return authApi.localLogin(form)
       .then(response => {
-        console.log('login中response是什么',response)
+
         return {
           json: response.data,
           status: response.statusText
         }
       })
       .then(({json,status}) => {
-        console.log(status)
+
         if(json.errorMsg){
           dispatch(getCaptchaUrl())
           return dispatch(showMsg(json.errorMsg || '登录失败'))
         }
         //得到token,并存储
-        console.log('验证码通过');
+
         saveCookie('token',json.token)
         //获取用户信息
         dispatch(getUserInfo(json.token))
-        console.log('getUserInfo通过');
+
 
         dispatch(loginSuccess(json.token))
         dispatch(getCaptchaUrl())

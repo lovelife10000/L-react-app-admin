@@ -1,6 +1,6 @@
 import Cookies from 'universal-cookie'
 const cookie = new Cookies()
-import { AppConfig } from '../config/app.config'
+import  AppConfig  from '../config/app.config'
 let cookieConfig = {
   maxAge:AppConfig.cookie.maxAge,
   httpOnly:AppConfig.cookie.httpOnly

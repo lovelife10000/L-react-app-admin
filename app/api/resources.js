@@ -1,9 +1,9 @@
 require('es6-promise').polyfill()
 import axios from 'axios'
-import { AppConfig } from '../config/app.config'
+import  AppConfig  from '../config/app.config'
 import { getCookie,signOut } from '../utils/auth.util'
 
-axios.defaults.baseURL =AppConfig.DOMAIN
+axios.defaults.baseURL =AppConfig.domain
 axios.defaults.withCredentials = true
 
 // Add a request interceptor
@@ -31,33 +31,33 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error)
 })
 
-export const UserResource = (method, id, data, api='userInfo') => {
+export const UserResource = (method, id, data, api='admin/userInfo') => {
   return axios[method](api + (id ? ('/' + id) : ''), data)
 }
-export const AuthResource = (method, id, data, api='auth') => {
+export const AuthResource = (method, id, data, api='admin/auth') => {
   return axios[method](api + (id ? ('/' + id) : ''), data)
 }
-export const ArticleResource = (method, id, controller, data, api='article') => {
+export const ArticleResource = (method, id, controller, data, api='admin/article') => {
   return axios[method](api + (id ? ('/' + id) : '') + (controller ? ('/' + controller) : ''), data)
 }
-export const TagResource = (method, id, data, api='tags') => {
+export const TagResource = (method, id, data, api='admin/tags') => {
   return axios[method](api + (id ? ('/' + id) : ''), data)
 }
-export const CommentResource = (method, id, controller, data, api='comment') => {
+export const CommentResource = (method, id, controller, data, api='admin/comment') => {
   return axios[method](api + (id ? ('/' + id) : '') + (controller ? ('/' + controller) : ''), data)
 }
-export const MobileResource = (method, id, data, api='mobile') => {
+export const MobileResource = (method, id, data, api='admin/mobile') => {
   return axios[method](api + (id ? ('/' + id) : ''), data)
 }
-export const UserManageResource = (method, id, data, api='userManage') => {
+export const UserManageResource = (method, id, data, api='admin/userManage') => {
   console.log('UserManageResource');
   return axios[method](api + (id ? ('/' + id) : ''), data)
 }
 
-export const FileManageResource = (method, id, data, api='fileManage') => {
+export const FileManageResource = (method, id, data, api='admin/fileManage') => {
   return axios[method](api + (id ? ('/' + id) : ''), data)
 }
 
-export const docManageResource = (method, id, data, api='docManage') => {
+export const docManageResource = (method, id, data, api='admin/docManage') => {
   return axios[method](api + (id ? ('/' + id) : ''), data)
 }
