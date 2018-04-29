@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import AppConfig from '../../../config/app.config'
-import * as Actions from '../../../actions'
+import AppConfig from 'config/app.config'
+import * as Actions from 'actions'
 import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'

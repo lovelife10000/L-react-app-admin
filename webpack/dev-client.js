@@ -75,7 +75,11 @@ module.exports = {
                         loader: "css-loader",
                         options: {
                             modules: true,
-                            ignoreOrder: true
+                            ignoreOrder: true,
+                            localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                            getLocalIdent: (context, localIdentName, localName, options) => {
+                                return localName
+                            }
                         }
                     }, {
                         loader: "less-loader"

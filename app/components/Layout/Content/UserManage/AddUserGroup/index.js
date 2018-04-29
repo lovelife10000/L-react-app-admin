@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import AppConfig from '../../../../../config/app.config'
-import * as Actions from '../../../../../actions'
+import AppConfig from 'config/app.config'
+import * as Actions from 'actions'
 import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
@@ -8,7 +8,7 @@ import {withRouter} from 'react-router-dom'
 import {
   Form, Input, Button, Card, Radio, Select,
 } from 'antd';
-import BreadcrumbComp from '../../../../UI/BreadcrumbComp'
+import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 // import styles from './style.less';
 const {Option} = Select;
 const FormItem = Form.Item;
@@ -80,9 +80,11 @@ class AddUserGroup extends Component {
     callback()
   }
   handleSubmit = (e) => {
+    debugger
     console.log('allUserGroups is 3')
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
+      debugger
       if (!err) {
         console.log('Received values of form: ', values);
         this.props.actions.addUserGroup(values)

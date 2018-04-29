@@ -13,6 +13,7 @@ import {allUserGroups} from './allUserGroups'
 import globalVal from './globalVal'
 import allUsers from './allUsers'
 import categories from './categories'
+import showModal from './showModal'
 
 const rootReducer = combineReducers({
   globalVal,
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
   form: formReducer,
   allUserGroups,
   allUsers,
-  categories
+  categories,
+    showModal
 })
 
 export default rootReducer

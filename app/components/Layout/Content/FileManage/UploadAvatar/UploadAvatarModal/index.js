@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Modal, } from 'antd'
 import PropTypes from 'prop-types'
 import AvatarEditor from 'react-avatar-editor'
-import IconSlider from '../../../../../UI/IconSlider'
+import IconSlider from 'components/Common/IconSlider'
 
 
 

@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Table , Divider,Icon,} from 'antd';
 import styles from './index.less';
 import PropTypes from 'prop-types'
-import * as Actions from '../../../../../actions'
+import * as Actions from 'actions'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import BreadcrumbComp from '../../../../UI/BreadcrumbComp'
-import AppConfig from '../../../../../config/app.config'
+import BreadcrumbComp from 'components/Common/BreadcrumbComp'
+import AppConfig from 'config/app.config'
 
 const mapStateToProps = state => {
   return {

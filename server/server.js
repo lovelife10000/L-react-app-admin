@@ -11,7 +11,7 @@ const app = express()
 let isDev = process.env.NODE_ENV === 'development'
 let port = isDev ? appConfig.devPort : appConfig.prodPort
 
-app.use(express.static(path.join(__dirname, '..', 'dist')))
+
 
 if (isDev) {
     const config = require('../webpack/dev-client.js')

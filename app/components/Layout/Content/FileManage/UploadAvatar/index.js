@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import AppConfig from '../../../../../config/app.config'
+import AppConfig from 'config/app.config'
 import {Upload, Icon, Card,} from 'antd'
-import * as Actions from '../../../../../actions'
+import * as Actions from 'actions'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import BreadcrumbComp from '../../../../UI/BreadcrumbComp'
+import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 
 const Dragger = Upload.Dragger;
 import UploadAvatarModal from './UploadAvatarModal'

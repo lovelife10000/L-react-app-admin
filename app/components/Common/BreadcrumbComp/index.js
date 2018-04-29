@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Breadcrumb} from 'antd';
-// import styles from './index.less';
+
 import PropTypes from 'prop-types'
-import * as Actions from '../../../actions'
+import * as Actions from 'actions'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'

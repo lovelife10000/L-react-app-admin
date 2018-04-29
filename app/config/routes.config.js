@@ -1,36 +1,30 @@
-import Login from '../components/Login'
-import Layout from '../components/Layout'
+import Login from 'components/Login'
+import Layout from 'components/Layout'
 
 
-import BasicInfo from '../components/Layout/Content/Panel/BasicInfo'
-// import ModifyPwd from '../components/Body/Panel/ModifyPwd'
-
-// import UserManage from '../components/Body/UserManage'
-import AddUserGroup from '../components/Layout/Content/UserManage/AddUserGroup'
-import AllUserGroups from '../components/Layout/Content/UserManage/AllUserGroups'
-import AllUsers from '../components/Layout/Content/UserManage/AllUsers'
-import AddUser from '../components/Layout/Content/UserManage/AddUser'
+import BasicInfo from 'components/Layout/Content/Panel/BasicInfo'
+import AddUserGroup from 'components/Layout/Content/UserManage/AddUserGroup'
+import AllUserGroups from 'components/Layout/Content/UserManage/AllUserGroups'
+import AllUsers from 'components/Layout/Content/UserManage/AllUsers'
+import AddUser from 'components/Layout/Content/UserManage/AddUser'
 
 
-// import DocManage from '../components/Body/DocManage'
-import AddCategory from '../components/Layout/Content/DocManage/CategoryManage/AddCategory'
-import AllCategories from '../components/Layout/Content/DocManage/CategoryManage/AllCategories'
-import AddDoc from '../components/Layout/Content/DocManage/AddDoc'
-import AddTag from '../components/Layout/Content/DocManage/AddTag'
-import AllTags from '../components/Layout/Content/DocManage/AllTags'
+
+import AddCategory from 'components/Layout/Content/DocManage/CategoryManage/AddCategory'
+import AllCategories from 'components/Layout/Content/DocManage/CategoryManage/AllCategories'
+import AddDoc from 'components/Layout/Content/DocManage/AddDoc'
+import AddTag from 'components/Layout/Content/DocManage/AddTag'
+import AllTags from 'components/Layout/Content/DocManage/AllTags'
 
 
-// import FileManage from '../components/Body/FileManage'
-import UploadAvatar from '../components/Layout/Content/FileManage/UploadAvatar'
 
-
-// import DataManage from '../components/Body/DataManage'
+import UploadAvatar from 'components/Layout/Content/FileManage/UploadAvatar'
 
 
 
 
-// import CustomCenter from '../components/Body/CustomCenter'
-// import SysConfig from '../components/Body/SysConfig'
+
+
 
 
 const routes = [

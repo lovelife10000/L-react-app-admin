@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
-import AppConfig from '../../../../../config/app.config'
-import * as Actions from '../../../../../actions'
+import AppConfig from 'config/app.config'
+import * as Actions from 'actions'
 import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {
   Form, Input, Button, Card, Radio, Select,
 } from 'antd';
-import BreadcrumbComp from '../../../../UI/BreadcrumbComp'
+import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 // import styles from './style.less';
 const {Option} = Select;
 const FormItem = Form.Item;

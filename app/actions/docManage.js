@@ -1,4 +1,5 @@
 import docManageApi from '../api/docManage.api'
+import {showModal} from "./other";
 
 export const getCategories=()=>{
   return  {
@@ -10,7 +11,10 @@ export const getCategories=()=>{
 export const addCategory=(data)=>{
   return  (dispatch,getState)=>{
     return docManageApi.addCategory(data).then(function (result) {
+        debugger
       dispatch(getCategories())
+        debugger
+        dispatch(showModal(result.msg))
     }).catch(function (err) {
       
     });

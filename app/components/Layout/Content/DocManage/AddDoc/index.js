@@ -1,20 +1,18 @@
 import React, {Component} from 'react'
-import AppConfig from '../../../../../config/app.config'
+import AppConfig from 'config/app.config'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import * as Actions from '../../../../../actions'
+import * as Actions from 'actions'
 import {bindActionCreators} from 'redux'
-// import UploadDocImage from './UploadDocImage'
-// import Multiple from './Multiple'
-import BreadcrumbComp from '../../../../UI/BreadcrumbComp'
+
+import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 import {
   Form, Input, Button, Card, Radio, Select, Switch, Col, message,
 } from 'antd';
 import {EditorState, convertToRaw} from 'draft-js';
 import {Editor} from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
-// import htmlToDraft from 'html-to-draftjs';
-// import {withRouter} from 'react-router-dom'
+
 import UploadDocImage from './UploadDocImage'
 
 const {TextArea} = Input;

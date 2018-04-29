@@ -6,16 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "better-npm-run nodemon-dev",
-
     "build": "npm-run-all clean --parallel build-client:prod build-server:prod",
-
     "clean": "rimraf dist",
     "build-client:prod": "better-npm-run build-client:prod",
     "build-server:prod": "better-npm-run build-server:prod",
     "start": "pm2 start process.json"
   },
   "betterScripts": {
-
     "nodemon-dev": {
       "command": "nodemon ./server/server.js",
       "env": {
@@ -143,7 +140,6 @@
     "webpack-dev-middleware": "1.12.0",
     "webpack-hot-middleware": "2.19.1"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lovelife10000/L-react-app-admin.git"

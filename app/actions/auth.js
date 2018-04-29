@@ -1,9 +1,9 @@
 import * as types from './types'
 import { push } from 'react-router-redux'
 import { saveCookie,getCookie,signOut } from '../utils/auth.util'
-import { showMsg,changeStyleMode } from './other'
+import { showMsg} from './other'
 import authApi from '../api/authApi'
-import { AppConfig } from '../config/app.config'
+import  AppConfig  from '../config/app.config'
 
 
 //获取snslogins
@@ -57,7 +57,7 @@ export function localLogin(form) {
         dispatch(loginSuccess(json.token))
         dispatch(getCaptchaUrl())
         dispatch(showMsg('登录成功,欢迎光临!','success'))
-        dispatch(changeStyleMode())
+
         dispatch(push('/'))
 
       }).catch(err => {
