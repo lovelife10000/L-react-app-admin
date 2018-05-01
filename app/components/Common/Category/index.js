@@ -141,7 +141,7 @@ class Category extends Component {
                                             {
                                                 categories.filter((item) => (item.id === getFieldValue('firstCate')
                                                 ))[0].children.pop(6).map((item, index) => {
-                                        
+
                                                     return(<Option key={index} value={item.id}>{item.name}</Option>)})
                                             }
 

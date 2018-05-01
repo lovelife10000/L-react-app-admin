@@ -6,14 +6,16 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import styles from './index.less';
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
-import {Modal, Form, Input, Button, Table, Col, Select} from 'antd'
+import {Modal, Form, Input, Button, Table, Col, Selectl,Divider,Popconfirm} from 'antd'
+import ModalSuccessComp from 'components/Common/ModalComp/ModalSuccessComp'
 
 const FormItem = Form.Item;
 
 
 const mapStateToProps = (state) => {
     return {
-        categories: state.categories.toJS()
+        categories: state.categories.toJS(),
+        showModal: state.showModal.toJS(),
     }
 };
 
@@ -37,7 +39,8 @@ class AllCategories extends Component {
             onEditingData: {parentId: '0',},
             twoLevelArr: [],
             dirty: false,
-            ifShouldRender: false
+
+
         }
     }
 
@@ -54,18 +57,9 @@ class AllCategories extends Component {
         }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        debugger
-        if (nextState.ifShouldRender) {
-            return false
-        } else {
-            return true
-        }
 
 
-    }
-
-    showModal = (text, record, index) => {
+    showEditModal = (text, record, index) => {
 
 
         const {form, categories} = this.props
@@ -204,9 +198,7 @@ class AllCategories extends Component {
                 })
                 debugger
                 this.props.actions.editCategory(data)
-                that.setState({
-                    ifShouldRender: true
-                })
+
             }
         });
     }
@@ -222,6 +214,16 @@ class AllCategories extends Component {
         callback();
     }
 
+
+    removeCateConfirm(id){
+        const{actions}=this.props
+        actions.removeCategory({id})
+    }
+
+    removeCateCancel(){
+
+    }
+
     closeModal() {
         this.setState({
             visible: false,
@@ -229,8 +231,8 @@ class AllCategories extends Component {
     }
 
     render() {
-        const {categories} = this.props
-        const {onEditingData, twoLevelArr, dirty} = this.state
+        const {categories, showModal} = this.props
+        const {onEditingData, twoLevelArr, dirty,popConfirmShow,popConfirmTitle} = this.state
         console.log(this.state);
         debugger
         const columns = [
@@ -254,12 +256,24 @@ class AllCategories extends Component {
                 key: 'operation',
                 render: (text, record, index) => {
 
-                    console.log(text, 666, record);
+                    console.log(text, 666, record,index);
+
                     return (
                         <span>
-                  <a href="javascript:void(0)" onClick={this.showModal.bind(this, text, record, index)}>编辑</a>
+                             <a href="javascript:void(0)" onClick={this.showEditModal.bind(this, text, record, index)}>编辑</a>
+                            {!text.children &&<Divider type="vertical" />}
+                            {!text.children &&
+
+
+                            <Popconfirm placement="right" title={'是否要删除“'+text.name+'”分类'} onConfirm={this.removeCateConfirm.bind(this,text.id)} onCancel={this.removeCateCancel} okText="确定" cancelText="取消">
+
+                                <a href="javascript:void(0)">删除</a>
+                                </Popconfirm>
+
+                            }
 
                 </span>
+
                     )
                 },
             },];
@@ -286,12 +300,21 @@ class AllCategories extends Component {
 
             <div className={styles.standardTable}>
                 <BreadcrumbComp category={AppConfig.docManage[1]} item={AppConfig.allCategories[1]}/>
+
+                {
+                    showModal.visible &&
+                    <ModalSuccessComp data={{showModal}}/>
+                }
+
+
+
                 <Modal
                     title="编辑分类"
                     visible={this.state.visible}
                     footer={null}
+                    mask={false}
                 >
-                    <Form onSubmit={this.handleSubmit.bind(this)}>
+                    <Form >
 
 
                         <FormItem
@@ -446,7 +469,7 @@ class AllCategories extends Component {
 
                         <FormItem {...submitFormLayout} style={{marginTop: 32}}>
                             <Button disabled={!dirty || hasErrors(getFieldsError())} type="primary"
-                                    htmlType="submit">
+                                    htmlType="submit" onClick={this.handleSubmit.bind(this)}>
                                 确定
                             </Button>
                             <Button type="default" onClick={this.closeModal.bind(this)} style={{marginLeft: 8}}>
