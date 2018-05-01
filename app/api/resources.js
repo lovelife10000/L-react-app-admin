@@ -59,5 +59,6 @@ export const FileManageResource = (method, id, data, api='admin/fileManage') => 
 }
 
 export const docManageResource = (method, id, data, api='admin/docManage') => {
+  debugger
   return axios[method](api + (id ? ('/' + id) : ''), data)
 }

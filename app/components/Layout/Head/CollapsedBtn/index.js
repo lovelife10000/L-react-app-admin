@@ -10,7 +10,7 @@ class CollapsedBtn extends Component {
 
   static propTypes = {
 
-    collapsed: PropTypes.func,
+    collapsed: PropTypes.bool,
     onCollapse: PropTypes.func,
 
 

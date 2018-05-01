@@ -1,24 +1,12 @@
 import React, {Component} from 'react'
+
 import PropTypes from 'prop-types'
+
 import {Form, Select, Col,} from 'antd';
+
 
 const FormItem = Form.Item;
 
-
-function ifHasChild(arr, idV) {
-    for (let x of arr) {
-
-        if (x.id === idV) {
-
-            if (x.children) {
-
-                return true
-            } else {
-                return false
-            }
-        }
-    }
-}
 
 class Category extends Component {
     constructor(props) {
@@ -33,9 +21,7 @@ class Category extends Component {
             }]
         }
 
-    }
-
-    componentWillMount() {
+    }  componentWillMount() {
 
         // console.log('cat')
         // debugger
@@ -85,7 +71,7 @@ class Category extends Component {
         };
 
 
-        const categories = this.state.categories.concat(this.props.data.cate);
+        const categories =this.state.categories.concat( this.props.data.cate);
         // debugger
         const {getFieldDecorator, getFieldValue,} = this.props.data.form;
         return (
@@ -110,7 +96,7 @@ class Category extends Component {
                         })(<Select placeholder="请选择" onChange={this.handleSelectChange}>
                             {
                                 categories.filter((item) => item.parentId === '0').map((item, index) => (
-                                    <Option key={index} value={item.id}>{item.name}</Option>
+                                    <Option key={index} value={item._id}>{item.name}</Option>
                                 ))
                             }
                         </Select>)}
@@ -118,7 +104,7 @@ class Category extends Component {
                 </Col>
 
                 {
-                    getFieldValue('firstCate') && (ifHasChild(categories, getFieldValue('firstCate')))
+                    getFieldValue('firstCate') &&  getFieldValue('firstCate') !=='0' && (categories.filter((item) => item.parentId === getFieldValue('firstCate')).length > 0)
                         ?
                         <div>
                             <Col span={1}>
@@ -139,16 +125,51 @@ class Category extends Component {
                                     })(
                                         <Select placeholder="请选择" onChange={this.handleSelectChange2}>
                                             {
-                                                categories.filter((item) => (item.id === getFieldValue('firstCate')
-                                                ))[0].children.pop(6).map((item, index) => {
-                                        
-                                                    return(<Option key={index} value={item.id}>{item.name}</Option>)})
+                                                categories.filter((item) => {
+                                                    console.log('66', getFieldValue('firstCate'));
+                                                    return item.parentId === getFieldValue('firstCate')
+                                                }).map((item, index) => (
+                                                    <Option key={index} value={item._id}>{item.name}</Option>
+                                                ))
                                             }
 
                                         </Select>)}
                                 </FormItem>
                             </Col>
                         </div> : null
+                }
+
+                {getFieldValue('secondCate') && (categories.filter((item) => item.parentId === getFieldValue('secondCate')).length > 0) ?
+                    <div>
+                        <Col span={1}>
+                  <span style={{display: 'inline-block', width: '100%', textAlign: 'center'}}>
+                  -
+                  </span>
+                        </Col>
+                        <Col span={7}>
+                            <FormItem
+                                validateStatus={this.isError('thirdCate') ? 'error' : ''}
+                                help={this.isError('thirdCate') || ''}
+                            >
+                                {getFieldDecorator('thirdCate', {
+                                    rules: [{
+                                        required: true,
+                                        message: '必须选择一项'
+                                    }],
+                                })(
+                                    <Select placeholder="请选择">
+                                        {
+                                            categories.filter((item) => {
+                                                console.log('77', getFieldValue('secondCate'));
+                                                return item.parentId === getFieldValue('secondCate')
+                                            }).map((item, index) => (
+                                                <Option key={index} value={item._id}>{item.name}</Option>
+                                            ))
+                                        }
+                                    </Select>)}
+                            </FormItem>
+                        </Col>
+                    </div> : ''
                 }
 
 

@@ -32,10 +32,10 @@ class HeaderSearch extends PureComponent {
   static propTypes = {
 
     className: PropTypes.string,
-    children: PropTypes.func,
+    children: PropTypes.array,
     onItemClick: PropTypes.func,
     onTabChange: PropTypes.func,
-    loading: PropTypes.func,
+    loading: PropTypes.boolean,
     locale: PropTypes.func,
     onClear: PropTypes.func,
     count: PropTypes.func,

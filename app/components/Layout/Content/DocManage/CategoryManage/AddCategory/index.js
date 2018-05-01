@@ -7,8 +7,8 @@ import {connect} from 'react-redux'
 import {Form, Input, Button, Card, Radio, Select, Switch, Col, message,} from 'antd';
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 import Category from 'components/Common/Category'
-// import ModalComp from 'components/Common/ModalComp'
-import {Modal} from 'antd';
+import ModalSuccessComp from 'components/Common/ModalComp/ModalSuccessComp'
+
 
 const FormItem = Form.Item;
 
@@ -87,12 +87,7 @@ class AddCategory extends Component {
     //     message.success(msg);
     // };
 
-    success() {
-        Modal.success({
-            title: 'This is a success message',
-            content: 'some messages...some messages...',
-        });
-    }
+
 
     handleOrder = (rule, value, callback) => {
         const value2 = Number(value);
@@ -160,16 +155,18 @@ debugger
             },
         };
         const {categories, showModal} = this.props;
-        // debugger
-        if(showModal.visible){
-            this.success()
-        }
+
 
         const {getFieldDecorator, getFieldValue, getFieldsError} = this.props.form;
+
         return (
             <Card bordered={false}>
                 <BreadcrumbComp category={AppConfig.docManage[1]} item={AppConfig.addDoc[1]}/>
                 {/*<ModalComp data={{title:'提示',onCancel:this.handleCancel}}/>*/}
+                {
+                    showModal.visible &&
+                    <ModalSuccessComp data={{showModal}}/>
+                }
 
                 <Form
                     onSubmit={this.handleSubmit}
@@ -184,6 +181,7 @@ debugger
                         {getFieldDecorator('name', {
                             rules: [{
                                 required: true,
+                                message: '不符合规则',
                                 max: 32
                             }],
                         })(

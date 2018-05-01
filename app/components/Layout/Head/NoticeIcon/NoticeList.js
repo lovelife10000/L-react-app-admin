@@ -19,7 +19,7 @@ class NoticeList extends PureComponent {
     onClick: PropTypes.func,
     onClear: PropTypes.func,
     title: PropTypes.func,
-    locale: PropTypes.func,
+    locale: PropTypes.object,
     emptyText: PropTypes.func,
     emptyImage: PropTypes.func,
 

@@ -54,6 +54,7 @@ class LayoutComp extends Component {
     actions: PropTypes.object.isRequired,
     globalVal: PropTypes.object.isRequired,
     document: PropTypes.object,
+      collapsed: PropTypes.bool
   }
   componentDidMount() {
     let enquireJs;
@@ -118,6 +119,7 @@ class LayoutComp extends Component {
     return (
       <Layout>
         <Side
+            collapsible
           collapsed={this.state.collapsed}
           onCollapse={this.toggle}
           isMobile={this.state.isMobile}

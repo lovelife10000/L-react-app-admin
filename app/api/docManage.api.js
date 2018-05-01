@@ -8,6 +8,11 @@ export default {
     return docManageResource('post','addCategory',data);
   },
 
+    editCategory:function (data) {
+    debugger
+        return docManageResource('post','editCategory',data);
+    },
+
   addTag:function (data) {
     return docManageResource('post','addTag',data);
   },
