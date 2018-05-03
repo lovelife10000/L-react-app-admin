@@ -29,7 +29,8 @@ class Category extends Component {
                 name: '无',
                 slug: "",
                 parentId: '0',
-                _id: '0'
+                id: '0',
+                level:1
             }]
         }
 
@@ -87,6 +88,7 @@ class Category extends Component {
 
         const categories = this.state.categories.concat(this.props.data.cate);
         // debugger
+
         const {getFieldDecorator, getFieldValue,} = this.props.data.form;
         return (
 
@@ -139,9 +141,14 @@ class Category extends Component {
                                     })(
                                         <Select placeholder="请选择" onChange={this.handleSelectChange2}>
                                             {
-                                                categories.filter((item) => (item.id === getFieldValue('firstCate')
-                                                ))[0].children.pop(6).map((item, index) => {
 
+                                                [{ name: '无',
+                                                    slug: "",
+                                                    parentId: '0',
+                                                    id: '0',
+                                                    level:1}].concat(categories.filter((item) => (item.id === getFieldValue('firstCate')
+                                                ))[0].children).map((item, index,arr) => {
+debugger
                                                     return(<Option key={index} value={item.id}>{item.name}</Option>)})
                                             }
 

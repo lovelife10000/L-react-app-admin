@@ -180,8 +180,8 @@ class AllCategories extends Component {
     }
 
 
-    handleSubmit() {
-
+    handleSubmit(e) {
+e.preventDefault()
         const {form} = this.props
         const {onEditingData} = this.state
         const that = this;
@@ -232,7 +232,7 @@ class AllCategories extends Component {
 
     render() {
         const {categories, showModal} = this.props
-        const {onEditingData, twoLevelArr, dirty,popConfirmShow,popConfirmTitle} = this.state
+        const {onEditingData, twoLevelArr, dirty} = this.state
         console.log(this.state);
         debugger
         const columns = [
@@ -314,7 +314,7 @@ class AllCategories extends Component {
                     footer={null}
                     mask={false}
                 >
-                    <Form >
+                    <Form onSubmit={this.handleSubmit.bind(this)}>
 
 
                         <FormItem
@@ -469,7 +469,7 @@ class AllCategories extends Component {
 
                         <FormItem {...submitFormLayout} style={{marginTop: 32}}>
                             <Button disabled={!dirty || hasErrors(getFieldsError())} type="primary"
-                                    htmlType="submit" onClick={this.handleSubmit.bind(this)}>
+                                    htmlType="submit" >
                                 确定
                             </Button>
                             <Button type="default" onClick={this.closeModal.bind(this)} style={{marginLeft: 8}}>

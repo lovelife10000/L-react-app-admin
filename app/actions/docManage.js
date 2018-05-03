@@ -1,9 +1,10 @@
 import docManageApi from '../api/docManage.api'
 import {showModal} from "./other";
+import * as types from 'actions/types'
 
 export const getCategories=()=>{
   return  {
-    type:'GET_CATEGORIES',
+    type:types.GET_CATEGORIES,
     promise:docManageApi.getCategories()
   }
 };
@@ -90,7 +91,7 @@ export const addDoc=(data)=>{
 
 export const getDocs=(data)=>{
   return  {
-    type:'GET_DOCS',
+    type:types.GET_DOCS,
     promise:docManageApi.getDocs()
   }
 };

@@ -9,12 +9,12 @@ export default {
     },
 
     editCategory: function (data) {
-        debugger
+
         return docManageResource('post', 'editCategory', data);
     },
 
     removeCategory: function (data) {
-        debugger
+      
         return docManageResource('post', 'removeCategory', data);
     },
 

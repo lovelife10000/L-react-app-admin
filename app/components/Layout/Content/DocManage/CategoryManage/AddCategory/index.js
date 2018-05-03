@@ -4,7 +4,7 @@ import * as Actions from 'actions'
 import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {Form, Input, Button, Card, Radio, Select, Switch, Col, message,} from 'antd';
+import {Button, Card, Form, Input,} from 'antd';
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 import Category from 'components/Common/Category'
 import ModalSuccessComp from 'components/Common/ModalComp/ModalSuccessComp'
@@ -46,10 +46,11 @@ class AddCategory extends Component {
         invalid: PropTypes.bool,
         handleSubmit: PropTypes.func,
     };
+
     componentWillMount() {
 
-      // console.log('add')
-      //   debugger
+        // console.log('add')
+        //   debugger
     }
 
     componentDidMount() {
@@ -64,8 +65,6 @@ class AddCategory extends Component {
     }
 
 
-
-
     addCategory(data) {
         const {actions} = this.props
         actions.addCategory(data)
@@ -74,9 +73,7 @@ class AddCategory extends Component {
     handleSelectChange = (value) => {
         this.props.form.resetFields('secondCate')
     }
-    handleSelectChange2 = (value) => {
-        this.props.form.resetFields('thirdCate')
-    }
+
 
     isError(name) {
 
@@ -88,10 +85,8 @@ class AddCategory extends Component {
     // };
 
 
-
     handleOrder = (rule, value, callback) => {
         const value2 = Number(value);
-
 
 
         if (!/^([1-9]\d{0,2}|1000)$/.test(value2)) {
@@ -109,10 +104,13 @@ class AddCategory extends Component {
 
             if (!err) {
 // debugger
-                let parentId = values.thirdCate || values.secondCate || values.firstCate;
-
-                const data = Object.assign({}, {name:values.name,slug:values.slug,order:values.order}, {parentId})
-debugger
+                let parentId = values.secondCate || values.firstCate;
+                let level = parentId === '0' ? 1 : (values.secondCate ? 3 : 2)
+                const data = Object.assign({}, {name: values.name, slug: values.slug, order: values.order}, {
+                    parentId,
+                    level
+                })
+                debugger
                 this.props.actions.addCategory(data)
             }
         });
@@ -120,7 +118,7 @@ debugger
 
 
     handleCancel = (e) => {
-        const{actions}=this.props;
+        const {actions} = this.props;
         actions.hideModal()
     }
 
