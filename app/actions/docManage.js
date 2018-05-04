@@ -95,3 +95,9 @@ export const getDocs=(data)=>{
     promise:docManageApi.getDocs()
   }
 };
+export const searchDocs=(data)=>{
+    return  {
+        type:types.GET_SEARCHDOCS,
+        promise:docManageApi.searchDocs(data)
+    }
+};

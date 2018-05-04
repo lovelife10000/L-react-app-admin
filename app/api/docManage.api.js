@@ -9,12 +9,10 @@ export default {
     },
 
     editCategory: function (data) {
-
         return docManageResource('post', 'editCategory', data);
     },
 
     removeCategory: function (data) {
-      
         return docManageResource('post', 'removeCategory', data);
     },
 
@@ -32,5 +30,9 @@ export default {
 
     getDocs: function () {
         return docManageResource('get', 'getDocs')
+    },
+
+    searchDocs: function (data) {
+        return docManageResource('post', 'searchDocs',data)
     },
 }

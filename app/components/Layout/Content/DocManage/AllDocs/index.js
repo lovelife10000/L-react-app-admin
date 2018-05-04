@@ -8,6 +8,7 @@ import {Button, Col, DatePicker, Divider, Form, Input, Row, Select, Table} from 
 import styles from './index.less';
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 
+
 const RangePicker = DatePicker.RangePicker;
 const FormItem = Form.Item;
 
@@ -15,6 +16,7 @@ const mapStateToProps = (state) => {
     return {
         allDocs: state.allDocs.toJS(),
         categories: state.categories.toJS(),
+        searchDocs: state.searchDocs.toJS(),
     }
 };
 
@@ -29,6 +31,7 @@ class AllDocs extends Component {
         super(props)
         this.state = {
             expand: false,
+
         };
     }
 
@@ -42,10 +45,14 @@ class AllDocs extends Component {
     }
 
     componentDidMount() {
-        const {actions, allDocs} = this.props
+        const {actions, allDocs,categories} = this.props
         if (allDocs.length < 1) {
             actions.getDocs()
         }
+        if (categories.length < 1) {
+            this.props.actions.getCategories()
+        }
+
     }
 
     handleSearch = (e) => {
@@ -68,6 +75,7 @@ class AllDocs extends Component {
 
         return this.props.form.isFieldTouched(name) && this.props.form.getFieldError(name);
     }
+
 
     //由二级分类id推导三级分类数组
     getThreeLevelCate(idxf, idxs) {
@@ -107,6 +115,41 @@ class AllDocs extends Component {
         }
     }
 
+    onShowSizeChange(current, pageSize) {
+        console.log(current, pageSize);
+    }
+    handleSubmit = (e) => {
+
+        const that = this;
+
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            const my = that;
+
+            if (!err) {
+
+                if(values.title || values.createTime || values.updateTime || ((values.thirdCate==='0' ? false : values.thirdCate ) || (values.secondCate==='0' ? false  : values.secondCate ) || values.firstCate) || values.authorUsernassme ){
+
+
+                    let category = (values.thirdCate==='0' ?false :values.thirdCate) || (values.secondCate==='0'?false:values.secondCate) || values.firstCate;
+
+
+                    const data={};
+                    const str=[]
+                    if(values.title){data.title=values.title;str.push('title')}
+                    if(values.authorId){data.authorId=values.authorId;str.push('authorId')}
+                    if(values.createTime){data.createTime=values.createTime;str.push('createTime')}
+                    if(values.updateTime){data.updateTime=values.updateTime;str.push('updateTime')}
+                    if(category){data.category=category;str.push('category')}
+                    data.list =str
+debugger
+                    this.props.actions.searchDocs(data)
+                }
+
+            }
+        });
+    }
+
     render() {
         const formItemLayout = {
             labelCol: {
@@ -126,63 +169,77 @@ class AllDocs extends Component {
                 xxl: {span: 18},
             },
         };
-        const {allDocs, form, categories} = this.props
+        const {allDocs, form, categories,searchDocs} = this.props
+        let docs=searchDocs.length>0 ? searchDocs :allDocs
 
         const columns = [
             {
                 title: '序号',
                 dataIndex: 'index',
-                key: '2',
+                key: 'index',
+                render: (text, record,index) => (index+1)
             },
             {
                 title: '文档标题',
                 dataIndex: 'title',
+                key: 'title',
                 render: text => <a href="#">{text}</a>,
             },
             {
                 title: '所属分类',
-                dataIndex: 'category',
+                dataIndex: 'category.name',
+                key: 'category',
             },
 
             {
                 title: '作者',
-                dataIndex: 'authorUsername',
+                dataIndex: 'authorId.username',
+                key: 'authorId',
             },
             {
                 title: '创建时间',
                 dataIndex: 'createTime',
+                key: 'createTime',
             },
             {
                 title: '更新时间',
                 dataIndex: 'updateTime',
+                key: 'updateTime',
             },
             {
                 title: '类型',
                 dataIndex: 'type',
-                render: (text, record) => (record.type==='1' ? '文章' : '页面')
+                key: 'type',
+                render: (text, record) => (record.type === '1' ? '文章' : '页面')
             },
 
             {
                 title: '是否热门',
                 dataIndex: 'hot',
+                key: 'hot',
                 render: (text, record) => (record.hot ? '是' : '否')
             },
             {
                 title: '是否置顶',
                 dataIndex: 'top',
+                key: 'top',
                 render: (text, record) => (record.hot ? '是' : '否')
             },
             {
                 title: '点赞数',
                 dataIndex: 'like',
+                key: 'like',
             },
             {
                 title: '点击数',
                 dataIndex: 'click',
+                key: 'click',
             },
 
             {
-                title: '操作', dataIndex: '', key: 'x',
+                title: '操作',
+                dataIndex: '',
+                key: 'x',
                 render: (text, record) => (
                     <span>
                       <a href="#">编辑</a>
@@ -195,12 +252,20 @@ class AllDocs extends Component {
                     </span>
                 ),
             },];
-
+        const paginationConfig = {
+            position: "top",
+            defaultCurrent: 1,
+            showQuickJumper: true,
+            // pageSizeOptions: 10,
+            showSizeChanger: true,
+            onShowSizeChange: this.onShowSizeChange.bind(this),
+            total:docs.length,
+            showTotal:(total, range) => (`总共 ${total} 条数据`)
+        }
         return (
             <div className={styles.standardTable}>
                 <BreadcrumbComp category={AppConfig.docManage[1]} item={AppConfig.allDocs[1]}/>
                 <Form onSubmit={this.handleSubmit} className={styles.searchForm}>
-
                     <Row gutter={24}>
                         <Col span={8}>
                             <FormItem
@@ -332,10 +397,10 @@ class AllDocs extends Component {
                             <FormItem
                                 {...formItemLayout}
                                 label="作者"
-                                validateStatus={this.isError('authorUsername') ? 'error' : ''}
-                                help={this.isError('authorUsername') || ''}
+                                validateStatus={this.isError('authorId') ? 'error' : ''}
+                                help={this.isError('authorId') || ''}
                             >
-                                {form.getFieldDecorator('authorUsername', {
+                                {form.getFieldDecorator('authorId', {
                                     rules: [{
 
                                         validator: this.handleOrder
@@ -380,7 +445,13 @@ class AllDocs extends Component {
 
                 </Form>
 
-                <Table columns={columns} dataSource={allDocs}/>
+                <Table
+                    rowKey={'title'}
+                    columns={columns}
+                    dataSource={docs}
+                    pagination={paginationConfig}
+                />
+                {/*<Pagination showQuickJumper defaultCurrent={2} total={500} onChange={this.onChange} />,*/}
             </div>
         )
 

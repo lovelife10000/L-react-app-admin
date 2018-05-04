@@ -7,9 +7,10 @@ import * as Actions from '../../actions'
 import Head from './Head'
 import {renderRoutes} from 'react-router-config'
 import {isLogin} from '../../utils/auth.util'
-import {Layout} from 'antd';
+import {Layout,LocaleProvider} from 'antd';
 const {Content, Footer} = Layout;
 import Side from './Side'
+import zhCN from 'antd/lib/locale-provider/zh_CN';
 
 
 
@@ -117,6 +118,7 @@ class LayoutComp extends Component {
   render() {
 
     return (
+        <LocaleProvider locale={zhCN}>
       <Layout>
         <Side
             collapsible
@@ -139,7 +141,7 @@ class LayoutComp extends Component {
           </Footer>
         </Layout>
       </Layout>
-
+        </LocaleProvider>
     )
   }
 }

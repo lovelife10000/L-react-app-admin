@@ -15,6 +15,7 @@ import allUsers from './allUsers'
 import categories from './categories'
 import showModal from './showModal'
 import allDocs from './allDocs'
+import searchDocs from './searchDocs'
 
 const rootReducer = combineReducers({
   globalVal,
@@ -34,7 +35,8 @@ const rootReducer = combineReducers({
   allUsers,
   categories,
     showModal,
-    allDocs
+    allDocs,
+    searchDocs
 })
 
 export default rootReducer
