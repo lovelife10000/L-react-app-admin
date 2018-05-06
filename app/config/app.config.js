@@ -99,4 +99,317 @@ module.exports = {
     BUGS_FEEDBACK: ['bugsFeedback', 'BUG反馈'],
 
 
+    side: [
+        {
+            name: '仪表盘',
+            url: '',
+            icon: 'dashboard',
+            children: [
+                {
+                    name: '基本信息',
+                    url: '/panel/basicInfo',
+                    children: []
+                },
+                {
+                    name: '修改密码',
+                    url: '/panel/modifyPwd',
+                    children: []
+                }],
+        },
+        {
+            name: '用户管理',
+            url: '',
+            icon: 'user',
+            children: [
+                {
+                    name: '所有用户组',
+                    url: '/userManage/allUserGroups',
+                    children: []
+                },
+                {
+                    name: '添加用户组',
+                    url: '/userManage/addUserGroup',
+                    children: []
+                },
+                {
+                    name: '所有用户',
+                    url: '/userManage/allUsers',
+                    children: []
+                },
+                {
+                    name: '添加用户',
+                    url: '/userManage/addUser',
+                    children: []
+                }
+            ],
+        },
+        {
+            name: '文档管理',
+            url: '',
+            icon: 'file-word',
+            children: [
+                {
+                    name: '分类管理',
+                    url: '',
+                    children: [
+                        {
+                            name: '所有分类',
+                            url: '/docManage/allCategories',
+                            children: []
+                        },
+                        {
+                            name: '添加分类',
+                            url: '/docManage/addCategory',
+                            children: []
+                        },
+                    ]
+                },
+                {
+                    name: '菜单管理',
+                    url: '',
+                    children: [
+                        {
+                            name: '编辑菜单',
+                            url: '/docManage/menuManage/editMenu',
+                            children: []
+                        },
+                        {
+                            name: '菜单位置',
+                            url: '/docManage/menuManage/menuLocation',
+                            children: []
+                        },
+                    ]
+                },
+                {
+                    name: '标签管理',
+                    url: '',
+                    children: [{
+                        name: '所有标签',
+                        url: '/docManage/allTags',
+                        children: []
+                    },
+                        {
+                            name: '添加标签',
+                            url: '/docManage/addTag',
+                            children: []
+                        },]
+                },
+                {
+                    name: '评论管理',
+                    url: '',
+                    children: [{
+                        name: '评论管理1',
+                        url: '/docManage/commentsManage',
+                        children: []
+                    }]
+                },
+                {
+                    name: '消息管理',
+                    url: '',
+                    children: [{
+                        name: '消息管理1',
+                        url: '/docManage/msgManage',
+                        children: []
+                    }]
+                },
+                {
+                    name: '文档管理',
+                    url: '',
+                    children: [{
+                        name: '添加文档',
+                        url: '/docManage/addDoc',
+                        children: []
+                    }, {
+                        name: '所有文档',
+                        url: '/docManage/allDocs',
+                        children: []
+                    }]
+                },
+                {
+                    name: '轮播管理',
+                    url: '/docManage/bannerManage',
+                    children: []
+                },
+            ],
+        },
+        {
+            name: '文件管理',
+            url: '',
+            icon: 'folder-open',
+            children: [
+                {
+                    name: '头像上传',
+                    url: '/fileManage/uploadAvatar',
+                    children: []
+                },
+                {
+                    name: '媒体管理',
+                    url: '/fileManage/mediaManage',
+                    children: []
+                },
+                {
+                    name: '文件备份',
+                    url: '/fileManage/filesBackup',
+                    children: []
+                },
+                {
+                    name: '文件恢复',
+                    url: '/fileManage/filesRecover',
+                    children: []
+                }
+            ],
+        },
+        {
+            name: '数据管理',
+            url: '',
+            icon: 'database',
+            children: [
+                {
+                    name: '数据库管理',
+                    url: '',
+                    children: [
+                        {
+                            name: '数据库备份',
+                            url: '/dataManage/databaseManage/databaseBackup',
+                            children: []
+                        },
+                        {
+                            name: '数据库导入',
+                            url: '/dataManage/databaseManage/databaseImport',
+                            children: []
+                        },
+                        {
+                            name: '数据库压缩',
+                            url: '/dataManage/databaseManage/databaseCompress',
+                            children: []
+                        },
+                        {
+                            name: '数据库优化',
+                            url: '/dataManage/databaseManage/databaseoptimize',
+                            children: []
+                        },
+                    ]
+                },
+                {
+                    name: '缓存管理',
+                    url: '',
+                    children: [
+                        {
+                            name: '缓存清理',
+                            url: '/dataManage/cacheManage/cacheClear',
+                            children: []
+                        },
+                        {
+                            name: '缓存设置',
+                            url: '/dataManage/cacheManage/cacheSettings',
+                            children: []
+                        },
+                    ]
+                },
+                {
+                    name: '统计管理',
+                    url: '',
+                    children: [{
+                        name: '数据统计',
+                        url: '/dataManage/statisticsManage/count',
+                        children: []
+                    },]
+                },
+
+            ],
+        },
+        {
+            name: '定制中心',
+            url: '',
+            icon: 'setting',
+            children: [
+                {
+                    name: '主题管理',
+                    url: '',
+                    children: [
+                        {
+                            name: '安装主题',
+                            url: '/customizationCenter/themeManage/installTheme',
+                            children: []
+                        },
+                        {
+                            name: '本地主题',
+                            url: '/customizationCenter/themeManage/localTheme',
+                            children: []
+                        },
+                        {
+                            name: '模版编辑',
+                            url: '/customizationCenter/themeManage/editTemplate',
+                            children: []
+                        },
+
+                    ]
+                },
+                {
+                    name: '插件管理',
+                    url: '/customizationCenter/pluginsManage',
+                    children: []
+                },
+                {
+                    name: '钩子管理',
+                    url: '/customizationCenter/hooksManage',
+                    children: []
+                },
+                {
+                    name: '广告管理',
+                    url: '/customizationCenter/adManage',
+                    children: []
+                },
+
+
+            ],
+        },
+        {
+            name: '系统设置',
+            url: '',
+            icon: 'setting',
+            children: [
+                {
+                    name: '系统日志',
+                    url: '/systemSettings/systemLog',
+                    children: []
+                },
+                {
+                    name: '站点设置',
+                    url: '/systemSettings/websiteSettings',
+                    children: []
+                },
+                {
+                    name: '阅读设置',
+                    url: '/systemSettings/readSettings',
+                    children: []
+                },
+                {
+                    name: '附件设置',
+                    url: '/systemSettings/attachmentSettings',
+                    children: []
+                },
+                {
+                    name: '社交登录设置',
+                    url: '/systemSettings/socialLoginSettings',
+                    children: []
+                }, {
+                    name: '在线更新',
+                    url: '/systemSettings/updateOnline',
+                    children: []
+                }, {
+                    name: '系统信息',
+                    url: '/systemSettings/systemInfo',
+                    children: []
+                }, {
+                    name: 'BUG反馈',
+                    url: '/systemSettings/bugsFeedback',
+                    children: []
+                },
+
+            ],
+        },
+    ]
+
+
 };

@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import {Button, Col, DatePicker, Divider, Form, Input, Row, Select, Table} from 'antd';
 import styles from './index.less';
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
+import {Link} from "react-router-dom"
 
 
 const RangePicker = DatePicker.RangePicker;
@@ -36,7 +37,7 @@ class AllDocs extends Component {
     }
 
     static propTypes = {
-        allDocs: PropTypes.array,
+        allDocs: PropTypes.object,
         actions: PropTypes.object.isRequired,
     };
 
@@ -45,9 +46,9 @@ class AllDocs extends Component {
     }
 
     componentDidMount() {
-        const {actions, allDocs,categories} = this.props
-        if (allDocs.length < 1) {
-            actions.getDocs()
+        const {actions, allDocs, categories} = this.props
+        if (allDocs.docs.length < 1) {
+            actions.getDocs({current: 1, pageSize: 10})
         }
         if (categories.length < 1) {
             this.props.actions.getCategories()
@@ -55,12 +56,6 @@ class AllDocs extends Component {
 
     }
 
-    handleSearch = (e) => {
-        e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            console.log('Received values of form: ', values);
-        });
-    }
 
     handleReset = () => {
         this.props.form.resetFields();
@@ -116,8 +111,11 @@ class AllDocs extends Component {
     }
 
     onShowSizeChange(current, pageSize) {
-        console.log(current, pageSize);
+        const {actions} = this.props
+
+        actions.getDocs({current, pageSize})
     }
+
     handleSubmit = (e) => {
 
         const that = this;
@@ -128,26 +126,69 @@ class AllDocs extends Component {
 
             if (!err) {
 
-                if(values.title || values.createTime || values.updateTime || ((values.thirdCate==='0' ? false : values.thirdCate ) || (values.secondCate==='0' ? false  : values.secondCate ) || values.firstCate) || values.authorUsernassme ){
+                if (values.title || values.createTime || values.updateTime || ((values.thirdCate === '0' ? false : values.thirdCate) || (values.secondCate === '0' ? false : values.secondCate) || values.firstCate) || values.authorUsernassme) {
 
 
-                    let category = (values.thirdCate==='0' ?false :values.thirdCate) || (values.secondCate==='0'?false:values.secondCate) || values.firstCate;
+                    let category = (values.thirdCate === '0' ? false : values.thirdCate) || (values.secondCate === '0' ? false : values.secondCate) || values.firstCate;
 
 
-                    const data={};
-                    const str=[]
-                    if(values.title){data.title=values.title;str.push('title')}
-                    if(values.authorId){data.authorId=values.authorId;str.push('authorId')}
-                    if(values.createTime){data.createTime=values.createTime;str.push('createTime')}
-                    if(values.updateTime){data.updateTime=values.updateTime;str.push('updateTime')}
-                    if(category){data.category=category;str.push('category')}
-                    data.list =str
-debugger
+                    const data = {};
+                    const str = []
+                    if (values.title) {
+                        data.title = values.title;
+                        str.push('title')
+                    }
+                    if (values.authorId) {
+                        data.authorId = values.authorId;
+                        str.push('authorId')
+                    }
+                    if (values.createTime) {
+                        data.createTime = values.createTime;
+                        str.push('createTime')
+                    }
+                    if (values.updateTime) {
+                        data.updateTime = values.updateTime;
+                        str.push('updateTime')
+                    }
+                    if (category) {
+                        data.category = category;
+                        str.push('category')
+                    }
+                    data.list = str
+                    debugger
                     this.props.actions.searchDocs(data)
                 }
 
             }
         });
+    }
+
+    changePageIndex(current, pageSize) {
+        const {actions} = this.props
+
+        actions.getDocs({current, pageSize})
+    }
+
+    changeToHot(text, record) {
+        const {actions} = this.props
+
+        actions.changeToHot({_id: record._id})
+    }
+    changeToNotHot(text, record) {
+        const {actions} = this.props
+
+        actions.changeToNotHot({_id: record._id})
+
+    }
+    changeToTop(text, record) {
+        const {actions} = this.props
+        actions.changeToTop({_id: record._id})
+
+    }
+    changeToNotTop(text, record) {
+        const {actions} = this.props
+        actions.changeToNotTop({_id: record._id})
+
     }
 
     render() {
@@ -169,15 +210,15 @@ debugger
                 xxl: {span: 18},
             },
         };
-        const {allDocs, form, categories,searchDocs} = this.props
-        let docs=searchDocs.length>0 ? searchDocs :allDocs
+        const {allDocs, form, categories, searchDocs} = this.props
+        let docs = searchDocs.length > 0 ? searchDocs : allDocs.docs
 
         const columns = [
             {
                 title: '序号',
                 dataIndex: 'index',
                 key: 'index',
-                render: (text, record,index) => (index+1)
+                render: (text, record, index) => (index + 1)
             },
             {
                 title: '文档标题',
@@ -223,7 +264,7 @@ debugger
                 title: '是否置顶',
                 dataIndex: 'top',
                 key: 'top',
-                render: (text, record) => (record.hot ? '是' : '否')
+                render: (text, record) => (record.top ? '是' : '否')
             },
             {
                 title: '点赞数',
@@ -240,17 +281,26 @@ debugger
                 title: '操作',
                 dataIndex: '',
                 key: 'x',
-                render: (text, record) => (
-                    <span>
-                      <a href="#">编辑</a>
+                render: (text, record) => {
+
+                    return (
+                        <span>
+                      {/*<a href="/docManage/editDoc">编辑</a>*/}
+                            <Link to={{
+                                pathname: '/docManage/editDoc',
+                                search: `?_id=${record._id}`,
+                            }}>编辑</Link>
                       <Divider type="vertical"/>
                       <a href="#">删除</a>
                       <Divider type="vertical"/>
-                        {record.hot ? <a href="#">取消热门</a> : <a href="#">置为热门</a>}
-                        <Divider type="vertical"/>
-                        {record.top ? <a href="#">取消置顶</a> : <a href="#">置为置顶</a>}
+                            {record.hot ? <a href="#" onClick={this.changeToNotHot.bind(this, text, record)}>取消热门</a> :
+                                <a href="#" onClick={this.changeToHot.bind(this, text, record)}>置为热门</a>}
+                            <Divider type="vertical"/>
+                            {record.top ? <a href="#" onClick={this.changeToNotTop.bind(this, text, record)}>取消置顶</a> :
+                                <a href="#" onClick={this.changeToTop.bind(this, text, record)}>置为置顶</a>}
                     </span>
-                ),
+                    )
+                },
             },];
         const paginationConfig = {
             position: "top",
@@ -259,8 +309,9 @@ debugger
             // pageSizeOptions: 10,
             showSizeChanger: true,
             onShowSizeChange: this.onShowSizeChange.bind(this),
-            total:docs.length,
-            showTotal:(total, range) => (`总共 ${total} 条数据`)
+            total: allDocs.total,
+            showTotal: (total, range) => (`总共 ${total} 条文档`),
+            onChange: this.changePageIndex.bind(this)
         }
         return (
             <div className={styles.standardTable}>

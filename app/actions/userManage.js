@@ -1,4 +1,4 @@
-import userManageApi from '../api/userManage.api'
+import * as api from 'api'
 
 
 
@@ -6,14 +6,14 @@ export const getAllUserGroups=()=> {
   console.log('getAllUserGroups执行')
   return {
     type: 'GET_ALL_USER_GROUPS',
-    promise: userManageApi.getAllUserGroups()
+    promise: api.getAllUserGroups()
   }
 }
 
 export const addUserGroup=(data)=>{
   return (dispatch,getState) => {
     // const options = getState().options.toJS()
-    return userManageApi.addUserGroup(data).then(function (result) {
+    return api.addUserGroup(data).then(function (result) {
       console.log('then执行',result)
       if(result.data.success===true){
 
@@ -27,7 +27,7 @@ export const addUserGroup=(data)=>{
 export const getAllUsers=()=>{
   return {
     type: 'GET_ALL_USERS',
-    promise: userManageApi.getAllUsers()
+    promise: api.getAllUsers()
   }
 }
 

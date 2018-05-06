@@ -1,6 +1,6 @@
 import {createReducer} from 'redux-immutablejs'
 import {List} from 'immutable'
-import * as  types from 'actions/types'
+import * as  types from 'config/types'
 
 
 export default createReducer(List(), {

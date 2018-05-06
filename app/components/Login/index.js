@@ -2,13 +2,14 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
-import * as Actions from '../../actions'
+import * as Actions from 'actions'
 import {withRouter} from 'react-router-dom'
 import {isLogin} from '../../utils/auth.util'
 import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd';
 const FormItem = Form.Item;
 import styles from './index.less'
 const appConfig =require('config/app.config');
+
 
 const mapStateToProps = (state)=> {
   return {

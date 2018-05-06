@@ -1,6 +1,6 @@
 import {createReducer} from 'redux-immutablejs'
 import {fromJS} from 'immutable'
-import {SHOW_MODAL, HIDE_MODAL} from "actions/types";
+import {SHOW_MODAL, HIDE_MODAL} from "config/types";
 
 const initialState = fromJS({
     type: '',

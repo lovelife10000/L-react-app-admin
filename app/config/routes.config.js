@@ -16,7 +16,7 @@ import AddDoc from 'components/Layout/Content/DocManage/AddDoc'
 import AllDocs from 'components/Layout/Content/DocManage/AllDocs'
 import AddTag from 'components/Layout/Content/DocManage/AddTag'
 import AllTags from 'components/Layout/Content/DocManage/AllTags'
-
+import BannerManage from 'components/Layout/Content/DocManage/BannerManage'
 
 
 import UploadAvatar from 'components/Layout/Content/FileManage/UploadAvatar'
@@ -88,11 +88,11 @@ const routes = [
       },
 
 
-      // {
-      //   path: '/docManage',
-      //   exact: true,
-      //   component: DocManage
-      // },
+      {
+        path: '/docManage/bannerManage',
+        exact: true,
+        component: BannerManage
+      },
       {
         path: '/docManage/addCategory',
         exact: true,

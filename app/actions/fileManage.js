@@ -1,4 +1,4 @@
-import fileManageApi from '../api/fileManage.api'
+import * as api from 'api'
 
 
 function updateUserAvatar(avatar) {
@@ -12,7 +12,7 @@ export const uploadAvatar=(data)=>{
   console.log('上传2');
   return (dispatch,getState)=> {
 
-    return fileManageApi.uploadAvatar(data).then(function (response) {
+    return api.uploadAvatar(data).then(function (response) {
       console.log('上传3',response);
       if(response.data.success){
         dispatch(updateUserAvatar(response.data.url))

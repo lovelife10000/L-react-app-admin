@@ -1,21 +1,21 @@
-import docManageApi from '../api/docManage.api'
+import * as api from 'api'
 import {showModal} from "./other";
-import * as types from 'actions/types'
+import * as types from 'config/types'
 
 export const getCategories=()=>{
   return  {
     type:types.GET_CATEGORIES,
-    promise:docManageApi.getCategories()
+    promise:api.getCategories()
   }
 };
 
 export const addCategory=(data)=>{
   return  (dispatch,getState)=>{
 
-    return docManageApi.addCategory(data).then(function (result) {
-        debugger
+    return api.addCategory(data).then(function (result) {
+
       dispatch(getCategories())
-        debugger
+
         dispatch(showModal(result.data.msg))
     }).catch(function (err) {
 
@@ -26,9 +26,9 @@ export const addCategory=(data)=>{
 
 export const editCategory=(data)=>{
     return  (dispatch,getState)=>{
-debugger
-        return docManageApi.editCategory(data).then(function (result) {
-            debugger
+
+        return api.editCategory(data).then(function (result) {
+
             dispatch(getCategories())
             dispatch(showModal(result.data.msg))
         }).catch(function (err) {
@@ -41,7 +41,7 @@ debugger
 export const removeCategory=(data)=>{
     return  (dispatch,getState)=>{
         debugger
-        return docManageApi.removeCategory(data).then(function (result) {
+        return api.removeCategory(data).then(function (result) {
             debugger
             dispatch(getCategories())
             dispatch(showModal(result.data.msg))
@@ -54,7 +54,7 @@ export const removeCategory=(data)=>{
 
 export const addTag=(data)=>{
   return  (dispatch,getState)=>{
-    return docManageApi.addTag(data).then(function (result) {
+    return api.addTag(data).then(function (result) {
       dispatch(getTags())
       return {
         success:result.data.success,
@@ -70,14 +70,14 @@ export const addTag=(data)=>{
 export const getTags=(data)=>{
   return  {
     type:'GET_TAGS',
-    promise:docManageApi.getTags()
+    promise:api.getTags()
   }
 };
 
 
 export const addDoc=(data)=>{
   return  (dispatch,getState)=>{
-    return docManageApi.addDoc(data).then(function (result) {
+    return api.addDoc(data).then(function (result) {
       dispatch(getDocs())
       return {
         success:result.data.success,
@@ -92,12 +92,41 @@ export const addDoc=(data)=>{
 export const getDocs=(data)=>{
   return  {
     type:types.GET_DOCS,
-    promise:docManageApi.getDocs()
+    promise:api.getDocs(data)
   }
 };
 export const searchDocs=(data)=>{
     return  {
         type:types.GET_SEARCHDOCS,
-        promise:docManageApi.searchDocs(data)
+        promise:api.searchDocs(data)
+    }
+};
+
+
+export const changeToHot=(data)=>{
+    return  {
+        type:types.CHANGE_TO_HOT,
+        promise:api.changeToHot(data)
+    }
+};
+
+export const changeToNotHot=(data)=>{
+    return  {
+        type:types.CHANGE_TO_NOT_HOT,
+        promise:api.changeToNotHot(data)
+    }
+};
+
+export const changeToTop=(data)=>{
+    return  {
+        type:types.CHANGE_TO_TOP,
+        promise:api.changeToTop(data)
+    }
+};
+
+export const changeToNotTop=(data)=>{
+    return  {
+        type:types.CHANGE_TO_NOT_TOP,
+        promise:api.changeToNotTop(data)
     }
 };

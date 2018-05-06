@@ -3,7 +3,7 @@ import {
   GET_INDEX_IMG_SUCCESS,
   GET_INDEX_IMG_FAILURE,
   GET_CAPTCHAURL
-} from '../actions/types'
+} from 'config/types'
 import { createReducer } from 'redux-immutablejs'
 import { fromJS } from 'immutable'
 import img from '../assets/img/shanghai.jpg'
