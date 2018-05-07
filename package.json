@@ -56,7 +56,6 @@
     "less-loader": "^4.1.0",
     "material-ui": "^1.0.0-beta.27",
     "material-ui-icons": "^1.0.0-beta.17",
-    "postcss-loader": "^2.1.0",
     "rc-drawer-menu": "^0.5.4",
     "react-avatar-editor": "^10.3.0",
     "react-color": "^2.13.8",
@@ -67,6 +66,7 @@
     "xtend": "4.0.1"
   },
   "devDependencies": {
+    "autoprefixer": "^8.4.1",
     "axios": "0.16.2",
     "babel-core": "6.26.0",
     "babel-eslint": "8.0.0",
@@ -104,7 +104,10 @@
     "node-libs-browser": "2.0.0",
     "nodemon": "1.12.0",
     "npm-run-all": "4.1.1",
+    "postcss": "^6.0.22",
+    "postcss-loader": "^2.1.5",
     "prop-types": "15.5.10",
+    "px2rem": "^0.5.0",
     "react": "15.6.1",
     "react-addons-css-transition-group": "15.6.0",
     "react-addons-test-utils": "15.6.0",

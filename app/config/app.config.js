@@ -59,6 +59,7 @@ module.exports = {
     NO_ACCESS: ['noAccess', '未通过'],
     DRAFT: ['draft', '草稿箱'],
     RECYCLE: ['recycle', '回收站'],
+    bannerManage:['bannerManage','轮播管理'],
 
 
     fileManage: ['filesManage', '文件管理'],

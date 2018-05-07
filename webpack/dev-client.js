@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
-
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
     devtool: 'cheap-module-source-map',
@@ -81,7 +81,21 @@ module.exports = {
                                 return localName
                             }
                         }
-                    }, {
+                    },  {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: [
+                                autoprefixer({
+                                    browsers: [
+                                        'last 2 versions',
+                                        'Firefox ESR',
+                                        'ie >= 9',
+                                    ],
+                                }),
+                            ],
+                        }
+                    },
+                        {
                         loader: "less-loader"
                     }]
 
