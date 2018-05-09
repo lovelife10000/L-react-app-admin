@@ -7,7 +7,7 @@ class ModalSuccessComp extends Component{
     }
     success(){
         const {showModal}=this.props.data
-        debugger
+
         Modal.success({
             title: showModal.title,
             content: showModal.content,

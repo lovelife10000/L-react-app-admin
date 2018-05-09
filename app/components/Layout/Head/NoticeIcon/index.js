@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 
 const { TabPane } = Tabs;
 
-class HeaderSearch extends PureComponent {
+class NoticeIcon extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
@@ -35,8 +35,8 @@ class HeaderSearch extends PureComponent {
     children: PropTypes.array,
     onItemClick: PropTypes.func,
     onTabChange: PropTypes.func,
-    loading: PropTypes.boolean,
-    locale: PropTypes.func,
+    loading: PropTypes.bool,
+    locale: PropTypes.object,
     onClear: PropTypes.func,
     count: PropTypes.func,
     popupAlign: PropTypes.func,
@@ -117,4 +117,4 @@ class HeaderSearch extends PureComponent {
   }
 }
 
-export default HeaderSearch
+export default NoticeIcon

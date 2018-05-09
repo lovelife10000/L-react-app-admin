@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Form, Select, Col,} from 'antd';
 
 const FormItem = Form.Item;
-
+const Option = Select.Option;
 
 function ifHasChild(arr, idV) {
     for (let x of arr) {
@@ -89,7 +89,7 @@ class Category extends Component {
         const categories = this.state.categories.concat(this.props.data.cate);
         // debugger
 
-        const {getFieldDecorator, getFieldValue,} = this.props.data.form;
+        const {getFieldDecorator, getFieldValue,isFieldTouched} = this.props.data.form;
         return (
 
 
@@ -101,6 +101,7 @@ class Category extends Component {
 
                 <Col span={8}>
                     <FormItem
+                        hasFeedback={isFieldTouched('firstCate') ? true : false}
                         validateStatus={this.isError('firstCate') ? 'error' : ''}
                         help={this.isError('firstCate') || ''}
                     >
@@ -130,6 +131,7 @@ class Category extends Component {
                             </Col>
                             <Col span={7}>
                                 <FormItem
+                                    hasFeedback={isFieldTouched('secondCate') ? true : false}
                                     validateStatus={this.isError('secondCate') ? 'error' : ''}
                                     help={this.isError('secondCate') || ''}
                                 >
@@ -148,7 +150,7 @@ class Category extends Component {
                                                     id: '0',
                                                     level:1}].concat(categories.filter((item) => (item.id === getFieldValue('firstCate')
                                                 ))[0].children).map((item, index,arr) => {
-debugger
+
                                                     return(<Option key={index} value={item.id}>{item.name}</Option>)})
                                             }
 

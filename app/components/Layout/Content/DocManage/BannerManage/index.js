@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import styles from './index.less';
 import * as Actions from 'actions'
-import {isLogin} from 'utils/auth.util'
+import {isLogin} from 'utils/auth'
 import { Card, Icon, Avatar, List } from 'antd';
 const { Meta } = Card;
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'

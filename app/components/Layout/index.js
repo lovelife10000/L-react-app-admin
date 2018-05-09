@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import * as Actions from '../../actions'
+import * as Actions from 'actions'
 import Head from './Head'
 import {renderRoutes} from 'react-router-config'
-import {isLogin} from '../../utils/auth.util'
+import {isLogin} from 'utils/auth'
 import {Layout,LocaleProvider} from 'antd';
 const {Content, Footer} = Layout;
 import Side from './Side'

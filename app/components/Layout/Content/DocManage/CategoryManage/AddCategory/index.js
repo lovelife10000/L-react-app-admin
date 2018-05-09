@@ -8,6 +8,7 @@ import {Button, Card, Form, Input,} from 'antd';
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 import Category from 'components/Common/Category'
 import ModalSuccessComp from 'components/Common/ModalComp/ModalSuccessComp'
+import {isLogin} from "utils/auth";
 
 
 const FormItem = Form.Item;
@@ -58,7 +59,7 @@ class AddCategory extends Component {
         // debugger
         this.props.form.validateFields();
         const {actions, categories} = this.props
-        if (categories.length < 2) {
+        if (categories.data.length < 2) {
 
             actions.getCategories()
         }
@@ -66,6 +67,13 @@ class AddCategory extends Component {
 
 
     addCategory(data) {
+        if(!isLogin()) {
+            try {
+                window.location.href='/login'
+            }catch (err){
+                console.log('忽略服务端渲染,组件检查的时候window is not defined')
+            }
+        }
         const {actions} = this.props
         actions.addCategory(data)
     }
@@ -80,9 +88,16 @@ class AddCategory extends Component {
         return this.props.form.isFieldTouched(name) && this.props.form.getFieldError(name);
     }
 
-    // success = (msg) => {
-    //     message.success(msg);
-    // };
+   resetHelp(field){
+        const {actions,categories} =this.props
+       actions.resetHelp(field)
+       if(field==='Name'){
+           return categories.msgForName
+       }else {
+           return categories.msgForSlug
+       }
+
+   }
 
 
     handleOrder = (rule, value, callback) => {
@@ -104,13 +119,12 @@ class AddCategory extends Component {
 
             if (!err) {
 // debugger
-                let parentId = values.secondCate || values.firstCate;
+                let parentId = (values.secondCate==='0' ? false : values.secondCate) || (values.firstCate==='0'? 'firstCateNone' :values.firstCate);
                 let level = parentId === '0' ? 1 : (values.secondCate ? 3 : 2)
                 const data = Object.assign({}, {name: values.name, slug: values.slug, order: values.order}, {
                     parentId,
                     level
                 })
-                debugger
                 this.props.actions.addCategory(data)
             }
         });
@@ -155,7 +169,7 @@ class AddCategory extends Component {
         const {categories, showModal} = this.props;
 
 
-        const {getFieldDecorator, getFieldValue, getFieldsError} = this.props.form;
+        const {getFieldDecorator, getFieldValue, getFieldsError,isFieldTouched} = this.props.form;
 
         return (
             <Card bordered={false}>
@@ -173,45 +187,49 @@ class AddCategory extends Component {
                     <FormItem
                         {...formItemLayout}
                         label="分类名称"
-                        validateStatus={this.isError('title') ? 'error' : ''}
-                        help={this.isError('title') || ''}
+                        hasFeedback={isFieldTouched('name') ? true : false}
+                        validateStatus={this.isError('name') ? 'error' : 'success'}
+                        help={categories.msgForName || this.isError('name') || ''}
                     >
                         {getFieldDecorator('name', {
                             rules: [{
                                 required: true,
-                                message: '不符合规则',
-                                max: 32
+                                message: '最长32位，包含数字、字母、中文',
+                                max: 32,
+                                pattern:/^[\w\d\u4e00-\u9fa5]{1,32}$/
                             }],
                         })(
-                            <Input placeholder="请输入分类名称"/>
+                            <Input placeholder="请输入分类名称" onChange={this.resetHelp.bind(this,'Name')}/>
                         )}
                     </FormItem>
 
                     <FormItem
                         {...formItemLayout}
                         label="分类别名"
+                        hasFeedback={isFieldTouched('slug') ? true : false}
                         validateStatus={this.isError('slug') ? 'error' : ''}
-                        help={this.isError('slug') || ''}
+                        help={categories.msgForSlug || this.isError('slug') || ''}
                     >
                         {getFieldDecorator('slug', {
                             rules: [{
                                 required: true,
-                                message: '不符合规则',
+                                message: '只支持字母，1到10位',
                                 pattern: /^[a-zA-Z]\w{1,10}$/
                             }],
                         })(
-                            <Input placeholder="请输入分类别名"/>
+                            <Input placeholder="请输入分类别名" onChange={this.resetHelp.bind(this,'Slug')}/>
                         )}
                     </FormItem>
 
 
-                    <Category data={{cate: categories, form: this.props.form, must: true}}/>
+                    <Category data={{cate: categories.data, form: this.props.form, must: true}}/>
 
 
                     <FormItem
                         {...formItemLayout}
                         label="排序值"
-                        validateStatus={this.isError('from') ? 'error' : ''}
+                        hasFeedback={isFieldTouched('order') ? true : false}
+                        validateStatus={this.isError('order') ? 'error' : ''}
                         help={this.isError('order') || ''}
                     >
                         {getFieldDecorator('order', {

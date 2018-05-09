@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
 
 function hasErrors(fieldsError) {
 
-    debugger
+
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
@@ -45,14 +45,14 @@ class AllCategories extends Component {
     }
 
     static propTypes = {
-        categories: PropTypes.array.isRequired,
+        categories: PropTypes.object.isRequired,
         actions: PropTypes.object.isRequired
     };
 
     componentDidMount() {
 
         const {categories} = this.props
-        if (categories.length < 1) {
+        if (categories.data.length < 1) {
             this.props.actions.getCategories()
         }
     }
@@ -63,7 +63,7 @@ class AllCategories extends Component {
 
 
         const {form, categories} = this.props
-        debugger
+
         this.setState({
             visible: true,
             onEditingData: text,
@@ -119,7 +119,7 @@ class AllCategories extends Component {
 
         const {categories} = this.props
 
-        for (let x of categories) {
+        for (let x of categories.data) {
             if (x.children) {
 
                 for (let i of x.children) {
@@ -136,7 +136,7 @@ class AllCategories extends Component {
     //由一级分类id推导二级分类数组
     getTwoLevelCate(idx) {
         const {categories} = this.props
-        for (let x of categories) {
+        for (let x of categories.data) {
             if (x.id === idx) {
                 return x.children
 
@@ -151,7 +151,7 @@ class AllCategories extends Component {
         const aa = this.getTwoLevelCate(value)
         debugger
         if (aa) {
-            debugger
+
             this.setState({
                 twoLevelArr: aa
             }, function () {
@@ -164,7 +164,7 @@ class AllCategories extends Component {
             });
 
         } else {
-            debugger
+
 
             this.setState({
                 twoLevelArr: []
@@ -187,7 +187,7 @@ e.preventDefault()
         const that = this;
         form.validateFields((err, values) => {
             console.log(that.state);
-            debugger
+
             if (!err) {
 
                 let parentId = values.parentIdSecond || values.parentIdFirst;
@@ -196,7 +196,7 @@ e.preventDefault()
                     parentId,
                     id: onEditingData.id
                 })
-                debugger
+
                 this.props.actions.editCategory(data)
 
             }
@@ -234,7 +234,7 @@ e.preventDefault()
         const {categories, showModal} = this.props
         const {onEditingData, twoLevelArr, dirty} = this.state
         console.log(this.state);
-        debugger
+
         const columns = [
             {
                 title: '分类名称',
@@ -389,7 +389,7 @@ e.preventDefault()
                                             }],
                                         })(<Select placeholder="请选择">
                                             {
-                                                categories.filter((item) => item.parentId === '0').map((item, index) => (
+                                                categories.data.filter((item) => item.parentId === '0').map((item, index) => (
                                                     <Option key={index} value={item.id}>{item.name}</Option>
                                                 ))
                                             }
@@ -422,7 +422,7 @@ e.preventDefault()
                                             }],
                                         })(<Select placeholder="请选择" onChange={this.handleParentIdFirst.bind(this)}>
                                             {
-                                                categories.filter((item) => item.parentId === '0').map((item, index) => (
+                                                categories.data.filter((item) => item.parentId === '0').map((item, index) => (
                                                     <Option key={index} value={item.id}>{item.name}</Option>
                                                 ))
                                             }
@@ -481,10 +481,10 @@ e.preventDefault()
 
                 </Modal>
                 <Table
-
+                    rowKey={'name'}
                     columns={columns}
 
-                    dataSource={categories}
+                    dataSource={categories.data}
                 />
 
 

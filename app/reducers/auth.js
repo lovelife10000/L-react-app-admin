@@ -2,7 +2,7 @@ import {
   LOGOUT_USER,
   UPDATE_USER_SUCCESS
 } from 'config/types'
-import {getCookie} from '../utils/auth.util'
+import {getCookie} from 'utils/auth'
 import {createReducer} from 'redux-immutablejs'
 import {fromJS} from 'immutable'
 import {AppConfig} from '../config/app.config'

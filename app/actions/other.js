@@ -13,7 +13,6 @@ export const hideMsg = () => ({type: types.HIDE_MSG})
 
 export const showModal = (content, type = 'error') => {
     console.log(types.SHOW_Modal);
-    debugger
     return {
         type: types.SHOW_MODAL,
         message: {content: content, type: type, visible: true}
@@ -21,7 +20,7 @@ export const showModal = (content, type = 'error') => {
 }
 export const hideModal = (content, type = 'error') => ({
     type: types.HIDE_MODAL,
-    message: {content: content, type: type,visible:false}
+    message: {content: content, type: type, visible: false}
 })
 
 //获取apps
@@ -43,5 +42,18 @@ export const handleMenuCollapse = () => {
     return {
         type: 'CHANGE_LAYOUT_COLLAPSED',
         promise: api.handleMenuCollapse()
+    }
+}
+
+export const showHelp = (msg,field) => {
+    return {
+        type: types.SHOW_HELP,
+        message: {['msgFor'+field]:msg}
+    }
+}
+export const resetHelp = (field) => {
+    return {
+        type: types.RESET_HELP,
+        message: {['msgFor'+field]:''}
     }
 }
