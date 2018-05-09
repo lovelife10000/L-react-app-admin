@@ -15,3 +15,11 @@ export const getAllUsers= function (data) {
 export const addUser= function (data) {
     return request.post('admin/userManage/addUser', data)
 }
+
+export const changeToUse = function (data) {
+    return request.post('admin/userManage/changeToUse', data)
+}
+
+export const changeToNotUse = function (data) {
+    return request.post('admin/userManage/changeToNotUse', data)
+}

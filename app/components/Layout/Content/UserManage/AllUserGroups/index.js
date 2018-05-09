@@ -28,25 +28,37 @@ class AllUserGroups extends Component {
   }
 
   static propTypes = {
-    allUserGroups: PropTypes.array.isRequired,
+    allUserGroups: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
-    category:PropTypes.string.isRequired,
-    item:PropTypes.string.isRequired,
+    category:PropTypes.string,
+    item:PropTypes.string,
   };
 
   static fetchData(){
-    console.log('AllUserGroups中fetchData')
+
     return [Actions.getAllUserGroups()]
   }
 
   componentDidMount() {
 
     const {actions, allUserGroups} = this.props
-    console.log('AllUserGroups中fetchData')
-    if (allUserGroups.length < 2) {
+
+    if (allUserGroups.data.length < 2) {
       actions.getAllUserGroups()
     }
   }
+
+    changeToUse(text, record) {
+        const {actions} = this.props
+
+        actions.changeToUse({_id: record._id})
+    }
+    changeToNotUse(text, record) {
+        const {actions} = this.props
+
+        actions.changeToNotUse({_id: record._id})
+
+    }
 
 
   render() {
@@ -57,7 +69,7 @@ class AllUserGroups extends Component {
       render: text => <a href="#">{text}</a>,
     }, {
       title: '状态',
-      dataIndex: 'user_group_status',
+      dataIndex: 'status',
       render: (text) => (text ? '启用' : '禁用')
     }, {
       title: '操作', dataIndex: '', key: 'x',
@@ -65,13 +77,12 @@ class AllUserGroups extends Component {
         <span>
           <a href="#">编辑</a>
           <Divider type="vertical" />
-          <a href="#">{record.user_group_status ? '禁用' : '启用'}</a>
+            {record.status ? <a href="javascript:void(0)" onClick={this.changeToNotUse.bind(this, text, record)}>禁用</a> :
+                 <a href="javascript:void(0)" onClick={this.changeToUse.bind(this, text, record)}>启用</a>}
+
           <Divider type="vertical" />
           <a href="#">权限分配</a>
-          <Divider type="vertical" />
-          <a href="#" className="ant-dropdown-link">
-            更多 <Icon type="down" />
-          </a>
+
         </span>
       ),
     },];
@@ -89,8 +100,8 @@ class AllUserGroups extends Component {
     return (
       <div className={styles.standardTable}>
         <BreadcrumbComp category={AppConfig.userManage[1]} item={AppConfig.allUserGroups[1]}/>
-        <Table
-          rowSelection={rowSelection} columns={columns} dataSource={allUserGroups}
+        <Table rowKey={'name'}
+          rowSelection={rowSelection} columns={columns} dataSource={allUserGroups.data}
         />
       </div>
     )

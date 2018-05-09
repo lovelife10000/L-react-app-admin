@@ -28,7 +28,7 @@ class BreadcrumbComp extends Component {
   }
 
   static propTypes = {
-    allUserGroups: PropTypes.array.isRequired,
+    allUserGroups: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
     category:PropTypes.string.isRequired,
     item:PropTypes.string.isRequired,

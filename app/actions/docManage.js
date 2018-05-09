@@ -23,7 +23,7 @@ export const addCategory = (data) => {
                 dispatch(showHelp(result.data.msg, 'Name'))
             }
             if (result.data.field === 'slug') {
-                debugger
+
                 dispatch(showHelp(result.data.msg, 'Slug'))
             }
 

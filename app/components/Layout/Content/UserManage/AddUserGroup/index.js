@@ -7,14 +7,16 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {Button, Card, Form, Input, Radio, Select,} from 'antd';
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
-import styles from './style.less';
+import ModalSuccessComp from 'components/Common/ModalComp/ModalSuccessComp'
+
 const {Option} = Select;
 const FormItem = Form.Item;
 
 
 const mapStateToProps = state => {
     return {
-        allUserGroups: state.allUserGroups.toJS()
+        allUserGroups: state.allUserGroups.toJS(),
+        showModal: state.showModal.toJS(),
     }
 };
 const mapDispatchToProps = dispatch => {
@@ -28,11 +30,12 @@ class AddUserGroup extends Component {
     constructor(props) {
         super(props)
         this.addUserGroup = this.addUserGroup.bind(this)
+
     }
 
 
     static propTypes = {
-        allUserGroups: PropTypes.array.isRequired,
+        allUserGroups: PropTypes.object.isRequired,
         actions: PropTypes.object.isRequired,
         dirty: PropTypes.bool,
         invalid: PropTypes.bool,
@@ -44,9 +47,9 @@ class AddUserGroup extends Component {
     componentDidMount() {
 
         const {actions, allUserGroups} = this.props
-        console.log('AddUserGroup中fetchData', allUserGroups)
-        if (allUserGroups.length < 2) {
-            console.log('AddUserGroup中fetchData2')
+
+        if (allUserGroups.data.length < 2) {
+
             actions.getAllUserGroups()
         }
     }
@@ -56,17 +59,7 @@ class AddUserGroup extends Component {
         actions.addUserGroup(data)
     }
 
-    handleName = (rule, value, callback) => {
-        if (!value) {
-            callback('用户组名称不能为空')
-        }
-        if (!/^[\u4e00-\u9fa5]{3,10}$/.test(value)) {
-            callback('无效的组名称')
-        }
 
-        // Note: 必须总是返回一个 callback，否则 validateFieldsAndScroll 无法响应
-        callback()
-    }
     handleGroup = (rule, value, callback) => {
         if (!value) {
             callback('必须选择一项')
@@ -77,18 +70,32 @@ class AddUserGroup extends Component {
         callback()
     }
     handleSubmit = (e) => {
-        debugger
-        console.log('allUserGroups is 3')
+
+
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            debugger
+
             if (!err) {
-                console.log('Received values of form: ', values);
                 this.props.actions.addUserGroup(values)
             }
         });
     }
 
+    resetHelp(field) {
+        const {actions, allUserGroups} = this.props
+        actions.resetHelp(field)
+        if (field === 'Name') {
+            return allUserGroups.msgForName
+        } else {
+            return allUserGroups.msgForSlug
+        }
+
+    }
+
+    isError(name) {
+
+        return this.props.form.isFieldTouched(name) && this.props.form.getFieldError(name);
+    }
 
     render() {
         const formItemLayout = {
@@ -108,22 +115,19 @@ class AddUserGroup extends Component {
                 sm: {span: 10, offset: 7},
             },
         };
-        const {allUserGroups} = this.props;
+        const {allUserGroups, showModal} = this.props;
 
-        allUserGroups.unshift({
-            _id: '1',
-            name: '无',
-            power: [],
-            parent_user_group_id: '',
-            status: true
-        });
-        console.log('allUserGroups is2', allUserGroups)
 
         const {getFieldDecorator, isFieldTouched, getFieldError} = this.props.form;
-        const nameError = isFieldTouched('name') && getFieldError('name');
+
         return (
             <Card bordered={false}>
                 <BreadcrumbComp category={AppConfig.userManage[1]} item={AppConfig.addUserGroup[1]}/>
+
+                {
+                    showModal.visible &&
+                    <ModalSuccessComp data={{showModal}}/>
+                }
                 <Form
                     onSubmit={this.handleSubmit}
                     hideRequiredMark
@@ -132,36 +136,62 @@ class AddUserGroup extends Component {
                     <FormItem
                         {...formItemLayout}
                         label="组名称"
-                        validateStatus={nameError ? 'error' : ''}
-                        help={nameError || ''}
+                        hasFeedback={isFieldTouched('name') ? true : false}
+                        validateStatus={this.isError('name') ? 'error' : 'success'}
+                        help={allUserGroups.msgForName || this.isError('name') || ''}
                     >
                         {getFieldDecorator('name', {
                             rules: [{
-                                required: true, pattern: /^[\u4e00-\u9fa5]{3,10}$/,
-                                validator: this.handleName
+                                required: true,
+                                pattern: /^[\w\u4e00-\u9fa5]{1,20}$/,
+                                message: '中文或者字母，1-20位'
                             }],
                         })(
-                            <Input placeholder="组名称"/>
+                            <Input placeholder="组名称" onChange={this.resetHelp.bind(this, 'Name')}/>
+                        )}
+
+
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="组别名"
+                        hasFeedback={isFieldTouched('slug') ? true : false}
+                        validateStatus={this.isError('slug') ? 'error' : 'success'}
+                        help={allUserGroups.msgForSlug || this.isError('slug') || ''}
+                    >
+                        {getFieldDecorator('slug', {
+                            rules: [{
+                                required: true,
+                                pattern: /^[a-zA-Z]\w{1,10}$/,
+                                message: '只支持字母，1到10位'
+                            }],
+                        })(
+                            <Input placeholder="组别名" onChange={this.resetHelp.bind(this, 'Slug')}/>
                         )}
 
 
                     </FormItem>
                     <Form.Item
                         {...formItemLayout}
-                        label="用户组"
+                        label="父级组"
                     >
 
-                        {getFieldDecorator('parent_user_group_id', {
+                        {getFieldDecorator('parentId', {
                             rules: [{
                                 required: true,
                                 validator: this.handleGroup
                             }],
                         })(
-                            <Select  placeholder="请选择">
+                            <Select placeholder="请选择">
                                 {
-                                    allUserGroups.map((item, index) => (
-                                        <Option key={index}
-                                                value={item._id}>{(item.parent_user_group_id ? '\u00A0\u00A0\u00A0\u00A0' : '') + item.name}</Option>
+                                    [{
+                                        _id: '0',
+                                        name: '无',
+                                        slug: '',
+                                        parentId: '0',
+                                        status: true
+                                    }].concat(allUserGroups.data).map((item, index) => (
+                                        <Option key={index} value={item._id}>{item.name}</Option>
                                     ))
                                 }
 
@@ -175,11 +205,11 @@ class AddUserGroup extends Component {
                     >
                         <div>
                             {getFieldDecorator('status', {
-                                initialValue: '1',
+                                initialValue: true,
                             })(
                                 <Radio.Group>
-                                    <Radio value="1">启用</Radio>
-                                    <Radio value="2">禁用</Radio>
+                                    <Radio value={true}>启用</Radio>
+                                    <Radio value={false}>禁用</Radio>
                                 </Radio.Group>
                             )}
 

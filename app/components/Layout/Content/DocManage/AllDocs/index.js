@@ -50,7 +50,7 @@ class AllDocs extends Component {
         if (allDocs.docs.length < 1) {
             actions.getDocs({current: 1, pageSize: 10})
         }
-        if (categories.length < 1) {
+        if (categories.data.length < 1) {
             this.props.actions.getCategories()
         }
 
@@ -82,7 +82,7 @@ class AllDocs extends Component {
         const {categories} = this.props
 
 
-        for (let x of categories) {
+        for (let x of categories.data) {
             if (x.id === idxf) {
 
                 for (let i of x.children) {
@@ -101,7 +101,7 @@ class AllDocs extends Component {
     //由一级分类id推导二级分类数组
     getTwoLevelCate(idx) {
         const {categories} = this.props
-        for (let x of categories) {
+        for (let x of categories.data) {
             if (x.id === idx) {
 
                 return x.children
@@ -293,11 +293,11 @@ class AllDocs extends Component {
                       <Divider type="vertical"/>
                       <a href="#">删除</a>
                       <Divider type="vertical"/>
-                            {record.hot ? <a href="#" onClick={this.changeToNotHot.bind(this, text, record)}>取消热门</a> :
-                                <a href="#" onClick={this.changeToHot.bind(this, text, record)}>置为热门</a>}
+                            {record.hot ? <a href="javascript:void(0)" onClick={this.changeToNotHot.bind(this, text, record)}>取消热门</a> :
+                                <a href="javascript:void(0)" onClick={this.changeToHot.bind(this, text, record)}>置为热门</a>}
                             <Divider type="vertical"/>
-                            {record.top ? <a href="#" onClick={this.changeToNotTop.bind(this, text, record)}>取消置顶</a> :
-                                <a href="#" onClick={this.changeToTop.bind(this, text, record)}>置为置顶</a>}
+                            {record.top ? <a href="javascript:void(0)" onClick={this.changeToNotTop.bind(this, text, record)}>取消置顶</a> :
+                                <a href="javascript:void(0)" onClick={this.changeToTop.bind(this, text, record)}>置为置顶</a>}
                     </span>
                     )
                 },
@@ -353,7 +353,7 @@ class AllDocs extends Component {
                                             }],
                                         })(<Select placeholder="请选择">
                                             {
-                                                categories.filter((item) => (item.parentId === '0')).map((item, index) => (
+                                                categories.data.filter((item) => (item.parentId === '0')).map((item, index) => (
                                                     <Option key={index} value={item.id}>{item.name}</Option>
                                                 ))
                                             }
