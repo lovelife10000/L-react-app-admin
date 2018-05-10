@@ -5,13 +5,11 @@ import {connect} from 'react-redux'
 import styles from './index.less';
 import * as Actions from 'actions'
 import {isLogin} from 'utils/auth'
-import { Card, Icon, Avatar, List } from 'antd';
-const { Meta } = Card;
+import {Card, Icon, Avatar, List, Button} from 'antd';
+
+const {Meta} = Card;
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 import AppConfig from 'config/app.config'
-
-
-
 
 
 const mapStateToProps = state => {
@@ -35,9 +33,6 @@ class BannerManage extends Component {
     }
 
 
-
-
-
     static propTypes = {
         route: PropTypes.object.isRequired,
         history: PropTypes.object,
@@ -47,22 +42,21 @@ class BannerManage extends Component {
         document: PropTypes.object,
         collapsed: PropTypes.bool
     }
+
     componentDidMount() {
 
 
     }
+
     componentWillMount() {
 
 
     }
 
 
-
-
-
-
     render() {
         const data = [
+           null,
             {
                 title: 'Title 1',
                 url: 'Title 1',
@@ -93,25 +87,42 @@ class BannerManage extends Component {
                 <BreadcrumbComp category={AppConfig.docManage[1]} item={AppConfig.bannerManage[1]}/>
 
                 <List
-                    grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+                    grid={{gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3}}
                     dataSource={data}
-                    renderItem={item => (
+                    renderItem={(item) =>
 
-                        <List.Item>
-                            <Card
-                                style={{  }}
-                                cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
-                                actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
-                            >
-                                <Meta
+                        item ?
 
-                                    title={item.title}
-                                    description={item.url}
-                                />
-                            </Card>
-                        </List.Item>
 
-                    )}
+
+                            (
+
+                                <List.Item>
+                                    <Card
+                                        style={{}}
+                                        cover={<img alt="example" style={{height:'188px',width:'100%'}}
+                                                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"/>}
+                                        actions={[<Icon type="edit">编辑</Icon>, <Icon type="edit">删除</Icon>]}
+                                    >
+                                        <Meta
+
+                                            title={item.title}
+
+                                        />
+                                    </Card>
+                                </List.Item>)
+                            :
+                             (
+
+                                <List.Item>
+                                    <Button type="dashed" className={styles.newButton}>
+                                        <Icon type="plus"/> 新增轮播
+                                    </Button>
+                                </List.Item>
+                            )
+
+
+                    }
                 />
 
             </div>

@@ -50,7 +50,7 @@ class AddDoc extends Component {
         invalid: PropTypes.bool,
         handleSubmit: PropTypes.func,
         form: PropTypes.object.isRequired,
-        categories: PropTypes.array.isRequired,
+        categories: PropTypes.object.isRequired,
         isError: PropTypes.func,
     };
 
@@ -59,7 +59,7 @@ class AddDoc extends Component {
 
         const {actions, categories, tagList} = this.props
 
-        if (categories.length < 1) {
+        if (categories.data.length < 1) {
             actions.getCategories()
         }
         if (tagList.length < 1) {
@@ -140,7 +140,7 @@ class AddDoc extends Component {
     //由一级分类id推导二级分类数组
     getTwoLevelCate(idx) {
         const {categories} = this.props
-        for (let x of categories) {
+        for (let x of categories.data) {
             if (x.id === idx) {
 
                 return x.children
@@ -159,7 +159,7 @@ class AddDoc extends Component {
         const {categories} = this.props
 
 
-        for (let x of categories) {
+        for (let x of categories.data) {
             if (x.id === idxf) {
 
                 for (let i of x.children) {
@@ -257,7 +257,7 @@ class AddDoc extends Component {
                                     }],
                                 })(<Select placeholder="请选择" onChange={this.clearInput.bind(this)}>
                                     {
-                                        categories.filter((item) => (item.parentId === '0')).map((item, index) => (
+                                        categories.data.filter((item) => (item.parentId === '0')).map((item, index) => (
                                             <Option key={index} value={item.id}>{item.name}</Option>
                                         ))
                                     }
@@ -408,7 +408,15 @@ class AddDoc extends Component {
                             <Switch/>
                         )}
                     </FormItem>
-
+                    <FormItem
+                        {...formItemLayout}
+                        label="轮播"
+                        required
+                    >
+                        {getFieldDecorator('banner', {valuePropName: 'checked'})(
+                            <Switch/>
+                        )}
+                    </FormItem>
 
                     <FormItem
                         {...formItemLayout}

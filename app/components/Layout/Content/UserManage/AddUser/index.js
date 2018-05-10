@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import {Button, Card, Form, Input, Radio, Select,} from 'antd';
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 import styles from './style.less';
+
 const {Option} = Select;
 const FormItem = Form.Item;
 const {TextArea} = Input;
@@ -45,6 +46,7 @@ class AddUser extends Component {
             actions.getAllUserGroups()
         }
     }
+
     isError(name) {
 
         return this.props.form.isFieldTouched(name) && this.props.form.getFieldError(name);
@@ -110,7 +112,7 @@ class AddUser extends Component {
                         label="用户组"
                         hasFeedback={isFieldTouched('userGroup') ? true : false}
                         validateStatus={this.isError('userGroup') ? 'error' : 'success'}
-                        help={ this.isError('userGroup') || ''}
+                        help={this.isError('userGroup') || ''}
                     >
 
                         {getFieldDecorator('userGroup', {
@@ -176,13 +178,14 @@ class AddUser extends Component {
                     <FormItem
                         {...formItemLayout}
                         label="确认密码"
-                        validateStatus={nameError ? 'error' : ''}
-                        help={nameError || ''}
+                        validateStatus={this.isError('rePassword') ? 'error' : 'success'}
+                        help={this.isError('rePassword') || ''}
                     >
                         {getFieldDecorator('rePassword', {
                             rules: [{
-                                required: true, pattern: /^[\u4e00-\u9fa5]{3,10}$/,
-                                validator: this.handleName
+                                required: true,
+                                pattern: /^[\u4e00-\u9fa5]{3,10}$/,
+
                             }],
                         })(
                             <Input placeholder="确认密码"/>
@@ -199,7 +202,7 @@ class AddUser extends Component {
                         {getFieldDecorator('phone', {
                             rules: [{
                                 pattern: /^[\u4e00-\u9fa5]{3,10}$/,
-                                validator: this.handleName
+
                             }],
                         })(
                             <Input placeholder="电话"/>
