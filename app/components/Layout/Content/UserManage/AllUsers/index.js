@@ -41,6 +41,18 @@ class AllUsers extends Component {
     }
   }
 
+    changeToUse(text, record) {
+        const {actions} = this.props
+
+        actions.changeToUse({_id: record._id})
+    }
+    changeToNotUse(text, record) {
+        const {actions} = this.props
+
+        actions.changeToNotUse({_id: record._id})
+
+    }
+
   render() {
     const {allUsers} = this.props
     const columns = [{
@@ -54,10 +66,11 @@ class AllUsers extends Component {
     {
       title: '状态',
       dataIndex: 'status',
+        render: (text) => (text ? '启用' : '禁用')
     },
     {
       title: '用户组',
-      dataIndex: 'user_group',
+      dataIndex: 'userGroup',
     },
     {
       title: '文章数量',
@@ -70,13 +83,12 @@ class AllUsers extends Component {
       title: '操作', dataIndex: '', key: 'x',
       render: (text, record) => (
         <span>
-          <a href="#">修改用户</a>
+          <a href="#">编辑</a>
           <Divider type="vertical"/>
           <a href="#">删除</a>
-          <Divider type="vertical"/>
-          <a href="#" className="ant-dropdown-link">
-            更多 <Icon type="down"/>
-          </a>
+ <Divider type="vertical"/>
+            {record.status ? <a href="javascript:void(0)" onClick={this.changeToNotUse.bind(this, text, record)}>禁用</a> :
+                <a href="javascript:void(0)" onClick={this.changeToUse.bind(this, text, record)}>启用</a>}
         </span>
       ),
     },];

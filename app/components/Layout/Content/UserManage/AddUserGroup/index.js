@@ -174,6 +174,7 @@ class AddUserGroup extends Component {
                     <Form.Item
                         {...formItemLayout}
                         label="父级组"
+                        help={ this.isError('parentId') || ''}
                     >
 
                         {getFieldDecorator('parentId', {
