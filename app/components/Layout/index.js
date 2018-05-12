@@ -8,7 +8,6 @@ import Head from './Head'
 import {renderRoutes} from 'react-router-config'
 import {isLogin} from 'utils/auth'
 import {Layout, LocaleProvider} from 'antd';
-
 const {Content, Footer} = Layout;
 import Side from './Side'
 import zhCN from 'antd/lib/locale-provider/zh_CN';
@@ -26,10 +25,7 @@ const mapDispatchToProps = dispatch => {
         actions: bindActionCreators(Actions, dispatch)
     }
 }
-// let isMobile;
-// enquireScreen((b) => {
-//   isMobile = b;
-// });
+
 
 class LayoutComp extends Component {
     constructor(props) {
@@ -41,10 +37,7 @@ class LayoutComp extends Component {
     }
 
 
-    static childContextTypes = {
-        location: PropTypes.object,
-        breadcrumbNameMap: PropTypes.object,
-    }
+
 
     static propTypes = {
         route: PropTypes.object.isRequired,
@@ -109,7 +102,7 @@ class LayoutComp extends Component {
     }
 
     static fetchData({token}) {
-        console.log('Layout中fetchData')
+
         return [Actions.getUserInfo(token)]
     }
 

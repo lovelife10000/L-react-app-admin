@@ -4,7 +4,7 @@ const favicon = require('serve-favicon')
 
 
 const bodyParser = require('body-parser');
-const appConfig = require('../app/config/app.config');
+const appConfig = require('../app/config/app');
 
 const app = express()
 

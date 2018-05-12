@@ -86,7 +86,7 @@ export const getUserInfo = (token = getCookie('token')) => {
 export const logout = function () {
     return dispatch => {
         signOut()
-        dispatch({type: types.LOGOUT_USER})
+        dispatch({type: types.LOGOUT})
         window.location.pathname = '/'
     }
 }

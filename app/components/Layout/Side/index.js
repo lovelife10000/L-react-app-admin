@@ -68,15 +68,15 @@ class Side extends Component {
                                 item.children.map((item2, index2) => {
                                     if (item2.children.length < 1) {
                                         return (
-                                            <Menu.Item key={'sub2_'+index2}><a href={item2.url}>{item2.name}</a></Menu.Item>
+                                            <Menu.Item key={'sub2_'+index2}><Link to={item2.url}>{item2.name}</Link></Menu.Item>
                                         )
                                     } else {
                                         return (
                                             <SubMenu key={index2} title={<span>{item2.name}</span>}>
                                                 {item2.children.map((item3, index3) => {
                                                     return (
-                                                        <Menu.Item key={'sub3_'+index3}><a
-                                                            href={item3.url}>{item3.name}</a></Menu.Item>
+                                                        <Menu.Item key={'sub3_'+index3}><Link
+                                                            to={item3.url}>{item3.name}</Link></Menu.Item>
 
 
                                                     )

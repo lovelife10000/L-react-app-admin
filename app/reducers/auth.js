@@ -22,14 +22,14 @@ export default createReducer(initialState, {
         })
     },
     [types.GET_USERINFO_FAILURE]: (state, action) => state.set('user', null),
-    [types.LOGOUT_USER]: (state, action) => initialState.set('token', null),
+    [types.LOGOUT]: (state, action) => initialState.set('token', null),
     [types.UPDATE_USER_SUCCESS]: (state, action) => {
         return state.merge({
             user: action.user
         })
     },
     [types.UPDATE_USER_AVATAR]: (state, action) => {
-        debugger
+
         return state.mergeDeep({
             user: {
                 avatar: appConfig.domain + action.avatar
