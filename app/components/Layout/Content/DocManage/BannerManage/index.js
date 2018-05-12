@@ -6,10 +6,9 @@ import styles from './index.less';
 import * as Actions from 'actions'
 import {isLogin} from 'utils/auth'
 import {Card, Icon, Avatar, List, Button} from 'antd';
-
 const {Meta} = Card;
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
-import AppConfig from 'config/app.config'
+import AppConfig from 'config/app'
 
 
 const mapStateToProps = state => {

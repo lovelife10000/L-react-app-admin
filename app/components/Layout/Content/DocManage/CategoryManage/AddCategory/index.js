@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import AppConfig from 'config/app.config'
+import AppConfig from 'config/app'
 import * as Actions from 'actions'
 import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'

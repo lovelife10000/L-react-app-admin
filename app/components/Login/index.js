@@ -8,7 +8,7 @@ import {isLogin} from 'utils/auth'
 import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd';
 const FormItem = Form.Item;
 import styles from './index.less'
-const appConfig =require('config/app.config');
+const appConfig =require('config/app');
 
 
 const mapStateToProps = (state)=> {

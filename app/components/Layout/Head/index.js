@@ -12,7 +12,7 @@ import groupBy from 'lodash/groupBy';
 import styles from './index.less'
 import HeaderSearch from './HeaderSearch'
 import NoticeIcon from './NoticeIcon'
-import defaultAvatar from '../../../assets/img/20625882.png'
+import defaultAvatar from 'assets/img/20625882.png'
 
 const mapStateToProps = (state) => {
   return {
@@ -95,7 +95,7 @@ class HeaderBar extends Component {
             [
               (
                 <Link to="/" className={styles.logo} key="logo">
-                  <img src={logo} alt="logo" width="32" />
+                  <img src={user ? user.avatar : defaultAvatar} alt="logo" width="32" />
                 </Link>
               ),
               <Divider type="vertical" key="line" />,

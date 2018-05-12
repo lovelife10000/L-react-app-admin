@@ -7,13 +7,13 @@ import {
 import { createReducer } from 'redux-immutablejs'
 import { fromJS } from 'immutable'
 import img from '../assets/img/shanghai.jpg'
-import { DOMAIN } from '../config/app.config'
+import { domain } from 'config/app'
 // import { getCookie} from '../utils/auth.util'
 
 export default createReducer(fromJS({
   indexImg:'',
   styleMode: '',
-  captchaUrl: DOMAIN + 'login/getCaptcha?',
+  captchaUrl: domain + 'login/getCaptcha?',
   collapsed:false
 }), {
   [CHANGE_STYLE_MODE]: (state, action) => {

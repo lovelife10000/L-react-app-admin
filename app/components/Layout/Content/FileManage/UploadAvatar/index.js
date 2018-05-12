@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import AppConfig from 'config/app.config'
+import AppConfig from 'config/app'
 import {Upload, Icon, Card,} from 'antd'
 import * as Actions from 'actions'
 import {bindActionCreators} from 'redux'

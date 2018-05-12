@@ -1,6 +1,6 @@
 require('es6-promise').polyfill()
 import axios from 'axios'
-import  AppConfig  from 'config/app.config'
+import  AppConfig  from 'config/app'
 import { getCookie,signOut } from 'utils/auth'
 
 axios.defaults.baseURL =AppConfig.domain

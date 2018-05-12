@@ -1,25 +1,28 @@
 import * as api from 'api'
+import * as types from 'config/types'
 
 
 function updateUserAvatar(avatar) {
-  return {
-    type: 'UPDATE_USER_AVATAR',
-    avatar:avatar
-  }
+    return {
+        type: types.UPDATE_USER_AVATAR,
+        avatar: avatar
+    }
 }
 
-export const uploadAvatar=(data)=>{
-  console.log('上传2');
-  return (dispatch,getState)=> {
+export const uploadAvatar = (data) => {
 
-    return api.uploadAvatar(data).then(function (response) {
-      console.log('上传3',response);
-      if(response.data.success){
-        dispatch(updateUserAvatar(response.data.url))
-      }
+    return (dispatch, getState) => {
 
-      console.log('获得响应')
-    });
-  }
+        return api.uploadAvatar(data).then(function (response) {
+            if (response.data.success === false && response.data.msg === '未登录') {
+                return dispatch(push('/login'))
+            }
+            if (response.data.success) {
+                dispatch(updateUserAvatar(response.data.avatar))
+            }
+
+
+        });
+    }
 }
 

@@ -11,7 +11,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import 'rc-drawer-menu/assets/index.css';
 import DrawerMenu from 'rc-drawer-menu';
-import appConfig from 'config/app.config'
+import appConfig from 'config/app'
 
 const mapStateToProps = (state) => {
     return {
@@ -42,6 +42,7 @@ class Side extends Component {
     render() {
 
         const {auth: {user}, onCollapse} = this.props
+
         const sid = () => (<Sider
             trigger={null}
             collapsed={this.props.isMobile ? false : this.props.collapsed}
@@ -52,7 +53,7 @@ class Side extends Component {
         >
             <div className={styles.logo} key="logo">
                 <Link to='/'>
-                    <img src={(user ? user.avatar : '') || defaultAvatar} alt="logo"/>
+                    <img src={user ? user.avatar : defaultAvatar} alt="logo"/>
                     <h1>L-react-app-admin</h1>
                 </Link>
             </div>

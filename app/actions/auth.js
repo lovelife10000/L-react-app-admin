@@ -3,7 +3,7 @@ import {push} from 'react-router-redux'
 import {saveCookie, getCookie, signOut} from 'utils/auth'
 import {showMsg} from './other'
 import * as api from 'api'
-import AppConfig from '../config/app.config'
+import AppConfig from 'config/app'
 
 
 export const getSnsLogins = () => {

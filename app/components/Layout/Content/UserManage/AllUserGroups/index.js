@@ -7,7 +7,7 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
-import AppConfig from 'config/app.config'
+import AppConfig from 'config/app'
 
 const mapStateToProps = state => {
   return {

@@ -14,7 +14,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import 'antd/dist/antd.css'
 import '../app/assets/css/index.css'
 
-import routes from '../app/config/routes.config'
+import routes from '../app/config/routes'
 
 const history = createHistory()
 const initialState = window.__INITIAL_STATE__
