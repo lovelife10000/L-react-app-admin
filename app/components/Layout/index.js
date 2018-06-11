@@ -26,9 +26,10 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-
+console.log('类外面')
 class LayoutComp extends Component {
     constructor(props) {
+        console.log('constructor')
         super(props)
         this.state = {
             collapsed: false,
@@ -50,6 +51,7 @@ class LayoutComp extends Component {
     }
 
     componentDidMount() {
+        console.log('componentDidMount')
         let enquireJs;
         if (typeof window !== 'undefined') {
             const matchMediaPolyfill = mediaQuery => {
@@ -84,7 +86,7 @@ class LayoutComp extends Component {
     }
 
     componentWillMount() {
-
+        console.log('componentWillMount')
         if (!isLogin()) {
             try {
                 this.props.history.replace('/login');
@@ -112,7 +114,7 @@ class LayoutComp extends Component {
 
 
     render() {
-
+        console.log('render')
         return (
             <LocaleProvider locale={zhCN}>
                 <Layout>

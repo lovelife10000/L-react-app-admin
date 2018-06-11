@@ -10,8 +10,8 @@ module.exports = {
     name: 'browser',
     context: path.join(__dirname, '..', 'app'),
     entry: {
-        vendor: ['react', 'redux', 'react-redux', 'react-router-redux', 'react-router-dom', 'react-router-config'],
-        bundle: ['../client/client.js', hotMiddlewareScript]
+        vendor: ['babel-polyfill','react', 'redux', 'react-redux', 'react-router-redux', 'react-router-dom', 'react-router-config'],
+        bundle: ['babel-polyfill','../client/client.js', hotMiddlewareScript]
     },
     output: {
         path: path.join(__dirname, '../dist/js'),

@@ -36,6 +36,7 @@ class BasicInfo extends Component {
   }
 
 
+
   // static fetchData(params) {
   //   return [Actions.getSnsLogins()]
   // }

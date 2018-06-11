@@ -28,6 +28,7 @@ const mapDispatchToProps = dispatch => {
 
 class AddUserGroup extends Component {
     constructor(props) {
+        debugger
         super(props)
         this.addUserGroup = this.addUserGroup.bind(this)
 
@@ -43,15 +44,55 @@ class AddUserGroup extends Component {
         form: PropTypes.object.isRequired,
     };
 
+    componentWillMount() {
+        debugger
+    }
+
+    UNSAFE_componentDidMount() {
+        debugger
+    }
+
+    static getDerivedStateFromProps() {
+        debugger
+    }
 
     componentDidMount() {
-
+        debugger
         const {actions, allUserGroups} = this.props
 
         if (allUserGroups.data.length < 2) {
 
             actions.getAllUserGroups()
         }
+    }
+
+
+    componentWillUpdating() {
+        debugger
+    }
+
+    componentWillReceiveProps() {
+        debugger
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        debugger
+    }
+
+    getSnapshotBeforeUpdate() {
+        debugger
+    }
+
+    componentDidUpdating() {
+        debugger
+    }
+
+    componentWillUnmount() {
+        debugger
+    }
+
+    componentDidCatch() {
+
     }
 
     addUserGroup(data) {
@@ -98,6 +139,7 @@ class AddUserGroup extends Component {
     }
 
     render() {
+        debugger
         const formItemLayout = {
             labelCol: {
                 xs: {span: 24},
@@ -174,7 +216,7 @@ class AddUserGroup extends Component {
                     <Form.Item
                         {...formItemLayout}
                         label="父级组"
-                        help={ this.isError('parentId') || ''}
+                        help={this.isError('parentId') || ''}
                     >
 
                         {getFieldDecorator('parentId', {
