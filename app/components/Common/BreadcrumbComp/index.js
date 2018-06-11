@@ -10,42 +10,120 @@ import styles from './index.less';
 
 
 const mapStateToProps = state => {
-  return {
-    allUserGroups: state.allUserGroups.toJS()
-  }
+    return {
+        allUserGroups: state.allUserGroups.toJS()
+    }
 };
 const mapDispatchToProps = dispatch => {
-  return {
-    actions: bindActionCreators(Actions, dispatch)
-  }
+    return {
+        actions: bindActionCreators(Actions, dispatch)
+    }
 };
 
 
 class BreadcrumbComp extends Component {
-  constructor(props) {
-    super(props)
+    constructor(props) {
+        debugger
+        super(props)
+        this.state = {
+            abc: ''
+        }
 
-  }
+    }
 
-  static propTypes = {
-    allUserGroups: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
-    category:PropTypes.string.isRequired,
-    item:PropTypes.string.isRequired,
-  };
+    static propTypes = {
+        allUserGroups: PropTypes.object.isRequired,
+        actions: PropTypes.object.isRequired,
+        category: PropTypes.string.isRequired,
+        item: PropTypes.string.isRequired,
+    };
+
+    componentWillMount() {
+        console.log('bread')
+        debugger
+    }
+
+    UNSAFE_componentWillMount() {
+        console.log('bread')
+        debugger
+    }
+
+    // static getDerivedStateFromProps() {
+    //     debugger
+    // }
+
+    componentDidMount() {
+        console.log('bread')
+        debugger
+
+    }
 
 
-  render() {
+    componentWillUpdate() {
+        console.log('bread')
+        debugger
+    }
 
+    UNSAVE_componentWillUpdate() {
+        console.log('bread')
+        debugger
+    }
 
-    return (
-      <Breadcrumb className={styles.breadcrumb} separator=">">
-        <Breadcrumb.Item>主页</Breadcrumb.Item>
-        <Breadcrumb.Item>{this.props.category}</Breadcrumb.Item>
-        <Breadcrumb.Item>{this.props.item}</Breadcrumb.Item>
-      </Breadcrumb>
-    )
-  }
+    // componentWillReceiveProps() {
+    //     debugger
+    // }
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        console.log('bread')
+        debugger
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('bread')
+        debugger
+        return true
+
+    }
+
+    // getSnapshotBeforeUpdate() {
+    //     debugger
+    // }
+
+    componentDidUpdate() {
+        console.log('bread')
+        debugger
+    }
+
+    componentWillUnmount() {
+        console.log('bread')
+        debugger
+    }
+
+    componentDidCatch() {
+        console.log('bread')
+        debugger
+    }
+
+    setState2() {
+        console.log('bread')
+        debugger
+        this.setState({
+            abc: 666
+        })
+    }
+
+    render() {
+        console.log('bread')
+        debugger
+
+        return (
+            <Breadcrumb className={styles.breadcrumb} separator=">">
+                <Breadcrumb.Item>主页</Breadcrumb.Item>
+                <Breadcrumb.Item>{this.props.category}</Breadcrumb.Item>
+                <Breadcrumb.Item>{this.props.item}</Breadcrumb.Item>
+                <input type="text" onChange={this.props.func}/>
+            </Breadcrumb>
+        )
+    }
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BreadcrumbComp))

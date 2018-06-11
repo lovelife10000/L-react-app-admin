@@ -31,7 +31,9 @@ class AddUserGroup extends Component {
         debugger
         super(props)
         this.addUserGroup = this.addUserGroup.bind(this)
-
+        this.state = {
+            cde: ''
+        }
     }
 
 
@@ -48,13 +50,13 @@ class AddUserGroup extends Component {
         debugger
     }
 
-    UNSAFE_componentDidMount() {
+    UNSAFE_componentWillMount() {
         debugger
     }
 
-    static getDerivedStateFromProps() {
-        debugger
-    }
+    // static getDerivedStateFromProps() {
+    //     debugger
+    // }
 
     componentDidMount() {
         debugger
@@ -67,23 +69,32 @@ class AddUserGroup extends Component {
     }
 
 
-    componentWillUpdating() {
+    componentWillUpdate() {
         debugger
     }
 
-    componentWillReceiveProps() {
+    UNSAVE_componentWillUpdate() {
+        debugger
+    }
+
+    // componentWillReceiveProps() {
+    //     debugger
+    // }
+    UNSAFE_componentWillReceiveProps(nextProps) {
         debugger
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         debugger
+        return true
+
     }
 
-    getSnapshotBeforeUpdate() {
-        debugger
-    }
+    // getSnapshotBeforeUpdate() {
+    //     debugger
+    // }
 
-    componentDidUpdating() {
+    componentDidUpdate() {
         debugger
     }
 
@@ -92,7 +103,7 @@ class AddUserGroup extends Component {
     }
 
     componentDidCatch() {
-
+        debugger
     }
 
     addUserGroup(data) {
@@ -123,6 +134,7 @@ class AddUserGroup extends Component {
     }
 
     resetHelp(field) {
+
         const {actions, allUserGroups} = this.props
         actions.resetHelp(field)
         if (field === 'Name') {
@@ -136,6 +148,19 @@ class AddUserGroup extends Component {
     isError(name) {
 
         return this.props.form.isFieldTouched(name) && this.props.form.getFieldError(name);
+    }
+
+    setState2() {
+        debugger
+        this.setState({
+            cde: 666
+        })
+    }
+    setState3() {
+        debugger
+        this.setState({
+            cde: 777
+        })
     }
 
     render() {
@@ -164,12 +189,15 @@ class AddUserGroup extends Component {
 
         return (
             <Card bordered={false}>
-                <BreadcrumbComp category={AppConfig.userManage[1]} item={AppConfig.addUserGroup[1]}/>
+                <BreadcrumbComp func={this.setState2.bind(this)} category={AppConfig.userManage[1]}
+                                item={AppConfig.addUserGroup[1]}/>
 
                 {
                     showModal.visible &&
                     <ModalSuccessComp data={{showModal}}/>
                 }
+
+                <input type="text" onChange={this.setState3.bind(this)}/>
                 <Form
                     onSubmit={this.handleSubmit}
                     hideRequiredMark
