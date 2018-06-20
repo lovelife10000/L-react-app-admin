@@ -19,16 +19,16 @@ class IconSlider extends Component {
   handleChange = (value) => {
     this.setState({
       value:value
-    });
+    })
     this.props.getSliderVal(value)
   }
 
   render() {
-    const {max, min} = this.props;
-    const {value} = this.state;
-    const mid = ((max - min) / 2).toFixed(5);
-    const preColor = value >= mid ? '' : 'rgba(0, 0, 0, .45)';
-    const nextColor = value >= mid ? 'rgba(0, 0, 0, .45)' : '';
+    const {max, min} = this.props
+    const {value} = this.state
+    const mid = ((max - min) / 2).toFixed(5)
+    const preColor = value >= mid ? '' : 'rgba(0, 0, 0, .45)'
+    const nextColor = value >= mid ? 'rgba(0, 0, 0, .45)' : ''
 
     return (
 

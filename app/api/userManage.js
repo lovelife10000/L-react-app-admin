@@ -3,23 +3,23 @@ import request from 'utils/request'
 
 export const addUserGroup= function (data) {
 
-    return request.post('admin/userManage/addUserGroup', data)
+  return request.post('admin/userManage/addUserGroup', data)
 }
 export const getAllUserGroups= function (data) {
-    return request.get('admin/userManage/getAllUserGroups', data)
+  return request.get('admin/userManage/getAllUserGroups', data)
 }
 export const getAllUsers= function (data) {
-    return request.get('admin/userManage/getAllUsers', data)
+  return request.get('admin/userManage/getAllUsers', data)
 }
 
 export const addUser= function (data) {
-    return request.post('admin/userManage/addUser', data)
+  return request.post('admin/userManage/addUser', data)
 }
 
 export const changeToUse = function (data) {
-    return request.post('admin/userManage/changeToUse', data)
+  return request.post('admin/userManage/changeToUse', data)
 }
 
 export const changeToNotUse = function (data) {
-    return request.post('admin/userManage/changeToNotUse', data)
+  return request.post('admin/userManage/changeToNotUse', data)
 }

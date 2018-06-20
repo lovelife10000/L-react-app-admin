@@ -7,42 +7,42 @@ const colorStyleMap = {
   red: {
     color: 'rgba(255, 0, 0, 1.0)',
   },
-};
+}
 
 class ColorfulEditorExample extends Component {
   constructor() {
     super()
-    this.state = {editorState: EditorState.createEmpty()};
+    this.state = {editorState: EditorState.createEmpty()}
 
-    this.focus = () => this.editor.focus();
-    this.onChange = (editorState) => this.setState({editorState});
-    this.toggleColor = (toggledColor, toggledColorRgb) => this._toggleColor(toggledColor, toggledColorRgb);
+    this.focus = () => this.editor.focus()
+    this.onChange = (editorState) => this.setState({editorState})
+    this.toggleColor = (toggledColor, toggledColorRgb) => this._toggleColor(toggledColor, toggledColorRgb)
   }
 
   _toggleColor(toggledColor, toggledColorRgb) {
     console.log('完成3')
-    const {editorState} = this.state;
-    const selection = editorState.getSelection();
+    const {editorState} = this.state
+    const selection = editorState.getSelection()
 
     // Let's just allow one color at a time. Turn off all active colors.
     const nextContentState = Object.keys(colorStyleMap)
       .reduce((contentState, color) => {
         return Modifier.removeInlineStyle(contentState, selection, color)
-      }, editorState.getCurrentContent());
+      }, editorState.getCurrentContent())
 
     let nextEditorState = EditorState.push(
       editorState,
       nextContentState,
       'change-inline-style'
-    );
+    )
 
-    const currentStyle = editorState.getCurrentInlineStyle();
+    const currentStyle = editorState.getCurrentInlineStyle()
 
     // Unset style override for current color.
     if (selection.isCollapsed()) {
       nextEditorState = currentStyle.reduce((state, color) => {
-        return RichUtils.toggleInlineStyle(state, color);
-      }, nextEditorState);
+        return RichUtils.toggleInlineStyle(state, color)
+      }, nextEditorState)
     }
 
     // If the color is being toggled on, apply it.
@@ -58,10 +58,10 @@ class ColorfulEditorExample extends Component {
       nextEditorState = RichUtils.toggleInlineStyle(
         nextEditorState,
         toggledColor
-      );
+      )
     }
 
-    this.onChange(nextEditorState);
+    this.onChange(nextEditorState)
   }
 
   render() {
@@ -93,9 +93,9 @@ class ColorfulEditorExample extends Component {
         marginRight: 16,
         padding: '2px 0',
       },
-    };
+    }
 
-    const {editorState} = this.state;
+    const {editorState} = this.state
     return (
 
       <div style={styles.root}>

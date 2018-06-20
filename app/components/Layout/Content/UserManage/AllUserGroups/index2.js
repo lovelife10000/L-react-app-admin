@@ -10,12 +10,12 @@ const mapStateToProps = state => {
   return {
     allUserGroups: state.allUserGroups.toJS()
   }
-};
+}
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch)
   }
-};
+}
 
 class AllUserGroups extends Component {
   constructor() {

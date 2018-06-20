@@ -13,7 +13,7 @@ const mapStateToProps = (state)=> {
     showMsg: state.showMsg.toJS(),
     auth:state.auth.toJS()
   }
-};
+}
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch)

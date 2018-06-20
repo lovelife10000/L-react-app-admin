@@ -108,11 +108,11 @@ const routes = [
         exact: true,
         component: AddDoc
       },
-        {
-            path: '/docManage/allDocs',
-            exact: true,
-            component: AllDocs
-        },
+      {
+        path: '/docManage/allDocs',
+        exact: true,
+        component: AllDocs
+      },
       {
         path: '/docManage/addTag',
         exact: true,

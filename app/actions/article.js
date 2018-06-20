@@ -55,7 +55,7 @@ export const getArticleList = (isAdd = true) =>{
 //获取文章详情
 export const getArticleDetail = (id) =>{
   return (dispatch, getState) => {
-    console.log('getState is what',getState());
+    console.log('getState is what',getState())
     const auth = getState().auth.toJS()
     return api.getArticleDetaile(id)
       .then(response => ({json: response.data, status: response.statusText}))

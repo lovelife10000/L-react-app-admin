@@ -1,13 +1,13 @@
-import React, { PureComponent } from 'react';
-import { Avatar, List } from 'antd';
-import classNames from 'classnames';
-import styles from './NoticeList.less';
+import React, { PureComponent } from 'react'
+import { Avatar, List } from 'antd'
+import classNames from 'classnames'
+import styles from './NoticeList.less'
 import PropTypes from 'prop-types'
 
 
 class NoticeList extends PureComponent {
   constructor(props) {
-    super(props);
+    super(props)
 
   }
 
@@ -28,7 +28,7 @@ class NoticeList extends PureComponent {
 
 
   render() {
-    const data=[];
+    const data=[]
     const {onClick, onClear, title, locale, emptyText, emptyImage}=this.props
     if (data.length === 0) {
       return (
@@ -38,7 +38,7 @@ class NoticeList extends PureComponent {
           ) : null}
           <div>{emptyText || locale.emptyText}</div>
         </div>
-      );
+      )
     }
     return (
       <div>
@@ -46,7 +46,7 @@ class NoticeList extends PureComponent {
           {data.map((item, i) => {
             const itemCls = classNames(styles.item, {
               [styles.read]: item.read,
-            });
+            })
             return (
               <List.Item className={itemCls} key={item.key || i} onClick={() => onClick(item)}>
                 <List.Item.Meta
@@ -68,14 +68,14 @@ class NoticeList extends PureComponent {
                   }
                 />
               </List.Item>
-            );
+            )
           })}
         </List>
         <div className={styles.clear} onClick={onClear}>
           {locale.clear}{title}
         </div>
       </div>
-    );
+    )
   }
 }
 

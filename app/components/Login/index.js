@@ -1,23 +1,23 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {bindActionCreators} from 'redux'
+import { bindActionCreators } from 'redux'
 import * as Actions from 'actions'
-import {withRouter} from 'react-router-dom'
-import {isLogin} from 'utils/auth'
-import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd';
-const FormItem = Form.Item;
+import { withRouter } from 'react-router-dom'
+import { isLogin } from 'utils/auth'
+import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd'
+const FormItem = Form.Item
 import styles from './index.less'
-const appConfig =require('config/app');
+const appConfig = require('config/app')
 
 
-const mapStateToProps = (state)=> {
+const mapStateToProps = (state) => {
   return {
     globalVal: state.globalVal.toJS(),
     showMsg: state.showMsg.toJS(),
-    auth:state.auth.toJS()
+    auth: state.auth.toJS()
   }
-};
+}
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch)
@@ -39,40 +39,40 @@ class Login extends Component {
     dirty: PropTypes.bool,
     invalid: PropTypes.bool,
     history: PropTypes.object,
-    auth:PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     showMsg: PropTypes.object.isRequired,
     form: PropTypes.object.isRequired
   };
-  static fetchData({token}){
+  static fetchData({ token }) {
     console.log('Login中获取用户信息')
     return [Actions.getUserInfo(token)]
   }
   componentDidMount() {
-    const { actions,auth} = this.props
-    if(auth.user===null){
+    const { actions, auth } = this.props
+    if (auth.user === null) {
       actions.getUserInfo()
     }
   }
-  componentWillMount(){
+  componentWillMount() {
     // const { actions} = this.props
-    if(isLogin()) {
+    if (isLogin()) {
       try {
-        window.location.href='/'
-      }catch (err){
+        window.location.href = '/'
+      } catch (err) {
         console.log('忽略服务端渲染,组件检查的时候window is not defined')
       }
     }
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     const { globalVal } = this.props
-    if(globalVal.styleMode !== nextProps.globalVal.styleMode){
+    if (globalVal.styleMode !== nextProps.globalVal.styleMode) {
       document.body.className = nextProps.globalVal.styleMode
     }
   }
   submitForm(form) {
     console.log('login中submitForm执行')
-    const {actions} = this.props
+    const { actions } = this.props
     console.log('login中submitForm执行', actions.login)
     actions.localLogin(form)
 
@@ -80,17 +80,17 @@ class Login extends Component {
 
   changeCaptcha(e) {
     e.preventDefault()
-    const {actions} = this.props
+    const { actions } = this.props
     actions.getCaptchaUrl()
   }
   handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.log('Received values of form: ', values)
         this.submitForm(values)
       }
-    });
+    })
   }
 
   handleUsername = (rule, value, callback) => {
@@ -131,80 +131,84 @@ class Login extends Component {
 
   render() {
 
-    const { globalVal,  showMsg}=this.props
-      const captchaUrl=appConfig.domain+'admin/login/getCaptcha?'
-    const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form;
+    const { showMsg } = this.props
+    const captchaUrl = appConfig.domain + 'admin/login/getCaptcha?'
+    const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form
 
-    const nameError = isFieldTouched('username') && getFieldError('username');
-    console.log('666',isFieldTouched('username'),getFieldError('username'))
+    const nameError = isFieldTouched('username') && getFieldError('username')
+    console.log('666', isFieldTouched('username'), getFieldError('username'))
     return (
-      <div className={styles.loginCard}>
-        <Form onSubmit={this.handleSubmit} className={styles.loginForm}>
+      <div className={styles.loginCard} >
+        <Form onSubmit={this.handleSubmit} className={styles.loginForm} >
 
-          <FormItem
-            validateStatus={nameError ? 'error' : ''}
-            hideRequiredMark
-            help={nameError || ''}
-          >
-            {getFieldDecorator('username', {
-              rules: [{
-                required: true,
-                pattern: /^[_a-zA-Z]\w{5,19}$/,
-                validator: this.handleUsername
-              }],
-            })(
-              <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="用户名" />
-            )}
-          </FormItem>
+          <FormItem validateStatus={nameError ? 'error' : ''} hideRequiredMark help={nameError || ''} >
+            {
+              getFieldDecorator('username', {
+                rules: [{
+                  required: true,
+                  pattern: /^[_a-zA-Z]\w{5,19}$/,
+                  validator: this.handleUsername
+                }],
+              })(<Input prefix={< Icon type="user"
+                style={{ color: 'rgba(0,0,0,.25)' }}
+              />} placeholder="用户名" />
+              )
+            } </FormItem>
 
 
-          <FormItem>
-            {getFieldDecorator('password', {
-              rules: [{
-                required: true, pattern: /^[_a-zA-Z]\w{5,19}$/,
-                validator: this.handlePassword
-              }],
-            })(
-              <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码" />
-            )}
-          </FormItem>
+          <FormItem >
+            {
+              getFieldDecorator('password', {
+                rules: [{
+                  required: true,
+                  pattern: /^[_a-zA-Z]\w{5,19}$/,
+                  validator: this.handlePassword
+                }],
+              })(<
+                Input prefix={< Icon type="lock"
+                  style={{ color: 'rgba(0,0,0,.25)' }}
+                />} type="password" placeholder="密码" />
+              )
+            } </FormItem>
 
 
-          <FormItem
-          >
-            <Row gutter={8}>
-              <Col span={12}>
-                {getFieldDecorator('captcha', {
-                  rules: [{
-                    required: true,
-                    validator: this.handleCaptcha,
-                    min:6,
-                    max:6
-                  }],
-                })(
-                  <Input placeholder="验证码" />
-                )}
-              </Col>
-              <Col span={12}>
-                <a href="javascript:;"  onClick={this.changeCaptcha}><img style={{display:'block',    width: '100%',
-                  paddingTop: '5px'}} src={captchaUrl} alt=""/></a>
-              </Col>
-            </Row>
-          </FormItem>
+          < FormItem >
+            <Row gutter={8} >
+              <Col span={12} >
+                {
+                  getFieldDecorator('captcha', {
+                    rules: [{
+                      required: true,
+                      validator: this.handleCaptcha,
+                      min: 6,
+                      max: 6
+                    }],
+                  })(<Input placeholder="验证码" />
+                  )
+                } </Col> <Col span={12} >
+                <a href="javascript:;"
+                  onClick={this.changeCaptcha} >
+                  < img style={
+                    {
+                      display: 'block',
+                      width: '100%',
+                      paddingTop: '5px'
+                    }
+                  }                  src={captchaUrl} alt="" /> </a> </Col> </Row> </FormItem>
 
 
-          <FormItem>
-            {getFieldDecorator('remember', {
-              valuePropName: 'checked',
-              initialValue: true,
-            })(
-              <Checkbox>记住我</Checkbox>
-            )}
-            <Button type="primary" htmlType="submit" className={styles.loginFormButton}>
-              登录
-            </Button>
-            <a href="">{showMsg.content}</a>
-          </FormItem>
+          <FormItem >
+            {
+              getFieldDecorator('remember', {
+                valuePropName: 'checked',
+                initialValue: true,
+              })(<Checkbox > 记住我 </Checkbox>
+              )
+            } <Button type="primary"
+              htmlType="submit"
+              className={styles.loginFormButton} >
+              登录 </Button> <
+              a href="" > {showMsg.content} </a> </FormItem >
 
         </Form>
       </div>

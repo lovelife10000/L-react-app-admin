@@ -8,21 +8,21 @@ import {withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 
-const Dragger = Upload.Dragger;
+const Dragger = Upload.Dragger
 import UploadAvatarModal from './UploadAvatarModal'
 
 
 function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result))
+  reader.readAsDataURL(img)
 }
 
 const mapStateToProps = (state) => {
   return {
     auth: state.auth.toJS()
   }
-};
+}
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch)
@@ -76,15 +76,15 @@ class UploadAvatar extends Component {
 
   handleChange = (info) => {
     if (info.file.status === 'uploading') {
-      this.setState({loading: true});
-      return;
+      this.setState({loading: true})
+      return
     }
     if (info.file.status === 'done') {
       // Get this url from response in real world.
       getBase64(info.file.originFileObj, imageUrl => this.setState({
         imageUrl,
         loading: false,
-      }));
+      }))
     }
   }
 
@@ -121,7 +121,7 @@ class UploadAvatar extends Component {
     }, () => {
       console.log('this.state is', this.state.uploadImage)
       this.uploadAvatar()
-    });
+    })
     console.log('this.state is 2', this.state.image)
 
   }
@@ -136,11 +136,11 @@ class UploadAvatar extends Component {
 
   uploadAvatar() {
 
-    let data = null;
+    let data = null
     if (this.state.uploadImage) {
       data = this.state.uploadImage
     }
-    console.log('上传1', data);
+    console.log('上传1', data)
     this.props.actions.uploadAvatar({
       avatar: data
     })
@@ -167,25 +167,25 @@ class UploadAvatar extends Component {
     console.log('show')
     this.setState({
       visible: true,
-    });
+    })
   }
   hideModal = () => {
     this.setState({
       visible: false,
-    });
+    })
   }
 
   handleOk = (e) => {
     console.log('this is',this.refs)
     this.setState({
       visible: false,
-    });
+    })
     this.handleSave()
   }
   handleCancel = (e) => {
     this.setState({
       visible: false,
-    });
+    })
   }
 
   beforeUpload(file, fileList)  {

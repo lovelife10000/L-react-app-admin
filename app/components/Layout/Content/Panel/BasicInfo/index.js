@@ -6,7 +6,7 @@ import AppConfig from 'config/app'
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 import {
   Card
-} from 'antd';
+} from 'antd'
 import {connect} from 'react-redux'
 
 

@@ -15,7 +15,7 @@ class UploadAvatarModal extends Component {
     // this.getSliderVal = this.getSliderVal.bind(this)
     this.state = {
       scale: 1,
-    };
+    }
 
 
   }

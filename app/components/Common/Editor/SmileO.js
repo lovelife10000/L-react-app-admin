@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {SketchPicker} from 'react-color';
+import {SketchPicker} from 'react-color'
 import reactCSS from 'reactcss'
 
 
@@ -21,15 +21,15 @@ class ColorControl extends Component {
           color:'rgb(0,0,0,100)'
         }
       }
-    };
+    }
     this.onToggle = (e) => {
       if(e){
-        e.preventDefault();
+        e.preventDefault()
       }
       console.log('完成',this.state.color2.hex)
-      this.props.onToggle(this.state.color2.hex,this.state.color2.rgb);
+      this.props.onToggle(this.state.color2.hex,this.state.color2.rgb)
 
-    };
+    }
   }
 
   static propTypes = {
@@ -39,18 +39,18 @@ class ColorControl extends Component {
 
 
   handleClick = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     this.setState({displayColorPicker: !this.state.displayColorPicker})
   };
 
   handleClose = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     this.setState({displayColorPicker: false})
   };
 
   handleChange = (color,e) => {
-    e.preventDefault();
+    e.preventDefault()
     this.setState({color: color.rgb})
   };
 
@@ -58,7 +58,7 @@ class ColorControl extends Component {
 
     this.setState({ color2: {hex:color.hex,rgb:color.rgb} },function () {
       this.onToggle()
-    });
+    })
 
   };
 
@@ -99,7 +99,7 @@ class ColorControl extends Component {
           margin: '0 6px'
         }
       },
-    });
+    })
 
     return (
 

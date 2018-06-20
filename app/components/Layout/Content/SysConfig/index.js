@@ -12,12 +12,12 @@ const mapStateToProps = state=> {
   return {
     parentUserGroups: state.parentUserGroups.toJS()
   }
-};
+}
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch)
   }
-};
+}
 const validate = values => {
   const errors = {}
   if (!values.groupId) {
@@ -100,7 +100,7 @@ class AddUserGroup extends Component {
   }
 
   render() {
-    const {parentUserGroups, dirty, invalid,handleSubmit}=this.props;
+    const {parentUserGroups, dirty, invalid,handleSubmit}=this.props
     parentUserGroups.unshift( {
       group_id:1,
       name:'无',
@@ -108,7 +108,7 @@ class AddUserGroup extends Component {
       power:[],
       parent:'',
       status:true
-    },);
+    },)
     return (
       <div className="content-wrapper">
         <section className="content-header">

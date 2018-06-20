@@ -1,498 +1,501 @@
-import React, {Component, PureComponent} from 'react'
+import React, { Component } from 'react'
 import AppConfig from 'config/app'
 import * as Actions from 'actions'
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import styles from './index.less';
+import styles from './index.less'
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
-import {Modal, Form, Input, Button, Table, Col, Selectl,Divider,Popconfirm} from 'antd'
+import { Modal, Form, Input, Button, Table, Col, Divider, Popconfirm, Select } from 'antd'
 import ModalSuccessComp from 'components/Common/ModalComp/ModalSuccessComp'
+const Option = Select.Option
 
-const FormItem = Form.Item;
+const FormItem = Form.Item
 
 
 const mapStateToProps = (state) => {
-    return {
-        categories: state.categories.toJS(),
-        showModal: state.showModal.toJS(),
-    }
-};
+  return {
+    categories: state.categories.toJS(),
+    showModal: state.showModal.toJS(),
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        actions: bindActionCreators(Actions, dispatch)
-    }
-};
+  return {
+    actions: bindActionCreators(Actions, dispatch)
+  }
+}
 
 function hasErrors(fieldsError) {
 
 
-    return Object.keys(fieldsError).some(field => fieldsError[field]);
+  return Object.keys(fieldsError).some(field => fieldsError[field])
 }
 
 class AllCategories extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            visible: false,
-            onEditingData: {parentId: '0',},
-            twoLevelArr: [],
-            dirty: false,
+  constructor(props) {
+    super(props)
+    this.state = {
+      visible: false,
+      onEditingData: { parentId: '0', },
+      twoLevelArr: [],
+      dirty: false,
 
 
+    }
+  }
+
+  static propTypes = {
+    categories: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired,
+    form: PropTypes.object.isRequired,
+    showModal: PropTypes.object.isRequired
+  };
+
+  componentDidMount() {
+
+    const { categories } = this.props
+    if (categories.data.length < 1) {
+      this.props.actions.getCategories()
+    }
+  }
+
+
+
+  showEditModal = (text, record, index) => {
+
+
+    const { form, } = this.props
+
+    this.setState({
+      visible: true,
+      onEditingData: text,
+
+    }, function () {
+      switch (text.level) {
+        case 1:
+          form.setFieldsValue({
+            name: text.name,
+            slug: text.slug,
+            order: text.order,
+            id: text.id,
+
+
+          })
+          break
+        case 2:
+          form.setFieldsValue({
+            name: text.name,
+            slug: text.slug,
+            order: text.order,
+            id: text.id,
+            parentId: text.parentId,
+
+          })
+          break
+        case 3:
+
+          this.setState({
+            twoLevelArr: this.getTwoLevelCate(this.getOneLevelCate(text.parentId))
+          }, function () {
+            form.setFieldsValue({
+              name: text.name,
+              slug: text.slug,
+              order: text.order,
+              id: text.id,
+              parentIdFirst: this.getOneLevelCate(text.parentId),
+              parentIdSecond: text.parentId
+            })
+          })
+
+          break
+      }
+
+
+    })
+
+
+  }
+
+  //由三级分类反推一级分类id
+  getOneLevelCate(str) {
+
+    const { categories } = this.props
+
+    for (let x of categories.data) {
+      if (x.children) {
+
+        for (let i of x.children) {
+
+          if (i.id === str) {
+
+            return i.parentId
+          }
         }
+      }
     }
+  }
 
-    static propTypes = {
-        categories: PropTypes.object.isRequired,
-        actions: PropTypes.object.isRequired
-    };
+  //由一级分类id推导二级分类数组
+  getTwoLevelCate(idx) {
+    const { categories } = this.props
+    for (let x of categories.data) {
+      if (x.id === idx) {
+        return x.children
 
-    componentDidMount() {
-
-        const {categories} = this.props
-        if (categories.data.length < 1) {
-            this.props.actions.getCategories()
-        }
+      }
     }
+  }
 
 
+  handleParentIdFirst(value) {
 
-    showEditModal = (text, record, index) => {
+    const { form, } = this.props
+    const aa = this.getTwoLevelCate(value)
 
+    if (aa) {
 
-        const {form, categories} = this.props
+      this.setState({
+        twoLevelArr: aa
+      }, function () {
+        form.setFieldsValue({
 
-        this.setState({
-            visible: true,
-            onEditingData: text,
-
-        }, function () {
-            switch (text.level) {
-                case 1:
-                    form.setFieldsValue({
-                        name: text.name,
-                        slug: text.slug,
-                        order: text.order,
-                        id: text.id,
-
-
-                    });
-                    break;
-                case 2:
-                    form.setFieldsValue({
-                        name: text.name,
-                        slug: text.slug,
-                        order: text.order,
-                        id: text.id,
-                        parentId: text.parentId,
-
-                    });
-                    break;
-                case 3:
-
-                    this.setState({
-                        twoLevelArr: this.getTwoLevelCate(this.getOneLevelCate(text.parentId))
-                    }, function () {
-                        form.setFieldsValue({
-                            name: text.name,
-                            slug: text.slug,
-                            order: text.order,
-                            id: text.id,
-                            parentIdFirst: this.getOneLevelCate(text.parentId),
-                            parentIdSecond: text.parentId
-                        });
-                    });
-
-                    break
-            }
-
-
-        });
-
-
-    }
-
-    //由三级分类反推一级分类id
-    getOneLevelCate(str) {
-
-        const {categories} = this.props
-
-        for (let x of categories.data) {
-            if (x.children) {
-
-                for (let i of x.children) {
-
-                    if (i.id === str) {
-
-                        return i.parentId
-                    }
-                }
-            }
-        }
-    }
-
-    //由一级分类id推导二级分类数组
-    getTwoLevelCate(idx) {
-        const {categories} = this.props
-        for (let x of categories.data) {
-            if (x.id === idx) {
-                return x.children
-
-            }
-        }
-    }
-
-
-    handleParentIdFirst(value) {
-        debugger
-        const {form, categories} = this.props
-        const aa = this.getTwoLevelCate(value)
-        debugger
-        if (aa) {
-
-            this.setState({
-                twoLevelArr: aa
-            }, function () {
-                form.setFieldsValue({
-
-                    parentIdFirst: value,
-                });
-                this.props.form.validateFields();
-
-            });
-
-        } else {
-
-
-            this.setState({
-                twoLevelArr: []
-            });
-        }
-
-    }
-
-    toDirty() {
-        this.setState({
-            dirty: true
+          parentIdFirst: value,
         })
+        this.props.form.validateFields()
+
+      })
+
+    } else {
+
+
+      this.setState({
+        twoLevelArr: []
+      })
     }
 
+  }
 
-    handleSubmit(e) {
-e.preventDefault()
-        const {form} = this.props
-        const {onEditingData} = this.state
-        const that = this;
-        form.validateFields((err, values) => {
-            console.log(that.state);
+  toDirty() {
+    this.setState({
+      dirty: true
+    })
+  }
 
-            if (!err) {
 
-                let parentId = values.parentIdSecond || values.parentIdFirst;
+  handleSubmit(e) {
+    e.preventDefault()
+    const { form } = this.props
+    const { onEditingData } = this.state
+    const that = this
+    form.validateFields((err, values) => {
+      console.log(that.state)
 
-                const data = Object.assign({}, {name: values.name, slug: values.slug, order: values.order}, {
-                    parentId,
-                    id: onEditingData.id
-                })
+      if (!err) {
 
-                this.props.actions.editCategory(data)
+        let parentId = values.parentIdSecond || values.parentIdFirst
 
-            }
-        });
+        const data = Object.assign({}, { name: values.name, slug: values.slug, order: values.order }, {
+          parentId,
+          id: onEditingData.id
+        })
+
+        this.props.actions.editCategory(data)
+
+      }
+    })
+  }
+
+
+  handleOrder = (rule, value, callback) => {
+    const value2 = Number(value)
+
+
+    if (!/^([1-9]\d{0,2}|1000)$/.test(value2)) {
+      callback('不是1-1000的正整数')
+    }
+    callback()
+  }
+
+
+  removeCateConfirm(id) {
+    const { actions } = this.props
+    actions.removeCategory({ id })
+  }
+
+  removeCateCancel() {
+
+  }
+
+  closeModal() {
+    this.setState({
+      visible: false,
+    })
+  }
+
+  render() {
+    const { categories, showModal } = this.props
+    const { onEditingData, twoLevelArr, dirty } = this.state
+    console.log(this.state)
+
+    const columns = [
+      {
+        title: '分类名称',
+        dataIndex: 'name',
+
+      }, {
+        title: '别名',
+        dataIndex: 'slug',
+
+      },
+      {
+        title: '排序值',
+        dataIndex: 'order',
+
+      },
+      {
+        title: '操作',
+        dataIndex: '',
+        key: 'operation',
+        render: (text, record, index) => {
+
+          console.log(text, 666, record, index)
+
+          return (
+            <span>
+              <a href="javascript:void(0)" onClick={this.showEditModal.bind(this, text, record, index)}>编辑</a>
+              {!text.children && <Divider type="vertical" />}
+              {!text.children &&
+
+
+                <Popconfirm placement="right" title={'是否要删除“' + text.name + '”分类'} onConfirm={this.removeCateConfirm.bind(this, text.id)} onCancel={this.removeCateCancel} okText="确定" cancelText="取消">
+
+                  <a href="javascript:void(0)">删除</a>
+                </Popconfirm>
+
+              }
+
+            </span>
+
+          )
+        },
+      },]
+    const { getFieldDecorator, getFieldsError } = this.props.form
+
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 12 },
+        sm: { span: 8 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
+    }
+    const submitFormLayout = {
+      wrapperCol: {
+        xs: { span: 24, offset: 0 },
+        sm: { span: 10, offset: 7 },
+      },
     }
 
+    return (
 
-    handleOrder = (rule, value, callback) => {
-        const value2 = Number(value);
+      <div className={styles.standardTable}>
+        <BreadcrumbComp category={AppConfig.docManage[1]} item={AppConfig.allCategories[1]} />
 
-
-        if (!/^([1-9]\d{0,2}|1000)$/.test(value2)) {
-            callback('不是1-1000的正整数')
+        {
+          showModal.visible &&
+          <ModalSuccessComp data={{ showModal }} />
         }
-        callback();
-    }
 
 
-    removeCateConfirm(id){
-        const{actions}=this.props
-        actions.removeCategory({id})
-    }
 
-    removeCateCancel(){
+        <Modal
+          title="编辑分类"
+          visible={this.state.visible}
+          footer={null}
+          mask={false}
+        >
+          <Form onSubmit={this.handleSubmit.bind(this)}>
 
-    }
 
-    closeModal() {
-        this.setState({
-            visible: false,
-        });
-    }
+            <FormItem
+              {...formItemLayout}
+              label="分类名称"
+            >
+              {getFieldDecorator('name', {
+                rules: [
+                  {
+                    required: true,
+                    message: '不符合规则',
+                    max: 32
+                  }
+                ],
+              })(
+                <Input placeholder="分类名称" onChange={this.toDirty.bind(this)} />
+              )}
+            </FormItem>
 
-    render() {
-        const {categories, showModal} = this.props
-        const {onEditingData, twoLevelArr, dirty} = this.state
-        console.log(this.state);
+            <FormItem
+              {...formItemLayout}
+              label="别名"
+            >
+              {getFieldDecorator('slug', {
+                rules: [
+                  {
+                    required: true,
+                    message: '不符合规则',
+                    pattern: /^[a-zA-Z]\w{1,10}$/
+                  }
+                ],
+              })(
+                <Input placeholder="别名" onChange={this.toDirty.bind(this)} />
+              )}
+            </FormItem>
 
-        const columns = [
+            <FormItem
+              {...formItemLayout}
+              label="排序值"
+            >
+              {getFieldDecorator('order', {
+                rules: [
+                  {
+                    required: true,
+                    validator: this.handleOrder
+                  }
+                ],
+              })(
+                <Input placeholder="排序值" onChange={this.toDirty.bind(this)} />
+              )}
+            </FormItem>
+
+
             {
-                title: '分类名称',
-                dataIndex: 'name',
 
-            }, {
-                title: '别名',
-                dataIndex: 'slug',
+              onEditingData.level === 2
+              &&
+              <FormItem
+                {...formItemLayout}
+                label="父级分类"
+                required
+              >
 
-            },
+                <Col span={8}>
+                  <FormItem
+
+                  >
+                    {getFieldDecorator('parentIdFirst', {
+                      rules: [{
+                        required: true,
+                        message: '必须选择一项'
+                      }],
+                    })(<Select placeholder="请选择">
+                      {
+                        categories.data.filter((item) => item.parentId === '0').map((item, index) => (
+                          <Option key={index} value={item.id}>{item.name}</Option>
+                        ))
+                      }
+                    </Select>)}
+                  </FormItem>
+                </Col>
+
+
+              </FormItem>
+            }
             {
-                title: '排序值',
-                dataIndex: 'order',
-
-            },
-            {
-                title: '操作',
-                dataIndex: '',
-                key: 'operation',
-                render: (text, record, index) => {
-
-                    console.log(text, 666, record,index);
-
-                    return (
-                        <span>
-                             <a href="javascript:void(0)" onClick={this.showEditModal.bind(this, text, record, index)}>编辑</a>
-                            {!text.children &&<Divider type="vertical" />}
-                            {!text.children &&
+              onEditingData.level === 3
+              &&
 
 
-                            <Popconfirm placement="right" title={'是否要删除“'+text.name+'”分类'} onConfirm={this.removeCateConfirm.bind(this,text.id)} onCancel={this.removeCateCancel} okText="确定" cancelText="取消">
+              <FormItem
+                {...formItemLayout}
+                label="父级分类"
+                required
+              >
 
-                                <a href="javascript:void(0)">删除</a>
-                                </Popconfirm>
+                <Col span={8}>
+                  <FormItem
 
-                            }
+                  >
+                    {getFieldDecorator('parentIdFirst', {
+                      rules: [{
+                        required: true,
+                        message: '必须选择一项'
+                      }],
+                    })(<Select placeholder="请选择" onChange={this.handleParentIdFirst.bind(this)}>
+                      {
+                        categories.data.filter((item) => item.parentId === '0').map((item, index) => (
+                          <Option key={index} value={item.id}>{item.name}</Option>
+                        ))
+                      }
+                    </Select>)}
+                  </FormItem>
+                </Col>
 
-                </span>
-
-                    )
-                },
-            },];
-        const {getFieldDecorator, getFieldsError} = this.props.form;
-
-        const formItemLayout = {
-            labelCol: {
-                xs: {span: 12},
-                sm: {span: 8},
-            },
-            wrapperCol: {
-                xs: {span: 24},
-                sm: {span: 16},
-            },
-        };
-        const submitFormLayout = {
-            wrapperCol: {
-                xs: {span: 24, offset: 0},
-                sm: {span: 10, offset: 7},
-            },
-        };
-
-        return (
-
-            <div className={styles.standardTable}>
-                <BreadcrumbComp category={AppConfig.docManage[1]} item={AppConfig.allCategories[1]}/>
 
                 {
-                    showModal.visible &&
-                    <ModalSuccessComp data={{showModal}}/>
-                }
+                  onEditingData.level === 3 && twoLevelArr.length > 0
+                  &&
+                  <div>
+
+                    <Col span={1}>
+                      <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>-
+                      </span>
+                    </Col>
+                    <Col span={8}>
+                      <FormItem
+
+                      >
+                        {getFieldDecorator('parentIdSecond', {
+                          rules: [{
+                            required: true,
+                            message: '必须选择一项'
+                          }],
+                        })(<Select placeholder="请选择">
+                          {
+                            twoLevelArr.map((item, index) => (
+                              <Option key={index} value={item.id}>{item.name}</Option>
+                            ))
+                          }
+                        </Select>)}
+                      </FormItem>
+                    </Col>
+                  </div>}
 
 
-
-                <Modal
-                    title="编辑分类"
-                    visible={this.state.visible}
-                    footer={null}
-                    mask={false}
-                >
-                    <Form onSubmit={this.handleSubmit.bind(this)}>
+              </FormItem>
 
 
-                        <FormItem
-                            {...formItemLayout}
-                            label="分类名称"
-                        >
-                            {getFieldDecorator('name', {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message: '不符合规则',
-                                        max: 32
-                                    }
-                                ],
-                            })(
-                                <Input placeholder="分类名称" onChange={this.toDirty.bind(this)}/>
-                            )}
-                        </FormItem>
-
-                        <FormItem
-                            {...formItemLayout}
-                            label="别名"
-                        >
-                            {getFieldDecorator('slug', {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message: '不符合规则',
-                                        pattern: /^[a-zA-Z]\w{1,10}$/
-                                    }
-                                ],
-                            })(
-                                <Input placeholder="别名" onChange={this.toDirty.bind(this)}/>
-                            )}
-                        </FormItem>
-
-                        <FormItem
-                            {...formItemLayout}
-                            label="排序值"
-                        >
-                            {getFieldDecorator('order', {
-                                rules: [
-                                    {
-                                        required: true,
-                                        validator: this.handleOrder
-                                    }
-                                ],
-                            })(
-                                <Input placeholder="排序值" onChange={this.toDirty.bind(this)}/>
-                            )}
-                        </FormItem>
+            }
 
 
-                        {
+            <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
+              <Button disabled={!dirty || hasErrors(getFieldsError())} type="primary"
+                htmlType="submit" >
+                确定
+              </Button>
+              <Button type="default" onClick={this.closeModal.bind(this)} style={{ marginLeft: 8 }}>
+                关闭
+              </Button>
+            </FormItem>
 
-                            onEditingData.level === 2
-                            &&
-                            <FormItem
-                                {...formItemLayout}
-                                label="父级分类"
-                                required
-                            >
+          </Form>
 
-                                <Col span={8}>
-                                    <FormItem
+        </Modal>
+        <Table
+          rowKey={'name'}
+          columns={columns}
 
-                                    >
-                                        {getFieldDecorator('parentIdFirst', {
-                                            rules: [{
-                                                required: true,
-                                                message: '必须选择一项'
-                                            }],
-                                        })(<Select placeholder="请选择">
-                                            {
-                                                categories.data.filter((item) => item.parentId === '0').map((item, index) => (
-                                                    <Option key={index} value={item.id}>{item.name}</Option>
-                                                ))
-                                            }
-                                        </Select>)}
-                                    </FormItem>
-                                </Col>
+          dataSource={categories.data}
+        />
 
 
-                            </FormItem>
-                        }
-                        {
-                            onEditingData.level === 3
-                            &&
+      </div>
 
 
-                            <FormItem
-                                {...formItemLayout}
-                                label="父级分类"
-                                required
-                            >
-
-                                <Col span={8}>
-                                    <FormItem
-
-                                    >
-                                        {getFieldDecorator('parentIdFirst', {
-                                            rules: [{
-                                                required: true,
-                                                message: '必须选择一项'
-                                            }],
-                                        })(<Select placeholder="请选择" onChange={this.handleParentIdFirst.bind(this)}>
-                                            {
-                                                categories.data.filter((item) => item.parentId === '0').map((item, index) => (
-                                                    <Option key={index} value={item.id}>{item.name}</Option>
-                                                ))
-                                            }
-                                        </Select>)}
-                                    </FormItem>
-                                </Col>
-
-
-                                {
-                                    onEditingData.level === 3 && twoLevelArr.length > 0
-                                    &&
-                                    <div>
-
-                                        <Col span={1}>
-                                        <span style={{display: 'inline-block', width: '100%', textAlign: 'center'}}>-
-                                        </span>
-                                        </Col>
-                                        <Col span={8}>
-                                            <FormItem
-
-                                            >
-                                                {getFieldDecorator('parentIdSecond', {
-                                                    rules: [{
-                                                        required: true,
-                                                        message: '必须选择一项'
-                                                    }],
-                                                })(<Select placeholder="请选择">
-                                                    {
-                                                        twoLevelArr.map((item, index) => (
-                                                            <Option key={index} value={item.id}>{item.name}</Option>
-                                                        ))
-                                                    }
-                                                </Select>)}
-                                            </FormItem>
-                                        </Col>
-                                    </div>}
-
-
-                            </FormItem>
-
-
-                        }
-
-
-                        <FormItem {...submitFormLayout} style={{marginTop: 32}}>
-                            <Button disabled={!dirty || hasErrors(getFieldsError())} type="primary"
-                                    htmlType="submit" >
-                                确定
-                            </Button>
-                            <Button type="default" onClick={this.closeModal.bind(this)} style={{marginLeft: 8}}>
-                                关闭
-                            </Button>
-                        </FormItem>
-
-                    </Form>
-
-                </Modal>
-                <Table
-                    rowKey={'name'}
-                    columns={columns}
-
-                    dataSource={categories.data}
-                />
-
-
-            </div>
-
-
-        )
-    }
+    )
+  }
 
 }
 

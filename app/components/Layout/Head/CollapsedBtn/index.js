@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Icon} from 'antd';
+import React, {Component} from 'react'
+import {Icon} from 'antd'
 import PropTypes from 'prop-types'
 import styles from './index.less'
 
@@ -25,7 +25,7 @@ class CollapsedBtn extends Component {
         type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
         onClick={this.props.onToggle}
       />
-    );
+    )
   }
 }
 

@@ -28,15 +28,15 @@ const styles = {
     marginRight: 16,
     padding: '2px 0',
   },
-};
+}
 
 class StyleButton extends Component {
   constructor() {
     super()
     this.onToggle = (e) => {
-      e.preventDefault();
-      this.props.onToggle(this.props.style);
-    };
+      e.preventDefault()
+      this.props.onToggle(this.props.style)
+    }
   }
 
   static propTypes = {
@@ -54,12 +54,12 @@ class StyleButton extends Component {
         color: 'rgba(255, 0, 0, 1.0)',
       },
 
-    };
-    let style;
+    }
+    let style
     if (this.props.active) {
-      style = {...styles.styleButton, ...colorStyleMap[this.props.style]};
+      style = {...styles.styleButton, ...colorStyleMap[this.props.style]}
     } else {
-      style = styles.styleButton;
+      style = styles.styleButton
     }
 
     return (

@@ -1,14 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {ConnectedRouter} from 'react-router-redux'
-import {Provider} from 'react-redux'
+import { ConnectedRouter } from 'react-router-redux'
+import { Provider } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import configureStore from '../app/store/configureStore'
 import createDevTools from './createDevtools'
-import {renderRoutes} from 'react-router-config'
+import { renderRoutes } from 'react-router-config'
 
 
-import 'react-image-crop/dist/ReactCrop.css';
+import 'react-image-crop/dist/ReactCrop.css'
 import 'draft-js/dist/Draft.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import 'antd/dist/antd.css'

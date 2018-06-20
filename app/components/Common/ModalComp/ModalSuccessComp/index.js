@@ -1,24 +1,33 @@
-import {Modal} from 'antd';
-import React, {Component} from 'react'
+import { Modal } from 'antd'
+import React, { Component } from 'react'
 
-class ModalSuccessComp extends Component{
-    componentDidMount(){
-        this.success()
-    }
-    success(){
-        const {showModal}=this.props.data
+import PropTypes from 'prop-types'
 
-        Modal.success({
-            title: showModal.title,
-            content: showModal.content,
-        });
-    }
+class ModalSuccessComp extends Component {
 
-    render(){
-        return(
-            <div></div>
-        )
-    }
+
+  static propTypes = {
+    showModal: PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
+
+  };
+  componentDidMount() {
+    this.success()
+  }
+  success() {
+    const { showModal } = this.props.data
+
+    Modal.success({
+      title: showModal.title,
+      content: showModal.content,
+    })
+  }
+
+  render() {
+    return (
+      <div></div>
+    )
+  }
 }
 
 export default ModalSuccessComp

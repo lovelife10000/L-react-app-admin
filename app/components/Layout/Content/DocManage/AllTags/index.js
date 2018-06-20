@@ -4,21 +4,21 @@ import * as Actions from 'actions'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {Table, Divider, Icon} from 'antd';
-import styles from './index.less';
+import {Table, Divider, Icon} from 'antd'
+import styles from './index.less'
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 
 const mapStateToProps = (state) => {
   return {
     tagList: state.tagList.toJS()
   }
-};
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(Actions, dispatch)
   }
-};
+}
 
 class AllTags extends Component {
   constructor() {
@@ -65,16 +65,16 @@ class AllTags extends Component {
           </a>
         </span>
       ),
-    },];
+    },]
     const rowSelection = {
       onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
       },
       getCheckboxProps: record => ({
         disabled: record.name === 'Disabled User',
         name: record.name,
       }),
-    };
+    }
     return (
       <div className={styles.standardTable}>
         <BreadcrumbComp category={AppConfig.docManage[1]} item={AppConfig.allTags[1]}/>

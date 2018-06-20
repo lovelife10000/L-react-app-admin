@@ -41,11 +41,11 @@ class ColorControls extends Component {
         marginRight: 16,
         padding: '2px 0',
       },
-    };
+    }
 
 
-    const {editorState} = this.props;
-    var currentStyle = editorState.getCurrentInlineStyle();
+    const {editorState} = this.props
+    var currentStyle = editorState.getCurrentInlineStyle()
     return (
 
 

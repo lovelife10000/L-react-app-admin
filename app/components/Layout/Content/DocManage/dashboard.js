@@ -42,11 +42,11 @@ class DashboardV1 extends Component {
       subject: 'Unique Visitors',
       stats: '65',
       link: '#'
-    }];
+    }]
 
     this.setState({
       statTileOptions: statTileOptions
-    });
+    })
   }
 
   // componentDidUpdate() {
@@ -71,7 +71,7 @@ class DashboardV1 extends Component {
           subject={options.subject}
           theme={options.theme}/>
       )
-    });
+    })
     return (
 
 

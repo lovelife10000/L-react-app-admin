@@ -8,7 +8,7 @@ import {bindActionCreators} from 'redux'
 import BreadcrumbComp from 'components/Common/BreadcrumbComp'
 import {
   Form, Input, Button, Card,message,
-} from 'antd';
+} from 'antd'
 
 
 
@@ -16,19 +16,19 @@ import {
 
 // import styles from './style.less';
 
-const FormItem = Form.Item;
+const FormItem = Form.Item
 
 
 const mapStateToProps = state => {
   return {
     categories: state.categories.toJS()
   }
-};
+}
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch)
   }
-};
+}
 
 
 
@@ -54,15 +54,15 @@ class AddTag extends Component {
   };
 
   success = (msg) => {
-    message.success(msg);
+    message.success(msg)
   };
 
   error = (msg) => {
-    message.error(msg);
+    message.error(msg)
   };
 
   warning = (msg) => {
-    message.warning(msg);
+    message.warning(msg)
   };
 
   componentDidMount() {
@@ -78,28 +78,28 @@ class AddTag extends Component {
 
   handleSubmit = (e) => {
     console.log('allUserGroups is 3')
-    e.preventDefault();
-    const that=this;
+    e.preventDefault()
+    const that=this
     this.props.form.validateFields((err, values) => {
-      const my=that;
+      const my=that
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.log('Received values of form: ', values)
         this.props.actions.addTag(values).then(function(result) {
           if (result.success) {
             my.success(result.msg)
           }
         }
-        );
+        )
 
       }else{
         console.log('handleSubmit 出错',err)
       }
-    });
+    })
   }
 
   isError(name) {
     console.log('touch',name,this.props.form.isFieldTouched(name),this.props.form.getFieldError(name))
-    return this.props.form.isFieldTouched(name) && this.props.form.getFieldError(name);
+    return this.props.form.isFieldTouched(name) && this.props.form.getFieldError(name)
   }
 
 
@@ -117,16 +117,16 @@ class AddTag extends Component {
         sm: {span: 12},
         md: {span: 10},
       },
-    };
+    }
 
     const submitFormLayout = {
       wrapperCol: {
         xs: {span: 24, offset: 0},
         sm: {span: 10, offset: 7},
       },
-    };
+    }
 
-    const {getFieldDecorator, } = this.props.form;
+    const {getFieldDecorator, } = this.props.form
 
     return (
       <Card bordered={false}>

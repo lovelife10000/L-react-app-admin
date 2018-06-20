@@ -35,9 +35,9 @@ const rootReducer = combineReducers({
   allUserGroups,
   allUsers,
   categories,
-    showModal,
-    allDocs,
-    searchDocs,
+  showModal,
+  allDocs,
+  searchDocs,
 
 })
 
