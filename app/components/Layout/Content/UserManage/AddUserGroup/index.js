@@ -54,9 +54,10 @@ class AddUserGroup extends Component {
         debugger
     }
 
-    // static getDerivedStateFromProps() {
-    //     debugger
-    // }
+    static getDerivedStateFromProps(props, state) {
+
+        debugger
+    }
 
     componentDidMount() {
         debugger
@@ -90,11 +91,11 @@ class AddUserGroup extends Component {
 
     }
 
-    // getSnapshotBeforeUpdate() {
-    //     debugger
-    // }
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        debugger
+    }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         debugger
     }
 
@@ -298,4 +299,4 @@ class AddUserGroup extends Component {
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Form.create()(AddUserGroup)))
+export default Form.create()(AddUserGroup)
